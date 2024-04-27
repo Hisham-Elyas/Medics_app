@@ -1,0 +1,65 @@
+class ImageAssetPNG {
+  static const String rootassets = 'assets/images';
+  static const String onBoardingImg1 = "assets/images/onboarding1.png";
+  static const String onBoardingImg2 = '$rootassets/onboarding2.png';
+  static const String onBoardingImg3 = '$rootassets/onboarding3.png';
+  static const String logo2 = '$rootassets/Logo2.png';
+  static const String emailIcons = '$rootassets/Email.png';
+  static const String passwordIcons = '$rootassets/Password.png';
+  static const String userIcons = '$rootassets/user.png';
+  static const String eyeSlashIcons = '$rootassets/Eye Slash.png';
+  static const String notificationLogo = '$rootassets/Notification.png';
+  static const String showpassIcons = 'assets/images/Showpass.png';
+}
+
+class ImageAssetSVG {
+  static const String rootassets = 'assets/svg';
+  static const String eyeSlashIcons = '$rootassets/Showpass.svg';
+  static const String onBoardingImg1 = "assets/svg/onboarding1.svg";
+  static const String onBoardingImg2 = 'assets/svg/onboarding2.svg';
+  static const String onBoardingImg3 = 'assets/svg/onboarding3.svg';
+  static const String logo2 = 'assets/svg/Logo.svg';
+  static const String googleLogo = 'assets/svg/Google.svg';
+  static const String appleLogo = 'assets/svg/Apple.svg';
+  static const String facebookLogo = 'assets/svg/Facebook.svg';
+  static const String notificationLogo = 'assets/svg/Notification.svg';
+  static const String searchLogo = 'assets/svg/Search.svg';
+  static const String doctorLogo = 'assets/svg/Doctor.svg';
+  static const String doctorLogo2 = 'assets/svg/030-doctor.svg';
+  static const String stethoscopeLogo2 = 'assets/svg/Stethoscope.svg';
+  static const String pharmacyLogo = 'assets/svg/Pharmacy.svg';
+  static const String hospitalLogo = 'assets/svg/Hospital.svg';
+  static const String ambulanceLogo = 'assets/svg/Ambulance.svg';
+  static const String addIcon = 'assets/svg/addicon.svg';
+  static const String addIconW = 'assets/svg/addicon-w.svg';
+  static const String buyIcon = 'assets/svg/Buy.svg';
+  static const String buyIconW = 'assets/svg/Buy-w.svg';
+  static const String deleteIcon = 'assets/svg/Delete.svg';
+  static const String lungsIcon = 'assets/svg/Lungs.svg';
+  static const String dentistIcon = 'assets/svg/Dentist.svg';
+  static const String psychiatristIcon = 'assets/svg/Psychiatrist.svg';
+  static const String syringeIcon = 'assets/svg/Syringe.svg';
+  static const String cardiologistIcon = 'assets/svg/Cardiologist.svg';
+  static const String covidIcon = 'assets/svg/Covid.svg';
+  static const String chatIcon = 'assets/svg/Chat.svg';
+  static const String starIcon = 'assets/svg/Star.svg';
+  static const String locationIcon = 'assets/svg/Location.svg';
+  static const String homeIcon = 'assets/svg/Home.svg';
+  static const String homeWIcon = 'assets/svg/Home_w.svg';
+  static const String messageWIcon = 'assets/svg/Message_w.svg';
+  static const String messageIcon = 'assets/svg/Message.svg';
+  static const String calendarIcon = 'assets/svg/Calendar.svg';
+  static const String calendarWIcon = 'assets/svg/Calendar_w.svg';
+  static const String profileIcon = 'assets/svg/Profile.svg';
+  static const String profileWIcon = 'assets/svg/Profile_w.svg';
+  static const String heartIcon = 'assets/svg/Heart.svg';
+  static const String heartWIcon = 'assets/svg/Heart_w.svg';
+  static const String documentIcon = 'assets/svg/Document.svg';
+  static const String walletIcon = 'assets/svg/Wallet.svg';
+  static const String dangerCircleIcon = 'assets/svg/Danger Circle.svg';
+  static const String circleCalendarIcon = 'assets/svg/Circle_calendar.svg';
+  static const String noDataAmicorImg = 'assets/svg/No data-amico.svg';
+  static const String loadingAmicorImg = 'assets/svg/Process-amico.svg';
+  static const String emptyBoxAmicorImg = 'assets/svg/undraw_empty_re_opql.svg';
+  static const String phoneIcon = 'assets/svg/Phone.svg';
+}
