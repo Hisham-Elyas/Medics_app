@@ -1,14 +1,22 @@
-import 'package:cuer_city/core/constant/app_color.dart';
-import 'package:cuer_city/core/constant/image_asset.dart';
-import 'package:cuer_city/data.dart';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import 'package:cuer_city/core/constant/app_color.dart';
+import 'package:cuer_city/core/constant/image_asset.dart';
+
+import '../../../controller/doctor_controller.dart';
+import '../../../core/class/handling_data_view.dart';
 import '../../../core/constant/routes.dart';
 import '../../../core/constant/static_data.dart';
-import '../../widget/category_wdget.dart';
+import '../../../core/constant/string.dart';
+import '../../../data/model/doctor_model.dart';
+import '../../widget/category_widget.dart';
+import '../../widget/custom_search_bar.dart';
+import 'doctors/search_doctor_screen.dart';
 import 'drugs/search_drugs_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -17,108 +25,314 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: const CustomAppBar(title: 'home', goBack: false),
       body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-          child: Column(
-            children: [
-              // Center(
-              //     child: ElevatedButton(
-              //   onPressed: () async {
-              //     final MyServices h = Get.find();
-              //     await h.firebaseAuth.signOut();
-              //     Get.offAllNamed(AppRoutes.getOnBoardingn());
-              //   },
-              //   child: const Text('signOut'),
-              // )),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Column(
+          children: [
+            Padding(
+              padding:
+                  EdgeInsets.symmetric(horizontal: 20.w).copyWith(top: 10.h),
+              child: Column(
                 children: [
-                  Text(
-                    'Find your desire \nhealt solution',
-                    style: TextStyle(
-                        fontSize: 22.sp,
-                        fontWeight: FontWeight.bold,
-                        color: AppColor.fontColor1),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        Find_your_desire_healt_solution.tr,
+                        style: TextStyle(
+                            fontSize: 22.sp,
+                            fontWeight: FontWeight.bold,
+                            color:
+                                Theme.of(context).textTheme.bodyLarge!.color),
+                      ),
+                      InkWell(
+                          onTap: () async {
+                            Get.toNamed(AppRoutes.getNotificationsScreen());
+                          },
+                          child: SvgPicture.asset(
+                            ImageAssetSVG.notificationLogo,
+                            // ignore: deprecated_member_use
+                            color: AppColor.mainColor,
+                          )),
+                    ],
                   ),
-                  InkWell(
-                      onTap: () async {
-                        drugslistF();
-                        // final MyServices h = Get.find();
-                        // await h.firebaseAuth.signOut();
-                        // Get.offAllNamed(AppRoutes.getOnBoardingn());
-                      },
-                      child: SvgPicture.asset(ImageAssetSVG.notificationLogo)),
-                ],
-              ),
-              SizedBox(height: 20.h),
-              Container(
-                // width: 324.w,
-                height: 40,
-                padding: EdgeInsets.only(left: 17.w),
-                decoration: BoxDecoration(
-                  color: const Color(0xffFBFBFB),
-                  borderRadius: BorderRadius.circular(24.r),
-                  border:
-                      Border.all(width: 1.w, color: const Color(0xffE8F3F1)),
-                ),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(24.r),
-                  onTap: () {
-                    // Get.toNamed(AppRoutes.getDrugsSearchScreen());
-                    showSearch(context: context, delegate: Search());
-                  },
-                  child: Row(children: [
-                    SvgPicture.asset(ImageAssetSVG.searchLogo),
-                    SizedBox(width: 12.h),
-                    Text(
-                      'Search doctor, drugs, articles...',
-                      style: TextStyle(
-                          color: AppColor.fontColor4, fontSize: 12.sp),
-                    ),
-                  ]),
-                ),
-              ),
-              SizedBox(height: 20.h),
+                  SizedBox(height: 20.h),
 
-              // SizedBox(height: 12.h),
-              Expanded(
-                // height: 90.h,
-                child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 4),
-                  itemCount: categoryHomeList.length,
-                  itemBuilder: (context, index) => CategoryWidget(
-                    img: categoryHomeList[index].img,
-                    name: categoryHomeList[index].name,
+                  /// search bar
+                  CustomSearchBar(
+                    text: Search_doctor_drugs_articles.tr,
                     onTap: () {
-                      switch (categoryHomeList[index].name) {
-                        case 'Doctor':
-                          Get.toNamed(AppRoutes.getDoctorsScreen());
-
+                      Random().nextInt(2);
+                      switch (Random().nextInt(2).toInt() + 1) {
+                        case 1:
+                          showSearch(context: context, delegate: DrugsSearch());
                           break;
-                        case 'Pharmacy':
-                          Get.toNamed(AppRoutes.getDrugsScrren());
-
+                        case 2:
+                          showSearch(
+                              context: context, delegate: DoctorSearch());
                           break;
-                        case 'Hospital':
-                          // Get.toNamed(AppRoutes.getDrugsScrren());
-
-                          break;
-                        case 'Ambulance':
-                          // Get.toNamed(AppRoutes.getDrugsScrren());
-
-                          break;
-                        default:
                       }
                     },
                   ),
-                ),
+
+                  SizedBox(height: 20.h),
+
+                  /// Category Widget
+                  SizedBox(
+                    height: 100.h,
+                    child: GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 4),
+                      itemCount: categoryHomeList.length,
+                      itemBuilder: (context, index) => CategoryWidget(
+                        img: categoryHomeList[index].img,
+                        name: categoryHomeList[index].name.tr,
+                        onTap: () {
+                          switch (categoryHomeList[index].name) {
+                            case 'Doctor':
+                              Get.toNamed(AppRoutes.getDoctorsScreen());
+
+                              break;
+                            case 'Pharmacy':
+                              Get.toNamed(AppRoutes.getDrugsScrren());
+
+                              break;
+                            case 'Hospital':
+                              // Get.toNamed(AppRoutes.getDrugsScrren());
+
+                              break;
+                            case 'Ambulance':
+                              // Get.toNamed(AppRoutes.getDrugsScrren());
+
+                              break;
+                            default:
+                          }
+                        },
+                      ),
+                    ),
+                  ),
+
+                  SizedBox(height: 20.h),
+
+                  /// bnaer
+                  // Image.asset("assets/images/CTA.png"),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 15.w)
+                        .copyWith(top: 5.h),
+                    height: 135.h,
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.secondary,
+                        borderRadius: BorderRadius.circular(10.r)),
+                    child: Row(children: [
+                      Padding(
+                        padding: EdgeInsetsDirectional.only(
+                            start: 5.w, bottom: 20.h),
+                        child: Text(
+                          Early_protection_for_your_family_health.tr,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20.sp,
+                              color:
+                                  Theme.of(context).textTheme.bodyLarge!.color),
+                        ),
+                      ),
+                      const Spacer(),
+                      Image.asset(
+                        "assets/images/ctaDoctor.png",
+                        width: 91.w,
+                        height: 131.h,
+                        fit: BoxFit.contain,
+                      ),
+                    ]),
+                  ),
+                  SizedBox(height: 20.h),
+
+                  //// Top Doctor
+                  Container(
+                    // margin: EdgeInsetsDirectional.only(start: 20.w),
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(Top_Doctor.tr,
+                            style: TextStyle(
+                              fontSize: 16.sp,
+                              color:
+                                  Theme.of(context).textTheme.bodyLarge!.color,
+                              fontWeight: FontWeight.w500,
+                            )),
+                        InkWell(
+                          borderRadius: BorderRadius.circular(15.r),
+                          onTap: () {
+                            showSearch(
+                                context: context, delegate: DoctorSearch());
+                          },
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 8.h),
+                            child: Text(
+                              See_all.tr,
+                              style: TextStyle(
+                                color: AppColor.mainColor,
+                                fontSize: 12.sp,
+                              ),
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 20.h),
+                ],
+              ),
+            ),
+            Container(
+              padding: EdgeInsetsDirectional.only(start: 20.w, bottom: 10.h),
+              height: 190.h,
+              child: GetBuilder<DoctorController>(builder: (controller) {
+                final doctors = controller.doctorlist;
+                return HandlingDataView(
+                    imgHeight: 100.h,
+                    statusReq: controller.statusReq,
+                    onPressedReload: controller.getAllDoctors,
+                    widget: RefreshIndicator(
+                      onRefresh: controller.getAllDoctors,
+                      child: ListView.separated(
+                          separatorBuilder: (context, index) =>
+                              SizedBox(width: 15.w),
+                          itemCount: 5,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) => DoctorWidget(
+                                doctor: doctors[index],
+                                onTap: () {
+                                  Get.toNamed(AppRoutes.getDoctorDetailScrren(
+                                      doctors[index]));
+                                },
+                              )),
+                    ));
+              }),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class DoctorWidget extends StatelessWidget {
+  final void Function() onTap;
+  final Doctor doctor;
+  const DoctorWidget({
+    Key? key,
+    required this.onTap,
+    required this.doctor,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      borderRadius: BorderRadius.circular(12.r),
+      splashColor: Theme.of(context).colorScheme.secondary,
+      highlightColor: AppColor.mainColor3,
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 10.w)
+            .copyWith(top: 15.h, bottom: 5.h),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(11.r),
+          border: Border.all(width: 1.w, color: const Color(0xffE8F3F1)),
+        ),
+        height: 180.h,
+        width: 118.w,
+        child: Column(children: [
+          CircleAvatar(
+            radius: 40.r,
+            backgroundImage: const AssetImage(
+                'assets/images/pexels-cedric-fauntleroy-4270371.png'),
+          ),
+          SizedBox(height: 18.h),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: SizedBox(
+              width: 100,
+              child: Text(
+                doctor.name!,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                    color: Theme.of(context).textTheme.bodyLarge!.color,
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w600),
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: SizedBox(
+              width: 100,
+              child: Text(
+                overflow: TextOverflow.ellipsis,
+                doctor.specialty!,
+                style: TextStyle(
+                    color: AppColor.fontColor2,
+                    fontSize: 9.sp,
+                    fontWeight: FontWeight.w500),
+              ),
+            ),
+          ),
+          SizedBox(height: 12.h),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Container(
+                  height: 13.h,
+                  width: 28.w,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(3.r),
+                      color: Theme.of(context).colorScheme.secondary),
+                  child: Row(
+                    children: [
+                      SvgPicture.asset(
+                        ImageAssetSVG.starIcon,
+                        // color: AppColor.mainColor,
+                        fit: BoxFit.none,
+                        height: 13.h,
+                        width: 13.w,
+                      ),
+                      Text(
+                        '4,7',
+                        style: TextStyle(
+                            color: AppColor.mainColor,
+                            fontSize: 8.sp,
+                            fontWeight: FontWeight.w500),
+                      ),
+                    ],
+                  )),
+              SizedBox(width: 5.w),
+              Row(
+                children: [
+                  SvgPicture.asset(
+                    ImageAssetSVG.locationIcon,
+                    // color: AppColor.mainColor,
+                    fit: BoxFit.none,
+                    height: 13.h,
+                    width: 13.w,
+                  ),
+                  SizedBox(width: 5.w),
+                  SizedBox(
+                    width: 40,
+                    child: Text(
+                      doctor.address!,
+                      overflow: TextOverflow.ellipsis,
+                      style: TextStyle(
+                          color: AppColor.fontColor2,
+                          fontSize: 8.sp,
+                          fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ],
               )
             ],
           ),
-        ),
+        ]),
       ),
     );
   }

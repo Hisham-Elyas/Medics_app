@@ -63,4 +63,38 @@ class DrugInformationAr {
         sfdaCode.hashCode ^
         pacakgeSize.hashCode;
   }
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'tradeName': tradeName,
+      'strength': strength,
+      'genericName': genericName,
+      'dosageForm': dosageForm,
+      'routeOfAdministration': routeOfAdministration,
+      'sfdaCode': sfdaCode,
+      'pacakgeSize': pacakgeSize,
+    };
+  }
+
+  factory DrugInformationAr.fromMap(Map<String, dynamic> map) {
+    return DrugInformationAr(
+      tradeName: map['tradeName'] != null ? map['tradeName'] as String : null,
+      strength: map['strength'] != null ? map['strength'] as String : null,
+      genericName:
+          map['genericName'] != null ? map['genericName'] as String : null,
+      dosageForm:
+          map['dosageForm'] != null ? map['dosageForm'] as String : null,
+      routeOfAdministration: map['routeOfAdministration'] != null
+          ? map['routeOfAdministration'] as String
+          : null,
+      sfdaCode: map['sfdaCode'] != null ? map['sfdaCode'] as String : null,
+      pacakgeSize:
+          map['pacakgeSize'] != null ? map['pacakgeSize'] as String : null,
+    );
+  }
+
+  @override
+  String toString() {
+    return 'DrugInformationAr(tradeName: $tradeName, strength: $strength, genericName: $genericName, dosageForm: $dosageForm, routeOfAdministration: $routeOfAdministration, sfdaCode: $sfdaCode, pacakgeSize: $pacakgeSize)';
+  }
 }

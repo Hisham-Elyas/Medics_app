@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../../core/constant/app_color.dart';
-
 class SignInWith extends StatelessWidget {
   final String imgSvg;
   final String text;
@@ -47,7 +45,7 @@ class SignInWith extends StatelessWidget {
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16.sp,
-                    color: AppColor.fontColor1),
+                    color: Theme.of(context).textTheme.bodyLarge!.color),
               ),
             ),
             // SizedBox(width: 89.w),

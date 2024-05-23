@@ -24,14 +24,15 @@ class CategoryWidget extends StatelessWidget {
           Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         Material(
           borderRadius: BorderRadius.circular(16.r),
-          elevation: 0.9,
-          shadowColor: AppColor.backgroundColor2,
+          elevation: 3,
+          shadowColor: AppColor.mainColor3,
           child: Container(
             width: 64.w,
             height: 56.h,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(16.r),
-                color: AppColor.backgroundColor),
+              borderRadius: BorderRadius.circular(16.r),
+              color: Theme.of(context).colorScheme.background,
+            ),
             child: InkWell(
               borderRadius: BorderRadius.circular(12.r),
               splashColor: AppColor.mainColor,
@@ -48,7 +49,10 @@ class CategoryWidget extends StatelessWidget {
         FittedBox(
           child: Text(
             name,
-            style: TextStyle(color: AppColor.fontColor2, fontSize: 14.sp),
+            style: TextStyle(
+                color: AppColor.fontColor2,
+                fontSize: 14.sp,
+                fontWeight: FontWeight.bold),
           ),
         )
       ]),

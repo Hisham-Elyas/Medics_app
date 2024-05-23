@@ -1,7 +1,7 @@
 import 'dart:convert';
+import 'dart:developer';
 
-import 'package:cuer_city/core/error/exception.dart';
-
+import '../../../core/error/exception.dart';
 import '../../../core/services/services.dart';
 import '../../model/drugs_model.dart';
 
@@ -26,7 +26,7 @@ class DrugsLocalDataImp implements DrugsLocalData {
     if (cachedData != null) {
       return DrugsModel.fromJson(jsonDecode(cachedData));
     } else {
-      print("============\n Empty Cached Data \n============");
+      log("============\n Empty Cached Data \n============");
       throw EmptyCacheException();
     }
   }

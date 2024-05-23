@@ -1,14 +1,14 @@
-import 'package:cuer_city/core/constant/app_color.dart';
-import 'package:cuer_city/view/widget/custom_text_form_field.dart';
-import 'package:cuer_city/view/widget/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import '../../../controller/sign_up_screen_controller.dart';
+import '../../../core/constant/app_color.dart';
 import '../../../core/constant/image_asset.dart';
 import '../../../core/constant/routes.dart';
 import '../../../core/constant/string.dart';
 import '../../widget/custom_app_bar.dart';
+import '../../widget/custom_button.dart';
+import '../../widget/custom_text_form_field.dart';
 
 class SignUpScreen extends GetView<SignUpScreenController> {
   const SignUpScreen({super.key});
@@ -90,7 +90,9 @@ class SignUpScreen extends GetView<SignUpScreenController> {
                           I_agree_to_the_medidoc_Terms_of_Service_and_Privacy_Policy
                               .tr,
                           style: TextStyle(
-                              fontSize: 13.sp, color: AppColor.fontColor1),
+                              fontSize: 13.sp,
+                              color:
+                                  Theme.of(context).textTheme.bodyLarge!.color),
                         ),
                       ],
                     ),
@@ -101,57 +103,6 @@ class SignUpScreen extends GetView<SignUpScreenController> {
                       height: 56.h,
                       onPressed: () {
                         controller.submit();
-                        // Get.defaultDialog(
-                        //   backgroundColor: AppColor.backgroundColor,
-                        //   title: '',
-                        //   content: Container(
-                        //     padding: EdgeInsets.symmetric(
-                        //       horizontal: 21.w,
-                        //       // vertical: 32.h,
-                        //     ),
-                        //     width: 327.w,
-                        //     height: 401.h,
-                        //     decoration: BoxDecoration(
-                        //       borderRadius: BorderRadius.circular(24.r),
-                        //       // color: AppColor.backgroundColor,
-                        //     ),
-                        //     child: Center(
-                        //       child: Column(
-                        //           mainAxisAlignment: MainAxisAlignment.center,
-                        //           children: [
-                        //             SvgPicture.asset(
-                        //               'assets/svg/Done.svg',
-                        //               height: 102.h,
-                        //               width: 102.w,
-                        //             ),
-                        //             SizedBox(height: 32.h),
-                        //             Text(
-                        //               'Success',
-                        //               style: TextStyle(
-                        //                 fontWeight: FontWeight.bold,
-                        //                 fontSize: 20.sp,
-                        //                 color: AppColor.fontColor1,
-                        //               ),
-                        //             ),
-                        //             SizedBox(height: 8.h),
-                        //             Text(
-                        //               'Your account has been successfully registered',
-                        //               textAlign: TextAlign.center,
-                        //               style: TextStyle(
-                        //                   fontWeight: FontWeight.bold,
-                        //                   color: AppColor.fontColor2,
-                        //                   fontSize: 16.sp),
-                        //             ),
-                        //             SizedBox(height: 32.h),
-                        //             CustomButton(
-                        //               text: 'Login',
-                        //               width: 183.w,
-                        //               height: 56.h,
-                        //             )
-                        //           ]),
-                        //     ),
-                        //   ),
-                        // );
                       },
                     ),
                     SizedBox(height: 24.h),

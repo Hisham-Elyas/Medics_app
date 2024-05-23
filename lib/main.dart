@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:feedback/feedback.dart';
 
-import 'core/class/handling_data_view.dart';
 import 'core/constant/routes.dart';
 import 'core/localization/changelocal_controller.dart';
 import 'core/localization/translations.dart';
@@ -22,19 +22,24 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    LocaleController controller = Get.put(LocaleController());
-    return ScreenUtilInit(
-      designSize: const Size(375, 812),
-      builder: (context, child) => GetMaterialApp(
-        locale: controller.language,
-        translations: MyTranslations(),
-        debugShowCheckedModeBanner: false,
-        title: 'Cuer City',
-        theme: controller.appTheme,
-        // home: const OnBoarding(),
-        // home: const HandlingDataView(),
-        getPages: AppRoutes.myPages,
-      ),
+    return GetBuilder<LocaleController>(
+      builder: (controller) => ScreenUtilInit(
+          designSize: const Size(375, 812),
+          builder: (context, child) => BetterFeedback(
+                theme: controller.feedbackTheme,
+                localeOverride: controller.language,
+                child: GetMaterialApp(
+                  locale: controller.language,
+                  translations: MyTranslations(),
+                  debugShowCheckedModeBanner: false,
+                  title: 'Cuer City',
+                  theme: controller.appTheme,
+                  // darkTheme: controller.getThemeDark(),
+                  // home: const OnBoarding(),
+                  // home: const LocalNotificationScreenTest(),
+                  getPages: AppRoutes.myPages,
+                ),
+              )),
     );
   }
 }

@@ -1,9 +1,9 @@
-import 'package:cuer_city/core/services/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import '../core/constant/routes.dart';
 import '../core/constant/static_data.dart';
+import '../core/services/services.dart';
 
 class OnBordingController extends GetxController {
   int currentPage = 0;
@@ -12,7 +12,6 @@ class OnBordingController extends GetxController {
   nextPage() {
     currentPage++;
     if (currentPage > onBoardingList.length - 1) {
-      // debugPrint('object');
       myServices.sharedPreferences.setBool('OnBording', true);
       Get.toNamed(AppRoutes.getStartScreen());
     } else {
@@ -29,10 +28,4 @@ class OnBordingController extends GetxController {
     currentPage = value;
     update();
   }
-
-  // @override
-  // void onInit() {
-  //   super.onInit();
-  //   myPageController = PageController();
-  // }
 }

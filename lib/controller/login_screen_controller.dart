@@ -1,8 +1,9 @@
-import 'package:cuer_city/core/functions/coustom_overlay.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../core/constant/routes.dart';
+import '../core/constant/string.dart';
+import '../core/functions/coustom_overlay.dart';
 import '../data/model/user_model.dart';
 import '../data/repositories/auth_repo.dart';
 
@@ -16,8 +17,6 @@ class LoginScreenController extends GetxController {
       // Invalid!
       return;
     }
-    // print(email);
-    // print(password);
 
     loginFormKey.currentState!.save();
     UserModel user = UserModel(email: email, password: password);
@@ -25,16 +24,32 @@ class LoginScreenController extends GetxController {
       asyncFunction: () async {
         final bool isSuccess = await authRepo.logIn(userModel: user);
         if (isSuccess) {
-          Get.offAllNamed(AppRoutes.getHomeScreen());
+          Get.offAllNamed(AppRoutes.getOnBoardingn());
         }
       },
     );
   }
 
+  logeOut() async {
+    showOverlay(
+      asyncFunction: () async {
+        final bool isSuccess = await authRepo.logeOut();
+        if (isSuccess) {
+          await Future.delayed(Duration.zero);
+          Get.offAllNamed(AppRoutes.getOnBoardingn());
+        }
+      },
+    );
+  }
+
+  signInWithGoogle() async {
+    final bool isSuccess = await authRepo.signInWithGoogle();
+    if (isSuccess) {
+      Get.offAllNamed(AppRoutes.getOnBoardingn());
+    }
+  }
+
   bool goBack() {
-    // print(previousRoute == '' ? true : false);
-    // print(previousRoute == '/Login-Screen' ? true : false);
-    // print(previousRoute);
     final previousRoute = Get.previousRoute;
     final String? goBack = Get.arguments;
     if (goBack != null) {
@@ -48,7 +63,7 @@ class LoginScreenController extends GetxController {
   }
 
   bool isShowPass = true;
-  showPassword() {
+  void showPassword() {
     isShowPass = !isShowPass;
     update();
     Future.delayed(const Duration(seconds: 2), () {
@@ -71,9 +86,9 @@ class LoginScreenController extends GetxController {
     isvalidEmail = false;
     update();
     if (val.isEmpty) {
-      return "Type your email adress";
+      return Type_your_email_adress.tr;
     } else if (!GetUtils.isEmail(val)) {
-      return "Type in a valid email adress";
+      return Type_in_valid_email_adress.tr;
     } else {
       isvalidEmail = true;
       update();
@@ -85,9 +100,9 @@ class LoginScreenController extends GetxController {
     isvalidpassword = false;
     update();
     if (val.isEmpty) {
-      return "Type your password";
+      return Enter_your_password.tr;
     } else if (val.length < 6) {
-      return "Password can not be less than six characters";
+      return Password_can_not_be_less_than_six_characters.tr;
     } else {
       isvalidpassword = true;
       update();

@@ -5,12 +5,15 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../../controller/appointment_controller.dart';
+import '../../../controller/chats_controller.dart';
 import '../../../controller/doctor_controller.dart';
 import '../../../controller/drugs_controller.dart';
+import '../../../controller/notifications_controller.dart';
 import '../../../core/constant/image_asset.dart';
+import '../../../data/repositories/appointment_repo.dart';
 import 'Schedule/schedule_screen.dart';
+import 'chats/message_history_screen.dart';
 import 'home_screen.dart';
-import 'myfavorite/my_favorite_screen.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -22,7 +25,7 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen> {
   final page = [
     const HomeScreen(),
-    const MyFavoriteScreen(),
+    const MessageHistoryScreen(),
     const ScheduleScreen(),
     const ProfileScreen()
   ];
@@ -33,7 +36,10 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     Get.put(DrugsController());
     Get.put(DoctorController());
-    Get.put(ApointmentController());
+    Get.put(ApointmentController(
+        appointmentRepo2: Get.find<AppointmentRepoImpHttp>()));
+    Get.put(ChatsController());
+    Get.put(NotificationController());
     return Scaffold(
       extendBodyBehindAppBar: true,
       extendBody: true,
@@ -59,7 +65,7 @@ class _MainScreenState extends State<MainScreen> {
                 height: 24.h,
                 width: 24.w,
               ),
-              label: 'h',
+              label: 'home',
             ),
             BottomNavigationBarItem(
               icon: SvgPicture.asset(
@@ -70,7 +76,7 @@ class _MainScreenState extends State<MainScreen> {
                 height: 24.h,
                 width: 24.w,
               ),
-              label: 'h',
+              label: 'message',
             ),
             BottomNavigationBarItem(
               icon: SvgPicture.asset(
@@ -81,7 +87,7 @@ class _MainScreenState extends State<MainScreen> {
                 height: 24.h,
                 width: 24.w,
               ),
-              label: 'h',
+              label: 'calendar',
             ),
             BottomNavigationBarItem(
               icon: SvgPicture.asset(
@@ -92,7 +98,7 @@ class _MainScreenState extends State<MainScreen> {
                 height: 24.h,
                 width: 24.w,
               ),
-              label: 'h',
+              label: 'profile',
             ),
           ]),
     );

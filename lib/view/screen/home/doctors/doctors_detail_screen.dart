@@ -1,14 +1,14 @@
-import 'package:cuer_city/core/constant/app_color.dart';
-import 'package:cuer_city/core/constant/image_asset.dart';
-import 'package:cuer_city/core/constant/routes.dart';
-import 'package:cuer_city/data/model/doctor_model.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../../../controller/appointment_controller.dart';
+import '../../../../core/constant/app_color.dart';
+import '../../../../core/constant/image_asset.dart';
+import '../../../../core/constant/routes.dart';
+import '../../../../core/constant/string.dart';
+import '../../../../data/model/doctor_model.dart';
 import '../../../widget/custom_app_bar.dart';
 import '../../../widget/custom_button.dart';
 import '../../../widget/expandable_text.dart';
@@ -21,33 +21,13 @@ class DoctorDetailScrren extends GetView<ApointmentController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(
-        title: 'Doctor Detail',
-        //  actions: [
-        //   Container(
-        //     margin: EdgeInsets.only(right: 20.w),
-        //     height: 30.h,
-        //     width: 30.w,
-        //     child: InkWell(
-        //       borderRadius: BorderRadius.circular(8.r),
-        //       onTap: () {
-        //         Get.toNamed(AppRoutes.getDrugsCartScreen());
-        //       },
-        //       child: SvgPicture.asset(
-        //         ImageAssetSVG.buyIconW,
-        //         fit: BoxFit.none,
-        //         height: 24.h,
-        //         width: 24.w,
-        //       ),
-        //     ),
-        // ),
-        // ]
+      appBar: CustomAppBar(
+        title: Doctor_Detail.tr,
       ),
       body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         SizedBox(height: 33.h),
         FittedBox(
           child: SizedBox(
-            // padding: EdgeInsets.symmetric(horizontal: 20),
             height: 121.h,
             width: 334.w,
             child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
@@ -72,7 +52,7 @@ class DoctorDetailScrren extends GetView<ApointmentController> {
                   Text(
                     'Dr. ${doctorinfo.name}',
                     style: TextStyle(
-                        color: AppColor.fontColor1,
+                        color: Theme.of(context).textTheme.bodyLarge!.color,
                         fontSize: 18.sp,
                         fontWeight: FontWeight.w500),
                   ),
@@ -89,22 +69,16 @@ class DoctorDetailScrren extends GetView<ApointmentController> {
                       width: 41.w,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(3.r),
-                          color: AppColor.mainColor2),
+                          color: Theme.of(context).colorScheme.secondary),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           SvgPicture.asset(
                             ImageAssetSVG.starIcon,
-                            // color: AppColor.mainColor,
                             fit: BoxFit.none,
                             height: 13.h,
                             width: 13.w,
                           ),
-                          // Icon(
-                          //   Icons.star,
-                          //   size: 13.h,
-                          //   color: AppColor.mainColor,
-                          // ),
                           Text(
                             '4,7',
                             style: TextStyle(
@@ -143,15 +117,15 @@ class DoctorDetailScrren extends GetView<ApointmentController> {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: Text(
-            'About',
+            About.tr,
             style: TextStyle(
-                color: AppColor.fontColor1,
+                color: Theme.of(context).textTheme.bodyLarge!.color,
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w500),
           ),
         ),
         Divider(
-          color: AppColor.mainColor2,
+          color: Theme.of(context).colorScheme.secondary,
           endIndent: 20.w,
           indent: 20.w,
         ),
@@ -180,7 +154,7 @@ class DoctorDetailScrren extends GetView<ApointmentController> {
                   //       decoration: BoxDecoration(
                   //           borderRadius: BorderRadius.circular(15.r),
                   //           border:
-                  //               Border.all(color: AppColor.mainColor2, width: 1.w)),
+                  //               Border.all(color: Theme.of(context).colorScheme.secondary, width: 1.w)),
                   //       child: Column(
                   //           mainAxisAlignment: MainAxisAlignment.center,
                   //           children: [
@@ -194,7 +168,7 @@ class DoctorDetailScrren extends GetView<ApointmentController> {
                   //             Text(
                   //               '${index + 1}',
                   //               style: TextStyle(
-                  //                   color: AppColor.fontColor1,
+                  //                   color: Theme.of(context).textTheme.bodyLarge!.color,
                   //                   fontSize: 18.sp,
                   //                   fontWeight: FontWeight.w500),
                   //             ),
@@ -209,7 +183,7 @@ class DoctorDetailScrren extends GetView<ApointmentController> {
         ),
 
         Divider(
-          color: AppColor.mainColor2,
+          color: Theme.of(context).colorScheme.secondary,
           endIndent: 20.w,
           indent: 20.w,
         ),
@@ -234,12 +208,12 @@ class DoctorDetailScrren extends GetView<ApointmentController> {
         //         decoration: BoxDecoration(
         //             borderRadius: BorderRadius.circular(15.r),
         //             border:
-        //                 Border.all(color: AppColor.mainColor2, width: 1.w)),
+        //                 Border.all(color: Theme.of(context).colorScheme.secondary, width: 1.w)),
         //         child: Center(
         //           child: Text(
         //             '${index + 1}:00 AM',
         //             style: TextStyle(
-        //                 color: AppColor.fontColor1,
+        //                 color: Theme.of(context).textTheme.bodyLarge!.color,
         //                 fontSize: 12.sp,
         //                 fontWeight: FontWeight.w500),
         //           ),
@@ -264,7 +238,7 @@ class DoctorDetailScrren extends GetView<ApointmentController> {
                 width: 50.w,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15.r),
-                    color: AppColor.mainColor2),
+                    color: Theme.of(context).colorScheme.secondary),
                 child: SvgPicture.asset(
                   ImageAssetSVG.chatIcon,
                   // color: AppColor.mainColor,
@@ -278,7 +252,7 @@ class DoctorDetailScrren extends GetView<ApointmentController> {
               onPressed: () {
                 controller.bookApointment(doctorinfo: doctorinfo, isNew: true);
               },
-              text: 'Book Appointment',
+              text: Book_Appointment.tr,
               height: 50.h,
               width: 266.w,
             ),

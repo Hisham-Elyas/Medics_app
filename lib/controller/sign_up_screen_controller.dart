@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../core/constant/routes.dart';
+import '../core/constant/string.dart';
 import '../core/functions/coustom_overlay.dart';
 import '../data/model/user_model.dart';
 import '../data/repositories/auth_repo.dart';
@@ -62,9 +63,9 @@ class SignUpScreenController extends GetxController {
   String? userNamevalidator(val) {
     isvalidUserName = false;
     if (val.isEmpty) {
-      return "Type your Name";
+      return Type_your_Name.tr;
     } else if (val.length < 4) {
-      return "Name can not be less than 4 characters";
+      return Name_can_not_be_less_than_4_characters.tr;
     } else {
       isvalidUserName = true;
       update();
@@ -73,10 +74,10 @@ class SignUpScreenController extends GetxController {
     }
   }
 
-  String? emailvalidator(val) {
+  String? emailvalidator(String? val) {
     isvalidEmail = false;
-    if (val.isEmpty) {
-      return "Type your email adress";
+    if (val!.isEmpty) {
+      return Type_your_email_adress.tr;
     } else if (!GetUtils.isEmail(val)) {
       return "Type in a valid email adress";
     } else {
@@ -89,9 +90,9 @@ class SignUpScreenController extends GetxController {
   String? passwordvalidator(val) {
     isvalidpassword = false;
     if (val.isEmpty) {
-      return "Type your password";
+      return Enter_your_password.tr;
     } else if (val.length < 6) {
-      return "Password can not be less than six characters";
+      return Password_can_not_be_less_than_six_characters.tr;
     } else {
       isvalidpassword = true;
       update();

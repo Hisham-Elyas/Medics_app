@@ -1,4 +1,3 @@
-import 'package:cuer_city/core/constant/image_asset.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -7,6 +6,8 @@ import 'package:get/get.dart';
 import '../../../../controller/drugs_controller.dart';
 import '../../../../core/constant/app_color.dart';
 
+import '../../../../core/constant/image_asset.dart';
+import '../../../../core/constant/string.dart';
 import '../../../widget/custom_app_bar.dart';
 import '../../../widget/custom_button.dart';
 import 'drugs_detail_screen.dart';
@@ -20,9 +21,9 @@ class CartScreen extends GetView<DrugsController> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       // extendBody: true,
-      appBar: CustomAppBar(title: 'My Cart', actions: [
+      appBar: CustomAppBar(title: My_Cart.tr, actions: [
         Container(
-          padding: EdgeInsets.only(right: 20.h),
+          padding: EdgeInsetsDirectional.only(end: 20.h),
           child: InkWell(
             borderRadius: BorderRadius.circular(20.r),
             onTap: () {
@@ -31,17 +32,19 @@ class CartScreen extends GetView<DrugsController> {
             child: Row(
               children: [
                 Text(
-                  'Clear',
+                  Clear.tr,
                   textAlign: TextAlign.end,
                   style: TextStyle(
-                    color: AppColor.mainColor,
-                    fontSize: 14.sp,
-                  ),
+                      color: AppColor.mainColor,
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w500),
                 ),
-                SizedBox(width: 2.w),
+                SizedBox(width: 5.w),
                 SvgPicture.asset(
                   ImageAssetSVG.deleteIcon,
                   fit: BoxFit.none,
+                  // ignore: deprecated_member_use
+                  color: AppColor.mainColor,
                 ),
               ],
             ),
@@ -88,25 +91,27 @@ class CartScreen extends GetView<DrugsController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Total',
+                  Total.tr,
                   style: TextStyle(
                     fontSize: 14.sp,
                     color: AppColor.fontColor3,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                const Text(
+                Text(
                   '\$9.99',
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: AppColor.fontColor1),
+                      color: Theme.of(context).textTheme.bodyLarge!.color),
                 ),
               ],
             ),
             CustomButton(
-              onPressed: () {},
-              text: 'Checkout',
+              onPressed: () {
+                controller.checkout();
+              },
+              text: Checkout.tr,
               height: 50.h,
               // width: 192.w,
               width: 200.w,

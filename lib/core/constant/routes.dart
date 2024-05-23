@@ -9,13 +9,20 @@ import '../../view/screen/auth/login_screen.dart';
 import '../../view/screen/auth/reset_password_screen.dart';
 import '../../view/screen/auth/sign_up_screen.dart';
 import '../../view/screen/auth/verify_code_screen.dart';
+import '../../view/screen/home/Schedule/schedule_screen.dart';
 import '../../view/screen/home/doctors/doctors_detail_screen.dart';
 import '../../view/screen/home/doctors/doctors_list_screen.dart';
 import '../../view/screen/home/doctors/doctors_screen.dart';
 import '../../view/screen/home/drugs/cart_screen.dart';
 import '../../view/screen/home/drugs/drugs_screen.dart';
+import '../../view/screen/home/location/location_screen.dart';
 import '../../view/screen/home/main_screen.dart';
-import '../../view/screen/home/myfavorite/my_favorite_screen.dart';
+import '../../view/screen/home/notifications/address_list_screen.dart';
+import '../../view/screen/home/profile/my_favorite_screen.dart';
+import '../../view/screen/home/notifications/notifications_screen.dart';
+import '../../view/screen/home/profile/feedback_sereen.dart';
+import '../../view/screen/home/profile/order_screen.dart';
+import '../../view/screen/home/profile/settings_screen.dart';
 import '../../view/screen/onBording/on_boarding_screen.dart';
 import '../../view/screen/onBording/start_screen.dart';
 
@@ -40,7 +47,14 @@ class AppRoutes {
   static const String doctorDetailScrren = '/Doctor-Detail-Screen';
   static const String doctorListScreen = '/Doctor-List-Screen';
   static const String favoriteScreen = '/Favorite-Screen';
+  static const String scheduleScreen = '/Schedule-Screen';
   static const String chatsScreen = '/Chats-Screen';
+  static const String locationScreen = '/Location-Screen';
+  static const String feedbackScreen = '/Feedback-Screen';
+  static const String addressListScreen = '/Address_List-Screen';
+  static const String notificationsScreen = '/Notifications-Screen';
+  static const String orderScreen = '/Order-Screen';
+  static const String settingsScreen = '/Settings-Screen';
   static String getOnBoardingn() => onBoarding;
   static String getStartScreen() => startScreen;
   static String getLoginScreen() => loginScreen;
@@ -49,10 +63,17 @@ class AppRoutes {
   static String getVerifyCodeScreen() => verifyCodeScreen;
   static String getCreateNewPasswordScreen() => createNewPasswordScreen;
   static String getHomeScreen() => homeScreen;
+  static String getLocationScreen() => locationScreen;
+  static String getAddressListScreen() => addressListScreen;
+  static String getFeedbackScreen() => feedbackScreen;
+  static String getNotificationsScreen() => notificationsScreen;
+  static String getOrderScreen() => orderScreen;
+  static String getSettingsScreen() => settingsScreen;
 
   /// profile screen
 
   static String getFavoriteScreen() => favoriteScreen;
+  static String getScheduleScreen() => scheduleScreen;
   static String getChatsScreenScreen(Doctor doctorinfo) =>
       "$chatsScreen?Doctorinfo=${doctorinfo.toJson()}";
 
@@ -100,7 +121,13 @@ class AppRoutes {
     GetPage(
         name: homeScreen,
         // page: () => const HomeScreen(),
-        page: () => MainScreen(),
+        // bindings: const [
+        //   // BindingsBuilder.put(() => DrugsController()),
+        //   // BindingsBuilder.put(() => DoctorController()),
+        //   // BindingsBuilder.put(() => ApointmentController()),
+        //   // BindingsBuilder.put(() => ChatsController()),
+        // ],
+        page: () => const MainScreen(),
         transition: Transition.circularReveal),
 
     /// Drugs-Screen
@@ -153,6 +180,12 @@ class AppRoutes {
         },
         transition: Transition.circularReveal),
     GetPage(
+        name: scheduleScreen,
+        page: () {
+          return const ScheduleScreen();
+        },
+        transition: Transition.circularReveal),
+    GetPage(
         name: chatsScreen,
         page: () {
           final doctorinfo = Doctor.fromJson(Get.parameters['Doctorinfo']!);
@@ -161,6 +194,42 @@ class AppRoutes {
         bindings: [
           BindingsBuilder.put(() => ChatsController()),
         ],
+        transition: Transition.circularReveal),
+    GetPage(
+        name: locationScreen,
+        page: () {
+          return const LocationScreen();
+        },
+        transition: Transition.circularReveal),
+    GetPage(
+        name: addressListScreen,
+        page: () {
+          return const AddressListScreen();
+        },
+        transition: Transition.circularReveal),
+    GetPage(
+        name: feedbackScreen,
+        page: () {
+          return const FeedbackScreen();
+        },
+        transition: Transition.circularReveal),
+    GetPage(
+        name: notificationsScreen,
+        page: () {
+          return const NotificationsScreen();
+        },
+        transition: Transition.circularReveal),
+    GetPage(
+        name: orderScreen,
+        page: () {
+          return const OrderScreen();
+        },
+        transition: Transition.circularReveal),
+    GetPage(
+        name: settingsScreen,
+        page: () {
+          return const SettingsScreen();
+        },
         transition: Transition.circularReveal),
   ];
 }

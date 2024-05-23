@@ -1,15 +1,18 @@
-import 'package:cuer_city/core/class/handling_data_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../../../controller/doctor_controller.dart';
+import '../../../../core/class/handling_data_view.dart';
 import '../../../../core/constant/app_color.dart';
 import '../../../../core/constant/image_asset.dart';
 import '../../../../core/constant/routes.dart';
+import '../../../../core/constant/string.dart';
+import '../../../../core/functions/get_device_locale.dart';
+import '../../../../data/model/doctor_model.dart';
 import '../../../widget/custom_app_bar.dart';
-import '../drugs/search_drugs_screen.dart';
+import 'search_doctor_screen.dart';
 
 class DoctorListScreen extends StatelessWidget {
   final String category;
@@ -19,26 +22,32 @@ class DoctorListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: '$category Doctors', actions: [
-        Container(
-          margin: EdgeInsets.only(right: 20.w),
-          height: 30.h,
-          width: 30.w,
-          child: InkWell(
-            borderRadius: BorderRadius.circular(8.r),
-            onTap: () {
-              showSearch(context: context, delegate: Search());
-            },
-            child: SvgPicture.asset(
-              ImageAssetSVG.searchLogo,
-              fit: BoxFit.none,
-              color: AppColor.mainColor,
-              height: 24.h,
-              width: 24.w,
-            ),
+      appBar: CustomAppBar(
+          title: getdeviceLocale(
+            en: '${category.tr} ${Doctors.tr}',
+            ar: '${Doctors.tr} ${category.tr}',
           ),
-        ),
-      ]),
+          actions: [
+            Container(
+              margin: EdgeInsetsDirectional.only(end: 20.w),
+              height: 30.h,
+              width: 30.w,
+              child: InkWell(
+                borderRadius: BorderRadius.circular(8.r),
+                onTap: () {
+                  showSearch(context: context, delegate: DoctorSearch());
+                },
+                child: SvgPicture.asset(
+                  ImageAssetSVG.searchLogo,
+                  fit: BoxFit.none,
+                  // ignore: deprecated_member_use
+                  color: AppColor.mainColor,
+                  height: 30.h,
+                  width: 30.w,
+                ),
+              ),
+            ),
+          ]),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -50,6 +59,7 @@ class DoctorListScreen extends StatelessWidget {
                 child: GetBuilder<DoctorController>(builder: (controller) {
                   final doctors = controller.filterDoctors(category);
                   return HandlingDataView(
+                      imgHeight: 400.h,
                       statusReq: controller.statusReq,
                       onPressedReload: controller.getAllDoctors,
                       widget: RefreshIndicator(
@@ -59,15 +69,11 @@ class DoctorListScreen extends StatelessWidget {
                                 SizedBox(height: 13.h),
                             itemCount: doctors.length,
                             itemBuilder: (context, index) => DoctorWidget(
-                                  onTap: () {
-                                    Get.toNamed(AppRoutes.getDoctorDetailScrren(
-                                        doctors[index]!));
-                                  },
-                                  img: doctors[index]?.img ?? '',
-                                  name: doctors[index]?.name ?? '',
-                                  address: doctors[index]?.address ?? '',
-                                  category: doctors[index]?.specialty ?? '',
-                                )),
+                                onTap: () {
+                                  Get.toNamed(AppRoutes.getDoctorDetailScrren(
+                                      doctors[index]!));
+                                },
+                                doctor: doctors[index]!)),
                       ));
                 }),
               ),
@@ -80,25 +86,20 @@ class DoctorListScreen extends StatelessWidget {
 }
 
 class DoctorWidget extends StatelessWidget {
-  final String img;
-  final String name;
-  final String category;
-  final String address;
+  final Doctor doctor;
+
   final void Function() onTap;
   const DoctorWidget({
     Key? key,
-    required this.img,
-    required this.name,
-    required this.category,
-    required this.address,
     required this.onTap,
+    required this.doctor,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: BorderRadius.circular(12.r),
-      splashColor: AppColor.mainColor2,
+      splashColor: Theme.of(context).colorScheme.secondary,
       highlightColor: AppColor.mainColor3,
       onTap: onTap,
       child: Container(
@@ -128,14 +129,14 @@ class DoctorWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                name,
+                doctor.name!,
                 style: TextStyle(
-                    color: AppColor.fontColor1,
+                    color: Theme.of(context).textTheme.bodyLarge!.color,
                     fontSize: 18.sp,
                     fontWeight: FontWeight.w500),
               ),
               Text(
-                category,
+                doctor.specialty!,
                 style: TextStyle(
                     color: AppColor.fontColor2,
                     fontSize: 12.sp,
@@ -147,7 +148,7 @@ class DoctorWidget extends StatelessWidget {
                   width: 41.w,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(3.r),
-                      color: AppColor.mainColor2),
+                      color: Theme.of(context).colorScheme.secondary),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -184,7 +185,7 @@ class DoctorWidget extends StatelessWidget {
                   ),
                   SizedBox(width: 5.w),
                   Text(
-                    address,
+                    doctor.address!,
                     style: TextStyle(
                         color: AppColor.fontColor2,
                         fontSize: 12.sp,

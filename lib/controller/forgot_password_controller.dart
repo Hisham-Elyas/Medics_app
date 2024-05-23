@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../core/constant/routes.dart';
+import '../core/constant/string.dart';
 import '../core/functions/coustom_overlay.dart';
 import '../data/repositories/auth_repo.dart';
 
@@ -32,15 +34,10 @@ class ResstPasswordController extends GetxController {
         }
       },
     );
-    // Get.toNamed(AppRoutes.getVerifyCodeScreen());
-    // print(passwordOne);
-    // print(email);
-    // print(passwordTow);
   }
 
   Future<void> submitVerifyCode() async {
-    print(codeVerify);
-    // return;
+    log(codeVerify);
     showOverlay(
       asyncFunction: () async {
         final bool isSuccess = await authRepo.verifyCode(code: codeVerify);
@@ -49,7 +46,6 @@ class ResstPasswordController extends GetxController {
         }
       },
     );
-    // Get.toNamed(AppRoutes.getCreateNewPasswordScreen());
   }
 
   Future<void> reSendVerifyCode() async {
@@ -76,14 +72,10 @@ class ResstPasswordController extends GetxController {
         }
       },
     );
-    // Get.toNamed(AppRoutes.getHomeScreen());ss
-
-    // print(passwordOne);
-    // print(passwordTow);
   }
 
   bool isShowPass = true;
-  showPassword() {
+  void showPassword() {
     isShowPass = !isShowPass;
     update();
     Future.delayed(const Duration(seconds: 2), () {
@@ -108,28 +100,31 @@ class ResstPasswordController extends GetxController {
   bool isvalidpasswordOne = false;
   bool isvalidpassword = false;
 
-  String? emailvalidator(val) {
+  String? emailvalidator(String? val) {
     isvalidEmail = false;
-    if (val.isEmpty) {
-      return "Type your email adress";
-    } else if (!GetUtils.isEmail(val)) {
-      return "Type in a valid email adress";
-    } else {
-      isvalidEmail = true;
-      update();
-      return null;
+    if (val != null) {
+      if (val.isEmpty) {
+        return Type_your_email_adress.tr;
+      } else if (!GetUtils.isEmail(val)) {
+        return Type_in_valid_email_adress.tr;
+      } else {
+        isvalidEmail = true;
+        update();
+        return null;
+      }
     }
+    return null;
   }
 
   String? passwordvalidator(val, number) {
     isvalidpassword = false;
     if (val.isEmpty) {
-      return "Type your password";
+      return Enter_your_password.tr;
     } else if (val.length < 6) {
-      return "Password can not be less than six characters";
+      return Password_can_not_be_less_than_six_characters.tr;
     } else {
       if (number == 2 && val != passwordOne) {
-        return "Password not match";
+        return Password_not_match.tr;
       } else {
         passwordOne = val;
         isvalidpassword = true;

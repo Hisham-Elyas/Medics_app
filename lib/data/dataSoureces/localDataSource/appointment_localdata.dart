@@ -1,10 +1,9 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:cuer_city/core/error/exception.dart';
-import 'package:cuer_city/data/model/apointment_model.dart';
-
+import '../../../core/error/exception.dart';
 import '../../../core/services/services.dart';
+import '../../model/apointment_model.dart';
 
 abstract class AppointmentLocalData {
   Future cachegetAppointment(

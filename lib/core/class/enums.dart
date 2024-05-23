@@ -2,9 +2,9 @@ enum StatusRequest {
   loading,
   success,
 
-  failure,
+  // failure,
   serverFailure,
-  offLineFailure,
+  // offLineFailure,
   noData,
   emptyCache,
 }

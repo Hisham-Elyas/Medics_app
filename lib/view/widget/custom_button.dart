@@ -10,14 +10,17 @@ class CustomButton extends StatelessWidget {
   final double? height;
   final double? width;
   final String? text;
-  const CustomButton(
-      {super.key,
-      this.onPressed,
-      this.text,
-      this.child,
-      this.isOutlin = false,
-      this.height,
-      this.width});
+  final double? borderRadius;
+  const CustomButton({
+    super.key,
+    this.onPressed,
+    this.text,
+    this.child,
+    this.isOutlin = false,
+    this.height,
+    this.width,
+    this.borderRadius,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +29,9 @@ class CustomButton extends StatelessWidget {
           overlayColor: MaterialStatePropertyAll(isOutlin
               ? AppColor.mainColor.withOpacity(0.4)
               : AppColor.mainColor3.withOpacity(0.6)),
-          backgroundColor: MaterialStatePropertyAll(
-              isOutlin ? AppColor.backgroundColor : AppColor.mainColor),
+          backgroundColor: MaterialStatePropertyAll(isOutlin
+              ? Theme.of(context).colorScheme.background
+              : AppColor.mainColor),
           elevation: MaterialStatePropertyAll(isOutlin ? 1 : 5),
           enableFeedback: true,
           padding: const MaterialStatePropertyAll(EdgeInsets.all(0))),
@@ -36,8 +40,8 @@ class CustomButton extends StatelessWidget {
         width: width,
         height: height,
         decoration: BoxDecoration(
-          //     color: isOutlin ? AppColor.backgroundColor : AppColor.mainColor,
-          borderRadius: BorderRadius.circular(32.r),
+          //     color: isOutlin ? Theme.of(context).colorScheme.background : AppColor.mainColor,
+          borderRadius: BorderRadius.circular(borderRadius ?? 32.r),
           border:
               isOutlin ? Border.all(width: 2, color: AppColor.mainColor) : null,
         ),
@@ -51,7 +55,7 @@ class CustomButton extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         color: isOutlin
                             ? AppColor.mainColor
-                            : AppColor.backgroundColor),
+                            : Theme.of(context).colorScheme.background),
                   )),
       ),
     );

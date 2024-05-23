@@ -18,6 +18,34 @@ class DrugInformationEn {
     this.pacakgeSize,
   });
 
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'tradeName': tradeName,
+      'strength': strength,
+      'genericName': genericName,
+      'dosageForm': dosageForm,
+      'routeOfAdministration': routeOfAdministration,
+      'sfdaCode': sfdaCode,
+      'pacakgeSize': pacakgeSize,
+    };
+  }
+
+  factory DrugInformationEn.fromMap(Map<String, dynamic> map) {
+    return DrugInformationEn(
+      tradeName: map['tradeName'] != null ? map['tradeName'] as String : null,
+      strength: map['strength'] != null ? map['strength'] as String : null,
+      genericName:
+          map['genericName'] != null ? map['genericName'] as String : null,
+      dosageForm:
+          map['dosageForm'] != null ? map['dosageForm'] as String : null,
+      routeOfAdministration: map['routeOfAdministration'] != null
+          ? map['routeOfAdministration'] as String
+          : null,
+      sfdaCode: map['sfdaCode'] != null ? map['sfdaCode'] as String : null,
+      pacakgeSize:
+          map['pacakgeSize'] != null ? map['pacakgeSize'] as String : null,
+    );
+  }
   factory DrugInformationEn.fromJson(Map<String, dynamic> json) {
     return DrugInformationEn(
       tradeName: json['Trade Name'] as String?,
@@ -62,5 +90,10 @@ class DrugInformationEn {
         routeOfAdministration.hashCode ^
         sfdaCode.hashCode ^
         pacakgeSize.hashCode;
+  }
+
+  @override
+  String toString() {
+    return 'DrugInformationEn(tradeName: $tradeName, strength: $strength, genericName: $genericName, dosageForm: $dosageForm, routeOfAdministration: $routeOfAdministration, sfdaCode: $sfdaCode, pacakgeSize: $pacakgeSize)';
   }
 }

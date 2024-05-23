@@ -1,7 +1,7 @@
-import 'package:cuer_city/core/constant/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../core/constant/routes.dart';
 import '../core/services/services.dart';
 
 class MyMiddleware extends GetMiddleware {
@@ -18,8 +18,7 @@ class MyMiddleware extends GetMiddleware {
             name: AppRoutes.homeScreen, arguments: 'User login');
       } else {
         return const RouteSettings(
-          // name: AppRoutes.loginScreen,
-          name: AppRoutes.homeScreen,
+          name: AppRoutes.loginScreen,
           arguments: 'noGoBack',
         );
       }

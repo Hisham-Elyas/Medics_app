@@ -1,14 +1,15 @@
-import 'package:cuer_city/core/constant/image_asset.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../constant/app_color.dart';
+import '../constant/image_asset.dart';
 import 'enums.dart';
 
 class HandlingDataView extends StatelessWidget {
   final StatusRequest statusReq;
   final Widget widget;
+  final double imgHeight;
   final String? buttonTextEmpty;
   final void Function()? onPressedTextButtom;
   final void Function()? onPressedReload;
@@ -19,6 +20,7 @@ class HandlingDataView extends StatelessWidget {
     this.onPressedTextButtom,
     this.onPressedReload,
     this.buttonTextEmpty,
+    this.imgHeight = 400,
   });
 
   @override
@@ -34,7 +36,7 @@ class HandlingDataView extends StatelessWidget {
               margin: EdgeInsets.only(top: 90.h),
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                  color: AppColor.backgroundColor,
+                  color: Theme.of(context).colorScheme.background,
                   borderRadius: BorderRadius.circular(25.r)),
               child: SizedBox(
                   height: 15.r,
@@ -48,7 +50,8 @@ class HandlingDataView extends StatelessWidget {
         children: [
           SvgPicture.asset(
             ImageAssetSVG.noDataAmicorImg,
-            height: 400.h,
+            fit: BoxFit.contain,
+            height: imgHeight.h,
           ),
           Text('somethang go wrong',
               style: TextStyle(
@@ -56,7 +59,8 @@ class HandlingDataView extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                   color: AppColor.fontColor4)),
           SizedBox(height: 5.h),
-          OutlinedButton(onPressed: onPressedReload, child: Text('Reload'))
+          OutlinedButton(
+              onPressed: onPressedReload, child: const Text('Reload'))
         ],
       );
     } else if (statusReq == StatusRequest.noData) {
@@ -65,7 +69,8 @@ class HandlingDataView extends StatelessWidget {
         children: [
           SvgPicture.asset(
             ImageAssetSVG.emptyBoxAmicorImg,
-            height: 400.h,
+            fit: BoxFit.contain,
+            height: imgHeight.h,
           ),
           OutlinedButton(
               onPressed: onPressedTextButtom, child: Text(buttonTextEmpty!))

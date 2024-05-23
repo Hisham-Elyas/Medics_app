@@ -1,9 +1,8 @@
 import 'dart:convert';
 
-import 'package:cuer_city/data/model/apointment_model.dart';
-
 import '../../../core/class/api_client.dart';
 import '../../../core/error/exception.dart';
+import '../../model/apointment_model.dart';
 
 abstract class AppointmentRemotData {
   Future<AppointmentModel> getAllAppointment();

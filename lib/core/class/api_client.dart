@@ -1,12 +1,11 @@
 import 'package:get/get.dart';
-// import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiClent extends GetConnect implements GetxService {
   ApiClent();
 
   Future<Response> getData({required String uri}) async {
     try {
-      await Future.delayed(const Duration(seconds: 5));
+      // await Future.delayed(const Duration(seconds: 5));
       Response response = await get(uri);
       // print('========================errror===========================');
       // print(response.statusText);
@@ -21,7 +20,7 @@ class ApiClent extends GetConnect implements GetxService {
 
   Future<Response> posData({required String uri, required dynamic body}) async {
     try {
-      await Future.delayed(const Duration(seconds: 5));
+      // await Future.delayed(const Duration(seconds: 5));
       Response response = await post(uri, body);
       // print(response.toString());
       return response;
@@ -35,7 +34,7 @@ class ApiClent extends GetConnect implements GetxService {
   Future<Response> updateData(
       {required String uri, required dynamic body}) async {
     try {
-      await Future.delayed(const Duration(seconds: 5));
+      // await Future.delayed(const Duration(seconds: 5));
       Response response = await patch(uri, body);
       // print(response.toString());
       return response;
@@ -48,7 +47,7 @@ class ApiClent extends GetConnect implements GetxService {
 
   Future<Response> deleteData({required String uri}) async {
     try {
-      await Future.delayed(const Duration(seconds: 5));
+      // await Future.delayed(const Duration(seconds: 5));
       Response response = await delete(uri);
       // print(response.toString());
       return response;

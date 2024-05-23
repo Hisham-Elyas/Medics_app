@@ -1,13 +1,14 @@
-import 'package:cuer_city/controller/drugs_controller.dart';
-import 'package:cuer_city/core/constant/app_color.dart';
-import 'package:cuer_city/core/constant/image_asset.dart';
-import 'package:cuer_city/core/constant/routes.dart';
-import 'package:cuer_city/core/functions/get_device_locale.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '../../../../controller/drugs_controller.dart';
+import '../../../../core/constant/app_color.dart';
+import '../../../../core/constant/image_asset.dart';
+import '../../../../core/constant/routes.dart';
+import '../../../../core/constant/string.dart';
+import '../../../../core/functions/get_device_locale.dart';
 import '../../../../data/model/drugs_model/product.dart';
 import '../../../widget/custom_app_bar.dart';
 import '../../../widget/custom_button.dart';
@@ -18,13 +19,10 @@ class DrugsDetailScrren extends GetView<DrugsController> {
 
   @override
   Widget build(BuildContext context) {
-    // final h = Get.parameters;
-    // print(jsonDecode(h.toString()));
-    // final D products = product;
     return Scaffold(
-      appBar: CustomAppBar(title: 'Drugs Detail', actions: [
+      appBar: CustomAppBar(title: Drugs_Detail.tr, actions: [
         Container(
-          margin: EdgeInsets.only(right: 20.w),
+          margin: EdgeInsetsDirectional.only(end: 20.w),
           height: 30.h,
           width: 30.w,
           child: InkWell(
@@ -33,7 +31,7 @@ class DrugsDetailScrren extends GetView<DrugsController> {
               Get.toNamed(AppRoutes.getDrugsCartScreen());
             },
             child: SvgPicture.asset(
-              ImageAssetSVG.buyIconW,
+              ImageAssetSVG.buyIcon,
               fit: BoxFit.none,
               height: 24.h,
               width: 24.w,
@@ -41,108 +39,111 @@ class DrugsDetailScrren extends GetView<DrugsController> {
           ),
         ),
       ]),
-      body: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-        SizedBox(
-          height: 268.h,
-          child: Image.asset(
+      body: Padding(
+        padding: EdgeInsets.only(top: 5.h),
+        child:
+            Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+          Image.asset(
             'assets/svg/Image.jpg',
-            height: 268.h,
+            height: 250.h,
             fit: BoxFit.contain,
           ),
-        ),
-        SingleChildScrollView(
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-            width: 335.w,
-            // height: 140.h,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  product.drugInformationEn!.tradeName!,
-                  style: TextStyle(
-                    fontSize: 22.sp,
-                    color: AppColor.fontColor1,
-                    fontWeight: FontWeight.w500,
+          SingleChildScrollView(
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+              width: 335.w,
+              // height: 140.h,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    getdeviceLocale(
+                        en: product.drugInformationEn!.tradeName!,
+                        ar: " ${product.drugInformationAr!.tradeName!}  -  ${product.drugInformationEn!.tradeName!}"),
+                    style: TextStyle(
+                      fontSize: 22.sp,
+                      color: Theme.of(context).textTheme.bodyLarge!.color,
+                      fontWeight: FontWeight.w800,
+                    ),
                   ),
-                ),
-                DrugInfoWidget(
-                    title: 'Strength',
-                    info: getdeviceLocale(
-                        en: product.drugInformationEn!.strength ?? '',
-                        ar: product.drugInformationAr!.strength ?? '')),
-                DrugInfoWidget(
-                    title: 'Generic Name',
-                    info: getdeviceLocale(
-                        en: product.drugInformationEn!.genericName ?? '',
-                        ar: product.drugInformationAr!.genericName ?? '')),
-                DrugInfoWidget(
-                    title: 'Dosage Form',
-                    info: getdeviceLocale(
-                        en: product.drugInformationEn!.dosageForm ?? '',
-                        ar: product.drugInformationAr!.dosageForm ?? '')),
-                DrugInfoWidget(
-                    title: 'Route of Administration',
-                    info: getdeviceLocale(
-                        en: product.drugInformationEn!.routeOfAdministration ??
-                            '',
-                        ar: product.drugInformationAr!.routeOfAdministration ??
-                            '')),
-                DrugInfoWidget(
-                    title: 'Pacakge Size',
-                    info: getdeviceLocale(
-                        en: product.drugInformationEn!.pacakgeSize ?? '',
-                        ar: product.drugInformationAr!.pacakgeSize ?? '')),
-                DrugInfoWidget(
-                    title: 'SFDA Code',
-                    info: getdeviceLocale(
-                        en: product.drugInformationEn!.sfdaCode ?? '',
-                        ar: product.drugInformationAr!.sfdaCode ?? '')),
-                SizedBox(height: 20.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton(
-                      onPressed: () {},
-                      icon: Row(
-                        children: [
-                          ElevatedButton.icon(
-                              onPressed: () {},
-                              icon: const Icon(
-                                Icons.format_list_bulleted_outlined,
-                              ),
-                              label: const Text(
-                                'Medical bulletin',
-                                style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                    color: AppColor.fontColor1),
-                              ))
-                        ],
+                  DrugInfoWidget(
+                      title: Strength.tr,
+                      info: getdeviceLocale(
+                          en: product.drugInformationEn!.strength ?? '',
+                          ar: product.drugInformationAr!.strength ?? '')),
+                  DrugInfoWidget(
+                      title: Generic_Name.tr,
+                      info: getdeviceLocale(
+                          en: product.drugInformationEn!.genericName ?? '',
+                          ar: product.drugInformationAr!.genericName ?? '')),
+                  DrugInfoWidget(
+                      title: Dosage_Form.tr,
+                      info: getdeviceLocale(
+                          en: product.drugInformationEn!.dosageForm ?? '',
+                          ar: product.drugInformationAr!.dosageForm ?? '')),
+                  DrugInfoWidget(
+                      title: Route_of_Administration.tr,
+                      info: getdeviceLocale(
+                          en: product
+                                  .drugInformationEn!.routeOfAdministration ??
+                              '',
+                          ar: product
+                                  .drugInformationAr!.routeOfAdministration ??
+                              '')),
+                  DrugInfoWidget(
+                      title: Pacakge_Size.tr,
+                      info: getdeviceLocale(
+                          en: product.drugInformationEn!.pacakgeSize ?? '',
+                          ar: product.drugInformationAr!.pacakgeSize ?? '')),
+                  DrugInfoWidget(
+                      title: SFDA_Code.tr,
+                      info: getdeviceLocale(
+                          en: product.drugInformationEn!.sfdaCode ?? '',
+                          ar: product.drugInformationAr!.sfdaCode ?? '')),
+                  SizedBox(height: 10.h),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        onPressed: () {},
+                        icon: Row(
+                          children: [
+                            ElevatedButton.icon(
+                                style: const ButtonStyle(
+                                    elevation: MaterialStatePropertyAll(5)),
+                                onPressed: () {},
+                                icon: const Icon(
+                                  Icons.format_list_bulleted_outlined,
+                                ),
+                                label: Text(
+                                  Medical_bulletin.tr,
+                                  style: TextStyle(
+                                      fontSize: 16.sp,
+                                      fontWeight: FontWeight.bold,
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodyLarge!
+                                          .color),
+                                ))
+                          ],
+                        ),
                       ),
-                    ),
-                    // CustomButton(
-                    //   text: 'Medical bulletin',
-                    //   height: 40,
-                    //   width: 150,
-                    //   child: Icon(Icons.format_list_bulleted_outlined,
-                    //       color: Colors.red),
-                    // ),
-                    // Icon(Icons.format_list_bulleted_outlined, color: Colors.red),
-                    const Text(
-                      '\$9 - \$12',
-                      style: TextStyle(
-                          fontSize: 26,
-                          fontWeight: FontWeight.w500,
-                          color: AppColor.fontColor1),
-                    ),
-                  ],
-                ),
-              ],
+                      Text(
+                        '\$9 - \$12',
+                        style: TextStyle(
+                            fontSize: 26,
+                            fontWeight: FontWeight.w500,
+                            color:
+                                Theme.of(context).textTheme.bodyLarge!.color),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-      ]),
+        ]),
+      ),
       bottomNavigationBar: Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 15.h),
         child: Row(
@@ -153,35 +154,24 @@ class DrugsDetailScrren extends GetView<DrugsController> {
               width: 50.w,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(8.r),
-                  color: AppColor.mainColor2),
+                  color: Theme.of(context).colorScheme.secondary),
               child: SvgPicture.asset(
                 ImageAssetSVG.searchLogo,
+                // ignore: deprecated_member_use
                 color: AppColor.mainColor,
                 fit: BoxFit.none,
                 height: 24.h,
                 width: 24.w,
               ),
             ),
-            // InkWell(
-            //   borderRadius: BorderRadius.circular(5.r),
-            //   onTap: () {},
-            //   child: SvgPicture.asset(
-            //     ImageAssetSVG.addIcon,
-            //     // fit: BoxFit.none,
-            //     height: 40.h,
-            //     width: 40.w,
-            //   ),
-            // ),
             GetBuilder<DrugsController>(
-              // init: DrugsController(),
               builder: (controller) => Container(
                 height: 50.h,
                 width: 50.w,
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(8.r),
-                    color: AppColor.mainColor2),
+                    color: Theme.of(context).colorScheme.secondary),
                 child: InkWell(
-                  // highlightColor: Colors.red,
                   borderRadius: BorderRadius.circular(8.r),
                   onTap: () {
                     controller.addTofavorite(product);
@@ -200,11 +190,9 @@ class DrugsDetailScrren extends GetView<DrugsController> {
             CustomButton(
               onPressed: () {
                 controller.addToCart(product);
-                // controller.deleteFromCart(product);
               },
-              text: 'Buy Now',
+              text: Add_to_cart.tr,
               height: 50.h,
-              // width: 266.w,
               width: 200.w,
             ),
           ],
@@ -231,8 +219,8 @@ class DrugInfoWidget extends StatelessWidget {
           '$title : ',
           style: TextStyle(
             fontSize: 16.sp,
-            color: AppColor.fontColor1,
-            fontWeight: FontWeight.w500,
+            color: Theme.of(context).textTheme.bodyLarge!.color,
+            fontWeight: FontWeight.bold,
           ),
         ),
         Expanded(
@@ -243,7 +231,7 @@ class DrugInfoWidget extends StatelessWidget {
             style: TextStyle(
               fontSize: 16.sp,
               color: AppColor.fontColor3,
-              fontWeight: FontWeight.w500,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),

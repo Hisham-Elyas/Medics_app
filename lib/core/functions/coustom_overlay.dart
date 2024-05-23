@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import '../constant/app_color.dart';
 import '../constant/image_asset.dart';
 
 showOverlay({required Future<void> Function() asyncFunction}) {
@@ -16,7 +15,7 @@ showOverlay({required Future<void> Function() asyncFunction}) {
           height: 401.h,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(24.r),
-            color: AppColor.backgroundColor,
+            color: Theme.of(Get.context!).colorScheme.background,
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,

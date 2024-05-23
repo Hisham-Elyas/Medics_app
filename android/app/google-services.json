@@ -12,7 +12,12 @@
           "package_name": "com.example.cuer_city"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "891778128604-abn5e9qpluqn431o454ig8l4r3sl77qk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyDKtTJFt5BT2FuU11p61mhWJYr3ZeBmUDo"
@@ -20,7 +25,12 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "891778128604-abn5e9qpluqn431o454ig8l4r3sl77qk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         }
       }
     }

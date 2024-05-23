@@ -73,7 +73,7 @@ class CustomTextFormField extends StatelessWidget {
         cursorColor: const Color(0xffE5E7EB),
         decoration: InputDecoration(
             filled: true,
-            fillColor: fillColor,
+            fillColor: Theme.of(context).colorScheme.secondary,
             hintText: hintText,
             hintStyle: const TextStyle(color: AppColor.fontColor2),
             labelText: hintText,

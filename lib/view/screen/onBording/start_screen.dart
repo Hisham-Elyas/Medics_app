@@ -1,11 +1,11 @@
-import 'package:cuer_city/core/constant/app_color.dart';
-import 'package:cuer_city/core/constant/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '../../../core/constant/app_color.dart';
 import '../../../core/constant/image_asset.dart';
+import '../../../core/constant/routes.dart';
 import '../../../core/constant/string.dart';
 import '../../widget/custom_button.dart';
 
@@ -40,7 +40,7 @@ class StartScreen extends StatelessWidget {
                     style: TextStyle(
                         fontSize: 22.sp,
                         fontWeight: FontWeight.bold,
-                        color: AppColor.fontColor1)),
+                        color: Theme.of(context).textTheme.bodyLarge!.color)),
                 SizedBox(height: 9.h),
                 Text(
                     Login_to_enjoy_the_features_weve_provided_and_stay_healthy

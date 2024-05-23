@@ -1,22 +1,31 @@
+import 'dart:convert';
 import 'dart:developer';
 
-import 'package:cuer_city/core/constant/image_asset.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:jiffy/jiffy.dart';
 
 import '../core/class/enums.dart';
+import '../core/class/local_notification.dart';
 import '../core/constant/app_color.dart';
+import '../core/constant/image_asset.dart';
 import '../core/constant/string.dart';
 import '../core/error/exception.dart';
 import '../data/model/apointment_model.dart';
 import '../data/model/doctor_model.dart';
 import '../data/repositories/appointment_repo.dart';
 import '../view/widget/custom_text_form_field.dart';
-import 'package:jiffy/jiffy.dart';
+import 'notifications_controller.dart';
+import 'user_controller.dart';
 
 class ApointmentController extends GetxController {
+  final AppointmentRepo appointmentRepo2;
+
+  ApointmentController({
+    required this.appointmentRepo2,
+  });
   late StatusRequest statusReq;
 
   @override
@@ -36,31 +45,20 @@ class ApointmentController extends GetxController {
     }, (r) {
       /////
       _appointmentlist.clear();
-      // final h = r.appointment
-      //     .where((element) => element.bookDate!.day >= DateTime.now().day);
       _appointmentlist.addAll(r.appointment);
       _appointmentlist.sort(
         (a, b) => a.bookDate!.compareTo(b.bookDate!),
       );
-      // print("=======hhh=======");
-      // print(Jiffy.parse(_appointmentlist[5].bookDate).fromNow());
-      // print(_appointmentlist[5].bookDate);
-
-      // _appointmentlist.sort((a, b) {
-
-      // Jiffy.parse(a.createdAt!).toUtc() >  Jiffy.parse(b.createdAt!).toNow();
-
-      // }  );
       statusReq = StatusRequest.success;
 
       update();
     });
   }
 
-  final List taps = [
-    'Upcoming',
-    'Completed',
-    'Canceled',
+  List<String> taps = [
+    Upcoming,
+    Completed,
+    Canceled,
   ];
   String? _userName;
   int tapLIstNum = 0;
@@ -70,7 +68,7 @@ class ApointmentController extends GetxController {
     update();
   }
 
-  late DateTime bookingDate;
+  late DateTime bookDate;
   final GlobalKey<FormState> bookingformKey = GlobalKey();
   final List<Appointment> _appointmentlist = [];
   List<Appointment> get appointlist {
@@ -92,7 +90,6 @@ class ApointmentController extends GetxController {
         if (!el.isCompleted! &&
             el.bookDate!
                 .isAfter(DateTime.now().add(const Duration(days: -1)))) {
-          //fix add month chack
           newlist.add(el);
         }
       } else if (index == 1) {
@@ -102,7 +99,6 @@ class ApointmentController extends GetxController {
       }
     }
     if (index == 2) {
-      // fix add from local
       newlist.addAll(getCacheCanceledAppoint());
     }
 
@@ -111,9 +107,9 @@ class ApointmentController extends GetxController {
 
   String? userNamevalidator(String? val) {
     if (val!.isEmpty) {
-      return "Type your Name";
+      return Type_your_Name.tr;
     } else if (GetUtils.isUsername(val)) {
-      return "Enter your vlied name";
+      return Enter_your_vlied_name.tr;
     } else {
       setuserName = val;
       if (oldAppointment != null) {
@@ -131,52 +127,48 @@ class ApointmentController extends GetxController {
     showDatePicker(
       context: Get.context!,
       initialDate: isNew ? DateTime.now() : oldAppointment!.bookDate!,
-      firstDate: DateTime(2000),
-      // firstDate: DateTime.now(),
+      firstDate: DateTime.now(),
       lastDate: DateTime.now().add(const Duration(days: 7)),
       currentDate: DateTime.now(),
     ).then((date) {
       if (date == null) {
         return;
       }
-      bookingDate = date;
-      // final formatDate =
-      //     Jiffy.parseFromDateTime(bookingDate).format(pattern: 'E, d MMM yyyy');
+      bookDate = date;
       showBokingDialog(
         isNew: isNew,
-        bookingDate: bookingDate,
+        bookingDate: bookDate,
         doctorinfo: doctorinfo,
         oldAppoint: oldAppointment,
       );
     });
   }
 
+  DateTime? remindDate;
   void showBokingDialog(
-      {required bookingDate,
+      {required DateTime bookingDate,
       required Doctor doctorinfo,
       Appointment? oldAppoint,
       required bool isNew}) {
     oldAppointment = oldAppoint;
-    bookingDate = bookingDate;
+    bookDate = bookingDate;
     Get.defaultDialog(
-      title: 'Book Appointment',
+      title: Book_Appointment.tr,
       barrierDismissible: false,
       titlePadding: EdgeInsets.only(top: 20.h),
       contentPadding: EdgeInsets.all(20.h),
       buttonColor: AppColor.mainColor,
       radius: 30.r,
       titleStyle: TextStyle(
-        color: AppColor.fontColor3,
+        color: Theme.of(Get.context!).textTheme.displayLarge!.color,
         fontSize: 18.sp,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w600,
       ),
       content: BokingDialog(
         isNew: isNew,
         date: bookingDate,
         doctorinfo: doctorinfo,
       ),
-      // onConfirm: () => submitApointment(doctorinfo),
-      // onCancel: () {},
     );
   }
 
@@ -191,33 +183,51 @@ class ApointmentController extends GetxController {
     }
     bookingformKey.currentState!.save();
     Get.focusScope!.unfocus();
-
-    // final fromDate =
-    //     Jiffy.parseFromDateTime(bookingDate).format(pattern: 'E, d/M/yyyy');
-
-    //////////////// ****
     isAdding = true;
     update();
     final bool isSucss;
-
+    final UserController userInfo = Get.find();
+    final Appointment? newAppointment;
     if (isNew) {
-      isSucss = await appointmentRepo.addAppointment(
-          appointment: Appointment(
-        userId: 'H1',
-        bookDate: bookingDate,
+      newAppointment = Appointment(
+        userId: userInfo.userInf.userId!,
+        bookDate: bookDate,
         doctor: doctorinfo,
         name: _userName!,
-      ));
+      );
+      isSucss =
+          await appointmentRepo.addAppointment(appointment: newAppointment);
     } else {
       // print("===========>  updated");
-      isSucss = await appointmentRepo.updateAppointment(
-          appointment: oldAppointment!
-              .copyWith(bookDate: bookingDate, name: _userName!));
+
+      newAppointment =
+          oldAppointment!.copyWith(bookDate: bookDate, name: _userName!);
+      isSucss =
+          await appointmentRepo.updateAppointment(appointment: newAppointment);
+
       _userName = null;
     }
 
     if (isSucss) {
       getAllAppointment();
+      NotificationController ntfc = Get.find();
+      remindDate = ntfc.remindDate;
+      if (remindDate != null) {
+        bookDate.add(
+            Duration(hours: remindDate!.hour, minutes: remindDate!.minute));
+        LocalNotifications.showScheduleNotification(
+            id: 2,
+            context: Get.context!,
+            title: "Schedule Appointment",
+            body: "This is a Schedule Appointment Notification",
+            payload: jsonEncode(newAppointment),
+            time: bookDate);
+        // LocalNotifications.showSimpleNotification(
+        //   title: "Schedule Appointment",
+        //   body: "This is a Schedule Appointment Notification",
+        //   payload: jsonEncode(newAppointment),
+        // );
+      }
       isAdding = false;
       Get.close(1);
       update();
@@ -247,8 +257,6 @@ class ApointmentController extends GetxController {
       }
       isCanceling = false;
       update();
-      log(" count ====>   ${_appointmentlist.length}");
-      log(" isCanceled ====>   $isCanceled");
     } else {
       isCanceling = false;
       update();
@@ -260,16 +268,17 @@ class ApointmentController extends GetxController {
     try {
       cancledAppoint = appointmentRepo.appointmentLocalData
           .getCachedAppointmentModel(
-            key: 'CANCELED_APPOINTMENT_CACHE',
+            key: 'APPOINTMENT_CACHE',
           )
           .appointment;
-      print("..........................");
-    } on EmptyCacheException {}
+    } on EmptyCacheException catch (e) {
+      log(e.toString());
+    }
     cancledAppoint.add(appointment);
     appointmentRepo.appointmentLocalData.cachegetAppointment(
       appointment: AppointmentModel(
           count: cancledAppoint.length, appointment: cancledAppoint),
-      key: 'CANCELED_APPOINTMENT_CACHE',
+      key: 'APPOINTMENT_CACHE',
     );
   }
 
@@ -301,6 +310,8 @@ class BokingDialog extends GetView<ApointmentController> {
 
   @override
   Widget build(BuildContext context) {
+    final NotificationController notification = Get.find();
+
     return SizedBox(
       width: double.maxFinite,
       child: Form(
@@ -324,14 +335,13 @@ class BokingDialog extends GetView<ApointmentController> {
               onSaved: (val) => controller.setuserName = val,
             ),
             SizedBox(height: 15.h),
-            Text('Date',
+            Text(Date.tr,
                 style: TextStyle(
-                  color: AppColor.fontColor1,
+                  color: Theme.of(context).textTheme.bodyLarge!.color,
                   fontSize: 16.sp,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.bold,
                 )),
             Row(
-              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SvgPicture.asset(
                   ImageAssetSVG.circleCalendarIcon,
@@ -343,9 +353,9 @@ class BokingDialog extends GetView<ApointmentController> {
                     Jiffy.parseFromDateTime(date)
                         .format(pattern: 'E, d MMM yyyy'),
                     style: TextStyle(
-                      color: AppColor.fontColor1,
+                      color: Theme.of(context).textTheme.bodyLarge!.color,
                       fontSize: 14.sp,
-                      fontWeight: FontWeight.w500,
+                      fontWeight: FontWeight.bold,
                     )),
                 const Spacer(),
                 TextButton(
@@ -356,14 +366,35 @@ class BokingDialog extends GetView<ApointmentController> {
                       doctorinfo: doctorinfo,
                     );
                   },
-                  child: Text('Change',
+                  child: Text(Change.tr,
                       style: TextStyle(
                         color: AppColor.fontColor2,
                         fontSize: 12.sp,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.bold,
                       )),
                 )
               ],
+            ),
+            TextButton.icon(
+              onPressed: () {
+                notification.showBokingDialog(bookingDate: date);
+              },
+              icon: Padding(
+                padding: EdgeInsets.only(left: 8.w),
+                child: SvgPicture.asset(
+                  ImageAssetSVG.notificationLogo,
+                  height: 25.h,
+                  width: 25.w,
+                  // ignore: deprecated_member_use
+                  color: AppColor.mainColor,
+                ),
+              ),
+              label: Text(Remind_Me.tr,
+                  style: TextStyle(
+                    color: Theme.of(context).textTheme.bodyLarge!.color,
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.bold,
+                  )),
             ),
             GetBuilder<ApointmentController>(
               builder: (controller) => Row(
@@ -376,15 +407,19 @@ class BokingDialog extends GetView<ApointmentController> {
                               controller.setuserName = null;
                               Get.close(1);
                             },
-                      child: Text("Cancel",
+                      style: const ButtonStyle(
+                          side: MaterialStatePropertyAll(
+                              BorderSide(width: 2, color: AppColor.mainColor))),
+                      child: Text(Cancel.tr,
                           style: TextStyle(
                             fontSize: 14.sp,
-                            fontWeight: FontWeight.w500,
-                          )),
-                      style: ButtonStyle(
-                          side: MaterialStatePropertyAll(BorderSide(
-                              width: 2, color: AppColor.mainColor)))),
+                            fontWeight: FontWeight.bold,
+                          ))),
                   ElevatedButton(
+                    style: const ButtonStyle(
+                        elevation: MaterialStatePropertyAll(5),
+                        backgroundColor:
+                            MaterialStatePropertyAll(AppColor.mainColor)),
                     onPressed: controller.isAdding
                         ? null
                         : () => controller.submitApointment(
@@ -398,11 +433,11 @@ class BokingDialog extends GetView<ApointmentController> {
                             child: CircularProgressIndicator(strokeWidth: 3.w),
                           )
                         : Text(
-                            'Confirm',
+                            Confirm.tr,
                             style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w500,
-                            ),
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
                           ),
                   ),
                 ],

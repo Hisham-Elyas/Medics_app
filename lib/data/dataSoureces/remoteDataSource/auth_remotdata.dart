@@ -1,12 +1,18 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import '../../../core/functions/show_coustom_snackbar.dart';
+import '../../../core/services/services.dart';
 import '../../model/user_model.dart';
 
 abstract class AuthRemotData {
   Future<bool> signUp({required UserModel userModel});
   Future<bool> logIn({required UserModel userModel});
+  Future<bool> signInWithGoogle();
+  Future<bool> logeOut();
   Future<bool> reSetPassword({required String email});
   Future<bool> verifyCode({required String code});
   Future<bool> reSendVerifyCode({required String email});
@@ -16,6 +22,64 @@ abstract class AuthRemotData {
 class AuthRemotDataImpFirebase implements AuthRemotData {
   late final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   late final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
+  late final GoogleSignIn googleSignIn = GoogleSignIn();
+
+  @override
+  Future<bool> logeOut() async {
+    await googleSignIn.disconnect();
+    await firebaseAuth.signOut();
+    return true;
+  }
+
+  @override
+  Future<bool> signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    try {
+      if (googleUser == null) {
+        return false;
+      }
+      // Obtain the auth details from the request
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
+
+      // Create a new credential
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth.accessToken,
+        idToken: googleAuth.idToken,
+      );
+
+      // Once signed in, return the UserCredential
+      final UserCredential userCredential =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+
+      final UserModel userModel = UserModel(
+          email: userCredential.user!.email!,
+          userName: userCredential.user!.displayName,
+          userId: userCredential.user!.uid);
+
+      await firebaseFirestore
+          .collection('users')
+          .doc(userCredential.user!.uid)
+          .set({'user_info': userModel.toMap()}, SetOptions(merge: true));
+      final MyServices services = Get.find();
+      await services.sharedPreferences
+          .setString('user_info', jsonEncode(userModel.toMap()));
+
+      return true;
+    } on FirebaseException catch (e) {
+      showCustomSnackBar(
+          message: "${e.message}", title: 'Auth Error', isError: true);
+
+      printError(info: "Failed with error '${e.code}' :  ${e.message}");
+      return false;
+    } catch (e) {
+      printError(info: e.toString());
+
+      return false;
+    }
+  }
 
   @override
   Future<bool> signUp({required UserModel userModel}) async {
@@ -32,14 +96,9 @@ class AuthRemotDataImpFirebase implements AuthRemotData {
           .collection('users')
           .doc(userCredential.user!.uid)
           .set({'user_info': userModel.toMap()}, SetOptions(merge: true));
-      // final h = await firebaseFirestore
-      //     .collection('users')
-      //     .doc(userCredential.user!.uid)
-      //     .get();
-      // print('===============================');
-      // print(h.data()!['user_info']);
-      // final dat = UserModel.fromMap(h.data()!['user_info']);
-      // print(dat.userName);
+      final MyServices services = Get.find();
+      await services.sharedPreferences
+          .setString('user_info', jsonEncode(userModel.toMap()));
       return true;
     } on FirebaseException catch (e) {
       showCustomSnackBar(
@@ -144,23 +203,3 @@ class AuthRemotDataImpFirebase implements AuthRemotData {
     }
   }
 }
-
-// class AuthRemotDataImpHttp extends GetxService implements AuthRepo {
-//   @override
-//   logIn() {}
-
-//   @override
-//   resendVerifyCode() {}
-
-//   @override
-//   resetPassword() {}
-
-//   @override
-//   setNewPassword() {}
-
-//   @override
-//   signUp() {}
-
-//   @override
-//   verifyCode() {}
-// }

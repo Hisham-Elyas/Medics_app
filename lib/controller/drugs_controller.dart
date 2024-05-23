@@ -1,14 +1,15 @@
 import 'dart:convert';
 import 'dart:math';
-
-import 'package:cuer_city/core/functions/show_coustom_snackbar.dart';
-import 'package:cuer_city/core/services/services.dart';
-import 'package:cuer_city/data/model/drugs_model.dart';
 import 'package:get/get.dart';
 
 import '../core/class/enums.dart';
+import '../core/constant/string.dart';
+import '../core/functions/show_coustom_snackbar.dart';
+import '../core/services/services.dart';
+import '../data/model/drugs_model.dart';
 import '../data/model/drugs_model/product.dart';
 import '../data/repositories/drugs_repo.dart';
+import 'location_controller.dart';
 
 class DrugsController extends GetxController {
   final DrugsRepoImpHttp drugsRepo = Get.find();
@@ -25,7 +26,6 @@ class DrugsController extends GetxController {
   void onInit() async {
     super.onInit();
 
-    await getAllDrougs();
     final cachedCart = myServ.sharedPreferences.getString('MY_CART');
     final cachedFavDrug = myServ.sharedPreferences.getString('MY_FAV_DRUGS');
     if (cachedCart != null) {
@@ -38,7 +38,12 @@ class DrugsController extends GetxController {
         return MapEntry(key, Product.fromJson(value));
       });
     }
-    // print('onReady');
+    await getAllDrougs();
+  }
+
+  void checkout() {
+    LocationController locationController = Get.find();
+    locationController.selectAddress();
   }
 
   Future<void> getAllDrougs() async {
@@ -57,7 +62,7 @@ class DrugsController extends GetxController {
     });
   }
 
-  addTofavorite(Product drug) {
+  void addTofavorite(Product drug) {
     if (favoriteDrug.containsKey(drug.id)) {
       favoriteDrug.removeWhere((key, value) => key == drug.id);
       myServ.sharedPreferences
@@ -68,12 +73,11 @@ class DrugsController extends GetxController {
       favoriteDrug.addAll({drug.id!: drug});
       myServ.sharedPreferences
           .setString('MY_FAV_DRUGS', jsonEncode(favoriteDrug));
-      // print(favoriteDrug.values.toList().length);
       update();
     }
   }
 
-  isFavorite(Product drug) {
+  bool isFavorite(Product drug) {
     if (favoriteDrug.containsKey(drug.id)) {
       return true;
     } else {
@@ -86,66 +90,54 @@ class DrugsController extends GetxController {
       randDrugsList
           .add(drigsData2!.product![Random().nextInt(drigsData2!.count!)]);
     }
-    // print(drugsList.length);
     update();
     return randDrugsList;
   }
 
-  List<Product> filter(String query) {
-    List<Product> filter = [];
-    // print(query);
+  List<Product>? filter(String query) {
+    List<Product>? filter = [];
+
     if (query == "") {
-      // update();
-      // print('1');
-      return drigsData2!.product!;
+      return drigsData2?.product;
     } else {
-      // print('2');
-      filter = drigsData2!.product!.where((element) {
+      filter = drigsData2?.product!.where((element) {
         return element.name!.toUpperCase().startsWith(query.toUpperCase());
       }).toList();
-      // update();
       return filter;
     }
   }
 
-  addToCart(Product drigsinfo) {
-    // cartDrigs.clear();
+  void addToCart(Product drigsinfo) {
     if (cartDrigs.contains(drigsinfo)) {
-      // print('finded');
-      // print(cartDrigs.length);
       showCustomSnackBar(
-          title: 'Drugs Item  💊',
-          message: " Item have been added to cart! ❗",
+          title: Drugs_Item.tr,
+          message: Already_added_to_cart.tr,
           isError: true);
     } else {
-      showCustomSnackBar(title: 'Drugs Item  💊', message: 'add to cart! ✅');
-      // print('new');
-      // print(cartDrigs.length);
+      showCustomSnackBar(title: Drugs_Item.tr, message: add_to_cart.tr);
+
       cartDrigs.add(drigsinfo);
       myServ.sharedPreferences.setString('MY_CART', jsonEncode(cartDrigs));
     }
   }
 
-  deleteFromCart(drigsinfo) {
+  void deleteFromCart(drigsinfo) {
     if (cartDrigs.contains(drigsinfo)) {
       cartDrigs.removeWhere((element) => element == drigsinfo);
       myServ.sharedPreferences.setString('MY_CART', jsonEncode(cartDrigs));
 
       update();
-      print('delet');
-    } else {
-      print('no');
     }
   }
 
-  deleteAllCart() {
+  void deleteAllCart() {
     cartDrigs.clear();
     myServ.sharedPreferences.remove('MY_CART');
 
     update();
   }
 
-  deleteAllFav() {
+  void deleteAllFav() {
     favoriteDrug.clear();
     myServ.sharedPreferences.remove('MY_FAV_DRUGS');
 

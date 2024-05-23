@@ -3,11 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
 import '../../../../controller/drugs_controller.dart';
+import '../../../../core/class/handling_data_view.dart';
 import '../../../../core/constant/image_asset.dart';
+import '../../../../core/constant/string.dart';
+import '../../../../core/functions/get_device_locale.dart';
 import 'drugs_detail_screen.dart';
 import 'widget/cart_widget.dart';
 
-class Search extends SearchDelegate {
+class DrugsSearch extends SearchDelegate {
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
@@ -22,11 +25,13 @@ class Search extends SearchDelegate {
   @override
   Widget? buildLeading(BuildContext context) {
     return IconButton(
-        onPressed: () {
+        onPressed: () async {
           Get.focusScope!.unfocus();
+          await Future.delayed(const Duration(milliseconds: 400));
           Get.close(1);
         },
-        icon: const Icon(Icons.arrow_back_ios_new));
+        icon: Icon(getdeviceLocale(
+            en: Icons.arrow_back_ios_new, ar: Icons.arrow_back_ios)));
   }
 
   @override
@@ -55,32 +60,41 @@ class SearchWidget extends StatelessWidget {
       child: GetBuilder<DrugsController>(builder: (controller) {
         final drigsData = controller.filter(query);
 
-        return ListView.separated(
-            separatorBuilder: (context, index) => SizedBox(height: 20.h),
-            itemCount: drigsData.isEmpty
-                ? 1
-                : drigsData.length > 25
-                    ? 25
-                    : drigsData.length,
-            itemBuilder: (context, index) {
-              // final drigsData = controller.drigsData2!.product!;
-              return drigsData.isEmpty
-                  ? const Center(child: Text('No Match'))
-                  : CartWidget(
-                      onTapIcon: () {
-                        controller.addToCart(drigsData[index]);
-                      },
-                      onTap: () {
-                        Get.focusScope!.unfocus();
+        return drigsData == null
+            ? Center(child: Text(No_data.tr))
+            : HandlingDataView(
+                statusReq: controller.statusReq,
+                widget: drigsData.isEmpty
+                    ? Center(child: Text(No_Match_Fond.tr))
+                    : ListView.separated(
+                        separatorBuilder: (context, index) =>
+                            SizedBox(height: 20.h),
+                        itemCount: drigsData.isEmpty
+                            ? 1
+                            : drigsData.length > 25
+                                ? 25
+                                : drigsData.length,
+                        itemBuilder: (context, index) {
+                          // final drigsData = controller.drigsData2!.product!;
+                          return controller.drigsData2 == null
+                              ? Center(child: Text(No_Match_Fond.tr))
+                              : CartWidget(
+                                  onTapIcon: () {
+                                    controller.addToCart(drigsData[index]);
+                                  },
+                                  onTap: () {
+                                    Get.focusScope!.unfocus();
 
-                        Get.to(
-                          () => DrugsDetailScrren(product: drigsData[index]),
-                        );
-                      },
-                      drigs: drigsData[index],
-                      buttomIcon: ImageAssetSVG.addIcon,
-                    );
-            });
+                                    Get.to(
+                                      () => DrugsDetailScrren(
+                                          product: drigsData[index]),
+                                    );
+                                  },
+                                  drigs: drigsData[index],
+                                  buttomIcon: ImageAssetSVG.addIcon,
+                                );
+                        }),
+              );
       }),
     );
   }

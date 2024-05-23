@@ -1,19 +1,22 @@
-import 'package:cuer_city/core/constant/app_color.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../constant/app_color.dart';
+import '../constant/string.dart';
+
 void showCustomSnackBar(
     {required String message,
     bool isError = false,
-    String title = "Error",
+    String? title,
     void Function(GetSnackBar)? onTap}) {
   Get.closeAllSnackbars();
   Get.snackbar(
-    title,
+    title ?? Errors.tr,
     message,
     onTap: onTap,
-    titleText: Text(title, style: const TextStyle(color: Colors.white)),
+    titleText:
+        Text(title ?? Errors.tr, style: const TextStyle(color: Colors.white)),
     messageText: Text(message, style: const TextStyle(color: Colors.white)),
     colorText: Colors.white,
     snackPosition: SnackPosition.TOP,

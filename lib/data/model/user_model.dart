@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 class UserModel {
   final String? userId;
   final String? userName;
@@ -16,7 +17,6 @@ class UserModel {
       'User_Name': userName,
       'User_Id': userId,
       'User_Email': email,
-      // 'password': password,
     };
   }
 
@@ -25,7 +25,6 @@ class UserModel {
       userId: map['User_Id'] != null ? map['User_Id'] as String : null,
       userName: map['User_Name'] != null ? map['User_Name'] as String : null,
       email: map['User_Email'] as String,
-      // password: map['password'] != null ? map['password'] as String : null,
     );
   }
 
@@ -45,5 +44,10 @@ class UserModel {
         userName.hashCode ^
         email.hashCode ^
         password.hashCode;
+  }
+
+  @override
+  String toString() {
+    return 'UserModel(userId: $userId, userName: $userName, email: $email, password: $password)';
   }
 }

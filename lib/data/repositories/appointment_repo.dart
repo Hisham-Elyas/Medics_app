@@ -1,15 +1,17 @@
 import 'dart:developer';
 
-import 'package:cuer_city/core/functions/show_coustom_snackbar.dart';
-import 'package:cuer_city/data/model/apointment_model.dart';
 import 'package:dartz/dartz.dart';
+import 'package:get/get.dart';
 
 import '../../core/class/enums.dart';
+import '../../core/constant/string.dart';
 import '../../core/error/exception.dart';
 import '../../core/functions/ckeck_internet.dart';
+import '../../core/functions/show_coustom_snackbar.dart';
 import '../../core/functions/show_errormessage.dart';
 import '../dataSoureces/localDataSource/appointment_localdata.dart';
 import '../dataSoureces/remoteDataSource/appointment_remotdata.dart';
+import '../model/apointment_model.dart';
 
 abstract class AppointmentRepo {
   Future<Either<StatusRequest, AppointmentModel>> getAllAppointment();
@@ -20,7 +22,7 @@ abstract class AppointmentRepo {
 }
 
 class AppointmentRepoImpHttp implements AppointmentRepo {
-  final AppointmentRemotDataImpHttp appointmentRemotData;
+  final AppointmentRemotData appointmentRemotData;
   final AppointmentLocalDataImp appointmentLocalData;
   AppointmentRepoImpHttp({
     required this.appointmentLocalData,
@@ -39,26 +41,16 @@ class AppointmentRepoImpHttp implements AppointmentRepo {
 
         return right(remotData);
       } on ServerException catch (_) {
-        // if (e.message != '404') {
-        //   showErrorMessage(e.message);
-        // }
-
         return left(StatusRequest.serverFailure);
       }
     } else {
       try {
-        final localData = await appointmentLocalData.getCachedAppointmentModel(
+        final localData = appointmentLocalData.getCachedAppointmentModel(
           key: 'APPOINTMENT_CACHE',
         );
         log('from Cache  <== Appointment Data');
         return right(localData);
       } on EmptyCacheException {
-        // showNetworkError();
-        // showCustomSnackBar(
-        //     message: "No Data Ckeck your Internet ",
-        //     title: 'Empty Cache ❗',
-        //     isError: true);
-
         return left(StatusRequest.emptyCache);
       }
     }
@@ -71,7 +63,7 @@ class AppointmentRepoImpHttp implements AppointmentRepo {
         await appointmentRemotData.postAppointment(body: appointment.toJson());
 
         log('to Server  ==> addAppointment Data   ');
-        showCustomSnackBar(message: 'Appointment Added', title: 'Done ✅');
+        showCustomSnackBar(message: Appointment_Added.tr, title: Done.tr);
         return true;
       } on ServerException catch (e) {
         showErrorMessage(e.message);
@@ -92,8 +84,7 @@ class AppointmentRepoImpHttp implements AppointmentRepo {
             appointmentId: appointmentId);
 
         log('to Server  ==> delete Appointment Data   ');
-        showCustomSnackBar(
-            message: 'Appointment Canceled 🗑 ', title: 'Done ✅');
+        showCustomSnackBar(message: Appointment_Canceled.tr, title: Done.tr);
         return true;
       } on ServerException catch (e) {
         showErrorMessage(e.message);
@@ -114,7 +105,7 @@ class AppointmentRepoImpHttp implements AppointmentRepo {
             appointmentId: appointment.id, body: appointment.toJson());
 
         log('to Server  ==>  updateAppointment Data   ');
-        showCustomSnackBar(message: 'Appointment Updated', title: 'Done ✅');
+        showCustomSnackBar(message: Appointment_Updated.tr, title: Done.tr);
         return true;
       } on ServerException catch (e) {
         showErrorMessage(e.message);

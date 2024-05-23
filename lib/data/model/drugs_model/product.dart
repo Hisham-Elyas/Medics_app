@@ -18,6 +18,33 @@ class Product {
     this.images,
     this.pdf,
   });
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'id': id,
+      'name': name,
+      'drugInformationAr': drugInformationAr?.toMap(),
+      'drugInformationEn': drugInformationEn?.toMap(),
+      'images': images,
+      'pdf': pdf,
+    };
+  }
+
+  factory Product.fromMap(Map<String, dynamic> map) {
+    return Product(
+      id: map['id'] != null ? map['id'] as String : null,
+      name: map['name'] != null ? map['name'] as String : null,
+      drugInformationAr: map['drugInformationAr'] != null
+          ? DrugInformationAr.fromMap(
+              map['drugInformationAr'] as Map<String, dynamic>)
+          : null,
+      drugInformationEn: map['drugInformationEn'] != null
+          ? DrugInformationEn.fromMap(
+              map['drugInformationEn'] as Map<String, dynamic>)
+          : null,
+      images: map['images'] != null ? map['images'] as String : null,
+      pdf: map['pdf'] != null ? map['pdf'] as String : null,
+    );
+  }
 
   factory Product.fromJson(Map<String, dynamic> json) => Product(
         id: json['_id'] as String?,
@@ -63,5 +90,10 @@ class Product {
         drugInformationEn.hashCode ^
         images.hashCode ^
         pdf.hashCode;
+  }
+
+  @override
+  String toString() {
+    return 'Product(id: $id, name: $name, drugInformationAr: $drugInformationAr, drugInformationEn: $drugInformationEn, images: $images, pdf: $pdf)';
   }
 }
