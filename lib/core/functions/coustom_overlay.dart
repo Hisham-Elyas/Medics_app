@@ -15,7 +15,7 @@ showOverlay({required Future<void> Function() asyncFunction}) {
           height: 401.h,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(24.r),
-            color: Theme.of(Get.context!).colorScheme.background,
+            color: Theme.of(Get.context!).colorScheme.surface,
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,

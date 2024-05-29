@@ -46,9 +46,9 @@ class DoctorsScrren extends StatelessWidget {
                 // height: 90.h,
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 4,
-                    mainAxisSpacing: 14,
-                  ),
+                      crossAxisCount: 4,
+                      mainAxisSpacing: 14,
+                      childAspectRatio: 0.8),
                   itemCount: categoryDoctorList.length,
                   itemBuilder: (context, index) => CategoryWidget(
                     img: categoryDoctorList[index].img,

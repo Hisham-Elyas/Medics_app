@@ -9,7 +9,7 @@ class MyTranslations extends Translations {
 //////////////  on boarding
 
           Lets_get_started: "هيا بنا نبدأ",
-          Skip: "Skip",
+          Skip: "تخطي",
           Login_to_enjoy_the_features_weve_provided_and_stay_healthy:
               "قم بتسجيل الدخول لتستمتع بالميزات التي قدمناها، وحافظ على صحتك!",
           Consult_only_with_a_doctor_you_trust: "استشر فقط الطبيب الذي تثق به",
@@ -42,16 +42,26 @@ class MyTranslations extends Translations {
           Sign_in_with_Apple: 'قم بتسجيل الدخول باستخدام أبل',
           Sign_in_with_Facebook: 'قم بتسجيل الدخول باستخدام الفيسبوك',
           I_agree_to_the_medidoc_Terms_of_Service_and_Privacy_Policy:
-              'أوافق على شروط خدمة  \n سياسة الخصوصيةy',
+              'أوافق على شروط خدمة  \n سياسة الخصوصية',
           Enter_Verification_Code: 'أدخل رمز التحقق',
           Enter_code_that_we_have_sent_to_your_email:
               'أدخل الرمز الذي أرسلناه إلى بريدك الإلكتروني',
           Verify: 'تحقق',
           Didnt_receive_the_code: 'لم تتلق الرمز؟',
           Resend: 'إعادة إرسال',
-
+          //// order screen
+          pendingEnum: "قيد الانتظار",
+          underwayEnum: "قيد التنفيذ",
+          deliveredEnum: "تم التوصيل",
+          closedEnum: "  تم الغلاق الطلب",
+          cancelEnum: "تم الغاء الطلب",
+          Choose_address_for_Delivery: "أختر عنوان للتوصيل",
+          Add_location: "أضف عنوان",
+          Enter_your_address_name: "أدخل اسم لعوانك",
           /////      Settings Screen
           Settings: 'الضبط',
+          Address: 'عناوينى',
+          Orders: 'الطلبات',
           English: 'إنجليزي',
           Arabic: 'العربية',
           Language: 'اللغة',
@@ -143,6 +153,14 @@ class MyTranslations extends Translations {
           /// cart Screen
 
           My_Cart: "عربة التسوق",
+          Cart: "عربة التسوق 🛒",
+          History: "السجل",
+          XProduct: "منتج",
+          Ongoing: "جاري التنفذ",
+          Orders_Details: "تفاصبل الطلب",
+          Your_cart_is_Empty: "عربة التسوق فارقة!",
+          You_should_at_least_add_an_item_in_the_cart:
+              "يجب أضافة عنصر واحد على الاقل",
           Total: "المجموع",
           Checkout: "الدفع",
           Drugs_Item: "عربة الادوية 💊",
@@ -186,6 +204,9 @@ class MyTranslations extends Translations {
           You_Have_Appointment_With: "لديك موعد مع د.",
           //// Location Screen
           Location: "الموقع",
+          LocationInfo: " معلومات الموقع",
+          Save_Address: "حفظ الموقع",
+          You_have_not_selected_location: "لم تقم بأختيار موقع",
           Search_location_ZIP_code: "البحث عن عنوان",
           Confirm_Location: "تأكيد الموقع",
           Confirm_your_address: "تأكيد موقعك",
@@ -252,8 +273,19 @@ class MyTranslations extends Translations {
           Didnt_receive_the_code: Didnt_receive_the_code,
           Resend: Resend,
 
+          /// order Screen
+          pendingEnum: pendingEnum,
+          underwayEnum: underwayEnum,
+          deliveredEnum: deliveredEnum,
+          closedEnum: closedEnum,
+          cancelEnum: cancelEnum,
+          Choose_address_for_Delivery: Choose_address_for_Delivery,
+          Add_location: Add_location,
+          Enter_your_address_name: Enter_your_address_name,
           /////      Settings Screen
           Settings: Settings,
+          Orders: Orders,
+          Address: Address,
           English: English,
           Language: Language,
           Arabic: Arabic,
@@ -332,6 +364,14 @@ class MyTranslations extends Translations {
 
           /// cart Screen
           My_Cart: My_Cart,
+          Cart: Cart,
+          History: History,
+          XProduct: XProduct,
+          Ongoing: Ongoing,
+          Your_cart_is_Empty: Your_cart_is_Empty,
+          Orders_Details: Orders_Details,
+          You_should_at_least_add_an_item_in_the_cart:
+              You_should_at_least_add_an_item_in_the_cart,
           Total: Total,
           Checkout: Checkout,
           Add_to_cart: Add_to_cart,
@@ -358,6 +398,9 @@ class MyTranslations extends Translations {
           You_Have_Appointment_With: You_Have_Appointment_With,
           //// Location Screen
           Location: Location,
+          LocationInfo: LocationInfo,
+          Save_Address: Save_Address,
+          You_have_not_selected_location: You_have_not_selected_location,
           Search_location_ZIP_code: Search_location_ZIP_code,
           Confirm_Location: Confirm_Location,
           Confirm_your_address: Confirm_your_address,

@@ -136,7 +136,7 @@ class SetNotificationDialog extends GetView<NotificationController> {
                     Get.close(1);
                   },
                   style: const ButtonStyle(
-                      side: MaterialStatePropertyAll(
+                      side: WidgetStatePropertyAll(
                           BorderSide(width: 2, color: AppColor.mainColor))),
                   child: Text(Cancel.tr,
                       style: TextStyle(

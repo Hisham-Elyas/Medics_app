@@ -82,7 +82,9 @@ class HomeScreen extends StatelessWidget {
                     child: GridView.builder(
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 4),
+                        crossAxisCount: 4,
+                        childAspectRatio: 0.5,
+                      ),
                       itemCount: categoryHomeList.length,
                       itemBuilder: (context, index) => CategoryWidget(
                         img: categoryHomeList[index].img,
@@ -98,11 +100,11 @@ class HomeScreen extends StatelessWidget {
 
                               break;
                             case 'Hospital':
-                              // Get.toNamed(AppRoutes.getDrugsScrren());
+                              Get.toNamed(AppRoutes.getHospitalScreen());
 
                               break;
                             case 'Ambulance':
-                              // Get.toNamed(AppRoutes.getDrugsScrren());
+                              Get.toNamed(AppRoutes.getAmbulancScreen());
 
                               break;
                             default:

@@ -58,25 +58,45 @@ class CartScreen extends GetView<DrugsController> {
             Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
           Expanded(
             child: GetBuilder<DrugsController>(
-              builder: (controller) => ListView.separated(
-                  separatorBuilder: (context, index) => SizedBox(height: 20.h),
-                  itemCount: controller.cartDrigs.length,
-                  itemBuilder: (context, index) {
-                    final drigsData = controller.cartDrigs;
-                    return CartWidget(
-                      onTapIcon: () {
-                        controller.deleteFromCart(drigsData[index]);
-                      },
-                      onTap: () {
-                        // Get.focusScope!.unfocus();
+              builder: (controller) => controller.cartDrigs.isEmpty
+                  ? Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Image.asset(
+                          ImageAssetPNG.emptyBoxImg,
+                          fit: BoxFit.contain,
+                          height: 200.h,
+                          width: 200.w,
+                        ),
+                        SizedBox(height: 15.h),
+                        Text(Your_cart_is_Empty.tr,
+                            style: TextStyle(
+                              color: AppColor.fontColor3,
+                              fontSize: 16.sp,
+                              fontWeight: FontWeight.w600,
+                            )),
+                        SizedBox(height: 100.h),
+                      ],
+                    )
+                  : ListView.separated(
+                      separatorBuilder: (context, index) =>
+                          SizedBox(height: 20.h),
+                      itemCount: controller.cartDrigs.length,
+                      itemBuilder: (context, index) {
+                        final drigsData = controller.cartDrigs;
+                        return CartWidget(
+                          onTapIcon: () {
+                            controller.deleteFromCart(drigsData[index]);
+                          },
+                          onTap: () {
+                            // Get.focusScope!.unfocus();
 
-                        Get.to(
-                          () => DrugsDetailScrren(product: drigsData[index]),
+                            Get.to(() =>
+                                DrugsDetailScrren(product: drigsData[index]));
+                          },
+                          drigs: drigsData[index],
                         );
-                      },
-                      drigs: drigsData[index],
-                    );
-                  }),
+                      }),
             ),
           )
         ]),
@@ -99,7 +119,7 @@ class CartScreen extends GetView<DrugsController> {
                   ),
                 ),
                 Text(
-                  '\$9.99',
+                  '\$ - . -',
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,

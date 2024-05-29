@@ -31,7 +31,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       automaticallyImplyLeading: false,
       elevation: 0,
       bottomOpacity: 0,
-      shadowColor: Theme.of(context).colorScheme.background.withOpacity(0.1),
+      shadowColor: Theme.of(context).colorScheme.surface.withOpacity(0.1),
       actions: actions,
       leading: goBack
           ? Padding(

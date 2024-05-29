@@ -43,6 +43,13 @@ class DrugsController extends GetxController {
 
   void checkout() {
     LocationController locationController = Get.find();
+    if (cartDrigs.isEmpty) {
+      showCustomSnackBar(
+          message: You_should_at_least_add_an_item_in_the_cart.tr,
+          title: Cart.tr,
+          isError: true);
+      return;
+    }
     locationController.selectAddress();
   }
 
@@ -55,8 +62,8 @@ class DrugsController extends GetxController {
       update();
     }, (r) {
       drigsData2 = null;
-      drigsData2 = r.$1;
-      statusReq = r.$2;
+      drigsData2 = r.value1;
+      statusReq = r.value2;
       randDrugs(10);
       update();
     });

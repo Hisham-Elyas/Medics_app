@@ -22,7 +22,7 @@ class SettingsScreen extends StatelessWidget {
           return Column(children: [
             CustomListTileWidget(
               icon: Icons.location_on_rounded,
-              title: 'Address',
+              title: Address.tr,
               onTap: () {
                 Get.toNamed(AppRoutes.getAddressListScreen());
               },

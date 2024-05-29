@@ -26,7 +26,7 @@ class LoginScreen extends GetView<LoginScreenController> {
           physics: const BouncingScrollPhysics(),
           child: Container(
               padding:
-                  EdgeInsets.symmetric(horizontal: 24.w).copyWith(top: 40.h),
+                  EdgeInsets.symmetric(horizontal: 20.w).copyWith(top: 40.h),
               // width: MediaQuery.of(context).size.width,
               child: Column(
                 children: [

@@ -21,31 +21,31 @@ class SignInWith extends StatelessWidget {
         border: Border.all(width: 1.w, color: const Color(0xffE5E7EB)),
       ),
       height: 56.h,
-      width: 372.w,
+      width: 392.w,
       child: InkWell(
-        borderRadius: BorderRadius.circular(24.r),
+        borderRadius: BorderRadius.circular(25.r),
         onTap: onTap,
         child: Row(
+          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Padding(
-              padding: EdgeInsetsDirectional.only(
-                start: 18.w,
-              ),
-              child: SvgPicture.asset(
-                imgSvg,
-                height: 20.h,
-                width: 19.58.w,
-              ),
+            SizedBox(width: 18.w),
+            SvgPicture.asset(
+              imgSvg,
+              height: 15.h,
+              width: 15.w,
+              fit: BoxFit.contain,
             ),
 
-            SizedBox(width: 54.32.w),
-            Center(
-              child: Text(
-                text,
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16.sp,
-                    color: Theme.of(context).textTheme.bodyLarge!.color),
+            SizedBox(width: 20.w),
+            FittedBox(
+              child: Center(
+                child: Text(
+                  text,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 14.sp,
+                      color: Theme.of(context).textTheme.bodyLarge!.color),
+                ),
               ),
             ),
             // SizedBox(width: 89.w),

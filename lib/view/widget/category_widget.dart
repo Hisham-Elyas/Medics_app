@@ -19,9 +19,8 @@ class CategoryWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 64.w,
-      height: 84.h,
-      child:
-          Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+      height: 100.h,
+      child: Column(children: [
         Material(
           borderRadius: BorderRadius.circular(16.r),
           elevation: 3,
@@ -31,7 +30,7 @@ class CategoryWidget extends StatelessWidget {
             height: 56.h,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16.r),
-              color: Theme.of(context).colorScheme.background,
+              color: Theme.of(context).colorScheme.surface,
             ),
             child: InkWell(
               borderRadius: BorderRadius.circular(12.r),
@@ -46,6 +45,7 @@ class CategoryWidget extends StatelessWidget {
             ),
           ),
         ),
+        SizedBox(height: 10.h),
         FittedBox(
           child: Text(
             name,

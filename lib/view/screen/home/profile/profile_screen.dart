@@ -46,7 +46,7 @@ class ProfileScreen extends GetView<UserController> {
             children: [
               CircleAvatar(
                 radius: 50.r,
-                backgroundColor: Theme.of(context).colorScheme.background,
+                backgroundColor: Theme.of(context).colorScheme.surface,
                 child: SvgPicture.asset(
                   ImageAssetSVG.logo2,
                   fit: BoxFit.scaleDown,
@@ -60,14 +60,14 @@ class ProfileScreen extends GetView<UserController> {
                 style: TextStyle(
                     fontSize: 18.sp,
                     fontWeight: FontWeight.w500,
-                    color: Theme.of(context).colorScheme.background),
+                    color: Theme.of(context).colorScheme.surface),
               ),
               Text(
                 controller.userInf.email,
                 style: TextStyle(
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w500,
-                    color: Theme.of(context).colorScheme.background),
+                    color: Theme.of(context).colorScheme.surface),
               ),
             ],
           ),
@@ -92,7 +92,7 @@ class ProfileScreen extends GetView<UserController> {
                     },
                   ),
                   CustomProfileButton(
-                    title: "Orders",
+                    title: Orders.tr,
                     imageAssetSVG: ImageAssetSVG.buyIcon,
                     onTap: () {
                       Get.toNamed(AppRoutes.getOrderScreen());
@@ -169,7 +169,7 @@ class CustomProfileButton extends StatelessWidget {
                   backgroundColor: Theme.of(context).colorScheme.secondary,
                   child: SvgPicture.asset(
                     imageAssetSVG,
-                    fit: BoxFit.none,
+                    fit: BoxFit.contain,
                     height: 24.h,
                     width: 24.w,
                   ),

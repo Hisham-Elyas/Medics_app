@@ -3,14 +3,16 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
-import 'drugs_model/product.dart';
+import '../../core/constant/string.dart';
 import 'location_model.dart';
 import 'user_model.dart';
 
 enum Status {
-  pending('pending'),
-  underway('underway'),
-  delivered('delivered');
+  pending(pendingEnum),
+  underway(underwayEnum),
+  delivered(deliveredEnum),
+  closed(closedEnum),
+  cancel(cancelEnum);
 
   const Status(this.type);
   final String type;
@@ -19,12 +21,16 @@ enum Status {
 extension ConvertStatus on String {
   Status toEnum() {
     switch (this) {
-      case "pending":
+      case pendingEnum:
         return Status.pending;
-      case "underway":
+      case underwayEnum:
         return Status.underway;
-      case "delivered":
+      case deliveredEnum:
         return Status.delivered;
+      case cancelEnum:
+        return Status.cancel;
+      case closedEnum:
+        return Status.closed;
 
       default:
         return Status.pending;
@@ -32,59 +38,100 @@ extension ConvertStatus on String {
   }
 }
 
+class OrderListModel {
+  final int? count;
+  final List<OrderModel> producus;
+
+  OrderListModel({this.count, required this.producus});
+
+  factory OrderListModel.fromMap(Map<String, dynamic> map) {
+    return OrderListModel(
+      count: map['count'] != null ? map['count'] as int : null,
+      producus: List<OrderModel>.from(
+        (map['producus'] as List<dynamic>).map<OrderModel>(
+          (x) => OrderModel.fromMap(x as Map<String, dynamic>),
+        ),
+      ),
+    );
+  }
+
+  factory OrderListModel.fromJson(String source) =>
+      OrderListModel.fromMap(json.decode(source) as Map<String, dynamic>);
+}
+
 class OrderModel {
   final String? id;
+  final String? userId;
   final UserModel userInfo;
   final LocationModel userLocation;
-  final List<Product> listProduct;
+  final List<String?> listProduct;
   final Status? status;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
 
   OrderModel({
     this.id,
+    this.userId,
     required this.userInfo,
     required this.userLocation,
     required this.listProduct,
     this.status,
+    this.createdAt,
+    this.updatedAt,
   });
 
   OrderModel copyWith({
     String? id,
+    String? userId,
     UserModel? userInfo,
     LocationModel? userLocation,
-    List<Product>? listProduct,
+    List<String?>? listProduct,
     Status? status,
+    DateTime? createdAt,
+    DateTime? updatedAt,
   }) {
     return OrderModel(
       id: id ?? this.id,
+      userId: userId ?? this.userId,
       userInfo: userInfo ?? this.userInfo,
       userLocation: userLocation ?? this.userLocation,
       listProduct: listProduct ?? this.listProduct,
       status: status ?? this.status,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
     );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
+      'userId': userId,
       'userInfo': userInfo.toMap(),
       'userLocation': userLocation.toMap(),
-      'listProduct': listProduct.map((x) => x.toMap()).toList(),
+      'listProduct': listProduct,
       'status': status?.type,
+      'createdAt': createdAt?.toString(),
+      'updatedAt': updatedAt?.toString(),
     };
   }
 
   factory OrderModel.fromMap(Map<String, dynamic> map) {
     return OrderModel(
       id: map['id'] != null ? map['id'] as String : null,
+      userId: map['userId'] != null ? map['userId'] as String : null,
       userInfo: UserModel.fromMap(map['userInfo'] as Map<String, dynamic>),
       userLocation:
           LocationModel.fromMap(map['userLocation'] as Map<String, dynamic>),
-      listProduct: List<Product>.from(
-        (map['listProduct'] as List<int>).map<Product>(
-          (x) => Product.fromMap(x as Map<String, dynamic>),
-        ),
-      ),
-      status: map['status'] != null ? (map['status'] as String).toEnum() : null,
+      listProduct: List<String?>.from((map['listProduct'] as List<dynamic>)),
+      status: map['status'] != null
+          ? (map['status'] as String).toEnum()
+          : Status.pending,
+      createdAt: map['createdAt'] != null
+          ? DateTime.tryParse(map['createdAt'] as String)
+          : null,
+      updatedAt: map['updatedAt'] != null
+          ? DateTime.tryParse(map['updatedAt'] as String)
+          : null,
     );
   }
 
@@ -95,7 +142,7 @@ class OrderModel {
 
   @override
   String toString() {
-    return 'OrderModel(id: $id, userInfo: $userInfo, userLocation: $userLocation, listProduct: $listProduct, status: $status)';
+    return 'OrderModel(id: $id, userId: $userId, userInfo: $userInfo, userLocation: $userLocation, listProduct: $listProduct, status: $status, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -103,18 +150,24 @@ class OrderModel {
     if (identical(this, other)) return true;
 
     return other.id == id &&
+        other.userId == userId &&
         other.userInfo == userInfo &&
         other.userLocation == userLocation &&
         listEquals(other.listProduct, listProduct) &&
-        other.status == status;
+        other.status == status &&
+        other.createdAt == createdAt &&
+        other.updatedAt == updatedAt;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
+        userId.hashCode ^
         userInfo.hashCode ^
         userLocation.hashCode ^
         listProduct.hashCode ^
-        status.hashCode;
+        status.hashCode ^
+        createdAt.hashCode ^
+        updatedAt.hashCode;
   }
 }

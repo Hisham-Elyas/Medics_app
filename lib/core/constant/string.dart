@@ -75,6 +75,8 @@ const String Report_a_Problem_Or_Leave_Feedback =
 
 ///  profile Screen
 const String My_Saved = 'My Saved';
+const String Orders = "Orders";
+const String Address = 'My Addresses';
 const String Appointmnet = 'Appointmnet';
 const String FAQs = 'FAQs';
 const String Logout = 'Logout';
@@ -164,6 +166,14 @@ const String Search_drugs_category = 'Search drugs, category...';
 
 ///  Cart Screen
 const String My_Cart = 'My Cart';
+const String Cart = "Cart  🛒";
+const String Ongoing = "Ongoing";
+const String XProduct = "Product";
+const String History = "History";
+const String Orders_Details = 'Orders Details';
+const String Your_cart_is_Empty = 'Your cart is Empty!';
+const String You_should_at_least_add_an_item_in_the_cart =
+    "You should at least add an item in the cart!";
 const String Total = 'Total';
 const String Checkout = 'Checkout';
 const String Drugs_Item = 'Drugs Item  💊';
@@ -193,6 +203,20 @@ const String Notifications = 'Notifications';
 const String You_Have_Appointment_With = 'You Have Appointment With Dr. ';
 ////  Location Screen
 const String Location = 'Location';
+const String LocationInfo = 'Location Info';
+const String Save_Address = "Save Address";
 const String Confirm_Location = 'Confirm Location';
+const String You_have_not_selected_location =
+    "You have not selected a location";
 const String Confirm_your_address = 'Confirm your address';
 const String Search_location_ZIP_code = 'Search location, ZIP code...';
+
+////  order
+const String pendingEnum = 'pending';
+const String underwayEnum = 'underway';
+const String deliveredEnum = 'delivered';
+const String closedEnum = 'closed';
+const String cancelEnum = 'cancel';
+const String Choose_address_for_Delivery = 'Choose an address for Delivery';
+const String Add_location = "Add location!";
+const String Enter_your_address_name = "Enter a name for your address";

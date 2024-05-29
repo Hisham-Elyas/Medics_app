@@ -12,7 +12,7 @@ import '../model/drugs_model.dart';
 import '../model/drugs_model/product.dart';
 
 abstract class DrugsRepo {
-  Future<Either<StatusRequest, (DrugsModel, StatusRequest)>> getAllData();
+  Future<Either<StatusRequest, Tuple2<DrugsModel, StatusRequest>>> getAllData();
   Future<Either<Unit, DrugsModel>> searchByName({required String name});
   Future<Either<Unit, Product>> findById({required String id});
   // Future<DrugsModel> getRandData({required int limet});
@@ -27,7 +27,7 @@ class DrugsRepoImpHttp implements DrugsRepo {
   });
 
   @override
-  Future<Either<StatusRequest, (DrugsModel, StatusRequest)>>
+  Future<Either<StatusRequest, Tuple2<DrugsModel, StatusRequest>>>
       getAllData() async {
     if (await ckeckInternet()) {
       try {
@@ -36,7 +36,7 @@ class DrugsRepoImpHttp implements DrugsRepo {
 
         log('from Server ==> drugs Data ');
 
-        return right((remotData, StatusRequest.success));
+        return right(Tuple2(remotData, StatusRequest.success));
       } on ServerException catch (e) {
         showErrorMessage(e.message);
 
@@ -46,7 +46,7 @@ class DrugsRepoImpHttp implements DrugsRepo {
       try {
         final localData = await drugslocalData.getCachedDurgs();
         log('from Cache <==  drugs Data');
-        return right((localData, StatusRequest.success));
+        return right(Tuple2(localData, StatusRequest.success));
       } on EmptyCacheException {
         showNetworkError();
 

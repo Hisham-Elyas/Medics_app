@@ -408,7 +408,7 @@ class BokingDialog extends GetView<ApointmentController> {
                               Get.close(1);
                             },
                       style: const ButtonStyle(
-                          side: MaterialStatePropertyAll(
+                          side: WidgetStatePropertyAll(
                               BorderSide(width: 2, color: AppColor.mainColor))),
                       child: Text(Cancel.tr,
                           style: TextStyle(
@@ -417,9 +417,9 @@ class BokingDialog extends GetView<ApointmentController> {
                           ))),
                   ElevatedButton(
                     style: const ButtonStyle(
-                        elevation: MaterialStatePropertyAll(5),
+                        elevation: WidgetStatePropertyAll(5),
                         backgroundColor:
-                            MaterialStatePropertyAll(AppColor.mainColor)),
+                            WidgetStatePropertyAll(AppColor.mainColor)),
                     onPressed: controller.isAdding
                         ? null
                         : () => controller.submitApointment(

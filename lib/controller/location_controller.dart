@@ -9,11 +9,13 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import '../core/class/enums.dart';
 import '../core/constant/app_color.dart';
 import '../core/constant/image_asset.dart';
 import '../core/constant/routes.dart';
 import '../core/constant/string.dart';
 import '../core/functions/ckeck_internet.dart';
+import '../core/functions/show_coustom_snackbar.dart';
 import '../core/services/services.dart';
 import '../data/model/location_model.dart';
 import '../view/widget/custom_text_form_field.dart';
@@ -21,14 +23,37 @@ import 'order_controller.dart';
 
 class LocationController extends GetxController {
   final GlobalKey<FormState> addressformKey = GlobalKey();
-  LatLng initialPostion = const LatLng(17.700868, 33.977929);
+  LatLng initialPostion = const LatLng(0, 0);
   late GoogleMapController mapController;
   late CameraPosition currentCameraPostion;
   List<Placemark> placemark = [];
   Set<Marker> currentMarker = <Marker>{};
   List<LocationModel> myLocationlist = [];
-  String address = "Unkow Loaction Found";
+  String address = You_have_not_selected_location.tr;
   bool isVisibilityConfirmBox = true;
+  late Position myPosition;
+  StatusRequest statusReq = StatusRequest.loading;
+  @override
+  void onInit() async {
+    super.onInit();
+    statusReq = StatusRequest.loading;
+    update();
+    getmyLocationlist();
+    await setCustomMarkerIcon();
+    myPosition = await getDetermineAndPosition();
+    currentCameraPostion = CameraPosition(
+        zoom: 18, target: LatLng(myPosition.latitude, myPosition.longitude));
+    initialPostion = LatLng(myPosition.latitude, myPosition.longitude);
+    await getplacemarkFromCoordinates(
+        position: LatLng(myPosition.latitude, myPosition.longitude));
+    currentMarker.clear();
+    currentMarker.add(Marker(
+        markerId: const MarkerId('1'),
+        icon: sourceIcon,
+        position: LatLng(myPosition.latitude, myPosition.longitude)));
+    statusReq = StatusRequest.success;
+    update();
+  }
 
   set setisVisibilityConfirmBox(value) {
     isVisibilityConfirmBox = value;
@@ -37,8 +62,15 @@ class LocationController extends GetxController {
 
   MyServices myServices = Get.find();
   void showAddressDialog() {
+    if (address == You_have_not_selected_location.tr) {
+      showCustomSnackBar(
+          message: You_have_not_selected_location.tr,
+          title: LocationInfo.tr,
+          isError: true);
+      return;
+    }
     Get.defaultDialog(
-      title: "Save Address",
+      title: Save_Address.tr,
       barrierDismissible: false,
       titlePadding: EdgeInsets.only(top: 20.h),
       contentPadding: EdgeInsets.all(20.h),
@@ -54,10 +86,12 @@ class LocationController extends GetxController {
   }
 
   void confirmAddress() async {
-    if (!addressformKey.currentState!.validate()) {
+    if (!addressformKey.currentState!.validate() ||
+        address == You_have_not_selected_location.tr) {
       // Invalid!
       return;
     }
+
     addressformKey.currentState!.save();
     Get.focusScope!.unfocus();
     myLocationlist.add(LocationModel(
@@ -67,7 +101,9 @@ class LocationController extends GetxController {
         latitude: currentCameraPostion.target.latitude));
     await myServices.sharedPreferences
         .setString("My_Location", jsonEncode(myLocationlist));
-    Get.close(2);
+    Get.close(1);
+    Get.back();
+
     update();
   }
 
@@ -75,7 +111,7 @@ class LocationController extends GetxController {
   set setuserAddress(val) => _userAddress = val;
   String? addressvalidator(String? val) {
     if (val!.isEmpty) {
-      return "Type_your_Address";
+      return Enter_your_address_name.tr;
     }
     return null;
   }
@@ -89,7 +125,7 @@ class LocationController extends GetxController {
 
   void selectAddress() async {
     Get.bottomSheet(
-        backgroundColor: Theme.of(Get.context!).colorScheme.background,
+        backgroundColor: Theme.of(Get.context!).colorScheme.surface,
         const ChoosesAddressWidget());
   }
 
@@ -101,26 +137,9 @@ class LocationController extends GetxController {
     }
   }
 
-  @override
-  void onInit() async {
-    super.onInit();
-    getmyLocationlist();
-    await setCustomMarkerIcon();
-    final Position myPosition = await getDetermineAndPosition();
-    currentCameraPostion = CameraPosition(
-        target: LatLng(myPosition.latitude, myPosition.longitude));
-    // initialPostion = LatLng(myPosition.latitude, myPosition.longitude);
-    await getplacemarkFromCoordinates(
-        position: LatLng(myPosition.latitude, myPosition.longitude));
-    currentMarker.add(Marker(
-        markerId: const MarkerId('1'),
-        icon: sourceIcon,
-        position: LatLng(myPosition.latitude, myPosition.longitude)));
-  }
-
   BitmapDescriptor sourceIcon = BitmapDescriptor.defaultMarker;
   Future<void> setCustomMarkerIcon() async {
-    await BitmapDescriptor.fromAssetImage(ImageConfiguration.empty,
+    await BitmapDescriptor.asset(ImageConfiguration.empty,
             "assets/images/LocationMapIcon.png") //assets/images/LocationMapIcon.png
         .then((icon) => sourceIcon = icon);
   }
@@ -196,8 +215,9 @@ class LocationController extends GetxController {
   }
 
   Future<void> animateCameratoMyPosition({required LatLng latlng}) async {
-    mapController.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
-        target: LatLng(latlng.latitude, latlng.longitude), zoom: 20)));
+    await mapController.animateCamera(CameraUpdate.newCameraPosition(
+        CameraPosition(
+            target: LatLng(latlng.latitude, latlng.longitude), zoom: 18)));
   }
 }
 
@@ -217,7 +237,7 @@ class ChoosesAddressWidget extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  const Text('Choose an address for Delivery'),
+                  Text(Choose_address_for_Delivery.tr),
                   Container(
                       decoration: BoxDecoration(
                           color: AppColor.mainColor3,
@@ -234,7 +254,7 @@ class ChoosesAddressWidget extends StatelessWidget {
               GetBuilder<LocationController>(
                 builder: (controller) => Expanded(
                   child: controller.myLocationlist.isEmpty
-                      ? const Center(child: Text("Add location!"))
+                      ? Center(child: Text(Add_location.tr))
                       : ListView.builder(
                           itemCount: controller.myLocationlist.length,
                           itemBuilder: (context, index) {
@@ -296,7 +316,7 @@ class AddressDialog extends GetView<LocationController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CustomTextFormField(
-              hintText: "Enter_your_address_name",
+              hintText: Enter_your_address_name.tr,
               textInputAction: TextInputAction.next,
               keyboardType: TextInputType.name,
               autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -335,7 +355,7 @@ class AddressDialog extends GetView<LocationController> {
                       Get.close(1);
                     },
                     style: const ButtonStyle(
-                        side: MaterialStatePropertyAll(
+                        side: WidgetStatePropertyAll(
                             BorderSide(width: 2, color: AppColor.mainColor))),
                     child: Text(Cancel.tr,
                         style: TextStyle(
@@ -344,9 +364,9 @@ class AddressDialog extends GetView<LocationController> {
                         ))),
                 ElevatedButton(
                   style: const ButtonStyle(
-                      elevation: MaterialStatePropertyAll(5),
+                      elevation: WidgetStatePropertyAll(5),
                       backgroundColor:
-                          MaterialStatePropertyAll(AppColor.mainColor)),
+                          WidgetStatePropertyAll(AppColor.mainColor)),
                   onPressed: () {
                     controller.confirmAddress();
                   },

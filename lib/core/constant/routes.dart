@@ -10,18 +10,20 @@ import '../../view/screen/auth/reset_password_screen.dart';
 import '../../view/screen/auth/sign_up_screen.dart';
 import '../../view/screen/auth/verify_code_screen.dart';
 import '../../view/screen/home/Schedule/schedule_screen.dart';
+import '../../view/screen/home/ambulance/ambulance_screen.dart';
 import '../../view/screen/home/doctors/doctors_detail_screen.dart';
 import '../../view/screen/home/doctors/doctors_list_screen.dart';
 import '../../view/screen/home/doctors/doctors_screen.dart';
 import '../../view/screen/home/drugs/cart_screen.dart';
 import '../../view/screen/home/drugs/drugs_screen.dart';
-import '../../view/screen/home/location/location_screen.dart';
+import '../../view/screen/home/hospital/hospital_screen.dart';
+import '../../view/screen/home/location/location_map_screen.dart';
 import '../../view/screen/home/main_screen.dart';
-import '../../view/screen/home/notifications/address_list_screen.dart';
+import '../../view/screen/home/location/address_list_screen.dart';
 import '../../view/screen/home/profile/my_favorite_screen.dart';
 import '../../view/screen/home/notifications/notifications_screen.dart';
 import '../../view/screen/home/profile/feedback_sereen.dart';
-import '../../view/screen/home/profile/order_screen.dart';
+import '../../view/screen/home/order/order_screen.dart';
 import '../../view/screen/home/profile/settings_screen.dart';
 import '../../view/screen/onBording/on_boarding_screen.dart';
 import '../../view/screen/onBording/start_screen.dart';
@@ -46,6 +48,7 @@ class AppRoutes {
   static const String doctorsScrren = '/Doctors-Screen';
   static const String doctorDetailScrren = '/Doctor-Detail-Screen';
   static const String doctorListScreen = '/Doctor-List-Screen';
+
   static const String favoriteScreen = '/Favorite-Screen';
   static const String scheduleScreen = '/Schedule-Screen';
   static const String chatsScreen = '/Chats-Screen';
@@ -55,6 +58,8 @@ class AppRoutes {
   static const String notificationsScreen = '/Notifications-Screen';
   static const String orderScreen = '/Order-Screen';
   static const String settingsScreen = '/Settings-Screen';
+  static const String hospitalScreen = '/Hospital-Screen';
+  static const String ambulancScreen = '/Ambulanc-Screen';
   static String getOnBoardingn() => onBoarding;
   static String getStartScreen() => startScreen;
   static String getLoginScreen() => loginScreen;
@@ -68,6 +73,8 @@ class AppRoutes {
   static String getFeedbackScreen() => feedbackScreen;
   static String getNotificationsScreen() => notificationsScreen;
   static String getOrderScreen() => orderScreen;
+  static String getHospitalScreen() => hospitalScreen;
+  static String getAmbulancScreen() => ambulancScreen;
   static String getSettingsScreen() => settingsScreen;
 
   /// profile screen
@@ -229,6 +236,18 @@ class AppRoutes {
         name: settingsScreen,
         page: () {
           return const SettingsScreen();
+        },
+        transition: Transition.circularReveal),
+    GetPage(
+        name: hospitalScreen,
+        page: () {
+          return const HospitalScreen();
+        },
+        transition: Transition.circularReveal),
+    GetPage(
+        name: ambulancScreen,
+        page: () {
+          return const AmbulanceScreen();
         },
         transition: Transition.circularReveal),
   ];

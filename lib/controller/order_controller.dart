@@ -1,8 +1,11 @@
 import 'dart:convert';
 
 import 'package:cuer_city/core/services/services.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../core/class/enums.dart';
+import '../core/constant/string.dart';
 import '../data/model/location_model.dart';
 import '../data/model/order_model.dart';
 import '../data/repositories/orders_repo.dart';
@@ -14,37 +17,97 @@ class OrderController extends GetxController {
   UserController userInfoController = Get.find();
   DrugsController drugsController = Get.find();
   MyServices serv = Get.find();
-  List<OrderModel> cartHistory = [];
+  List<OrderModel> orderHistory = [];
+  List<OrderModel> ordersOngoing = [];
+  PageController pagecontroller = PageController();
+  StatusRequest statusRequest = StatusRequest.loading;
   final List<String> taps = [
-    "Pending",
-    "History",
+    Ongoing,
+    History,
   ];
+
   int tapLIstNum = 0;
 
   set setTapLIstNum(val) {
     tapLIstNum = val;
+    pagecontroller.animateToPage(val,
+        duration: const Duration(milliseconds: 700),
+        curve: Curves.fastOutSlowIn);
     update();
   }
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
-    getCartHistoryList();
+    await getAllOrders();
+  }
+
+  Color statusColor(Status status) {
+    switch (status) {
+      case Status.pending:
+        return Colors.blueGrey;
+      case Status.underway:
+        return Colors.blue;
+      case Status.delivered:
+        return const Color(0xff7beb78);
+      case Status.cancel:
+        return Colors.grey;
+      case Status.closed:
+        return Colors.red;
+      default:
+        return Colors.grey;
+    }
+  }
+
+  Future<void> cancelOrders({required String orderId}) async {
+    final bool data = await orderRepoImpHttp.cancelOrder(orderId: orderId);
+    if (data) {
+      // ordersOngoing.removeAt(index);
+      // update();
+      getAllOrders();
+    }
+  }
+
+  Future<void> getAllOrders() async {
+    statusRequest = StatusRequest.loading;
+    update();
+    final data = await orderRepoImpHttp.getAllOrders(
+        userId: userInfoController.userInf.userId);
+    data.fold((l) {
+      statusRequest = l;
+    }, (r) {
+      orderHistory.clear();
+      ordersOngoing.clear();
+      for (var element in r) {
+        if (element.status! == Status.pending ||
+            element.status! == Status.underway) {
+          ordersOngoing.add(element);
+        } else {
+          orderHistory.add(element);
+        }
+      }
+      ordersOngoing.sort((a, b) => b.updatedAt!.compareTo(a.updatedAt!));
+      orderHistory.sort((a, b) => b.updatedAt!.compareTo(a.updatedAt!));
+
+      statusRequest = StatusRequest.success;
+    });
+    update();
   }
 
   void ordering({required LocationModel location}) async {
     final OrderModel newOrder = OrderModel(
+      userId: userInfoController.userInf.userId,
       userInfo: userInfoController.userInf,
       userLocation: location,
-      listProduct: drugsController.cartDrigs,
+      listProduct:
+          drugsController.cartDrigs.map((element) => element.name).toList(),
     );
 
     /// send newOrder to Server
     final bool isOk = await orderRepoImpHttp.addOrder(order: newOrder);
     if (isOk) {
-      cartHistory.add(newOrder);
-      await addToCartHistoryList(orderList: cartHistory);
-      // drugsController.deleteAllCart();
+      // await addToCartHistoryList(orderList: orderHistory);
+      drugsController.deleteAllCart();
       Get.close(1);
     }
   }
@@ -60,7 +123,7 @@ class OrderController extends GetxController {
         serv.sharedPreferences.getString("CART_HISTORY_LIST");
     if (cachedCartHistory != null) {
       final List cart = jsonDecode(cachedCartHistory);
-      cartHistory = cart.map((e) => OrderModel.fromJson(e)).toList();
+      orderHistory = cart.map((e) => OrderModel.fromJson(e)).toList();
     }
   }
 

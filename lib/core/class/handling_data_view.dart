@@ -36,7 +36,7 @@ class HandlingDataView extends StatelessWidget {
               margin: EdgeInsets.only(top: 90.h),
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.background,
+                  color: Theme.of(context).colorScheme.surface,
                   borderRadius: BorderRadius.circular(25.r)),
               child: SizedBox(
                   height: 15.r,

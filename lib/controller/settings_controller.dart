@@ -43,7 +43,7 @@ class SettingsController extends GetxController {
       padding: EdgeInsets.symmetric(vertical: 10.h),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
-        color: Theme.of(Get.context!).colorScheme.background,
+        color: Theme.of(Get.context!).colorScheme.surface,
       ),
       width: double.maxFinite,
       child: Column(

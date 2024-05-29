@@ -23,8 +23,8 @@ class AppTheme {
         primary: AppColor.mainColor,
         secondary: AppColor.mainColor2,
         onPrimary: AppColor.mainColor3,
-        background: AppColor.backgroundColor,
-        onBackground: AppColor.backgroundColor2,
+        surface: AppColor.backgroundColor,
+        onSurface: AppColor.backgroundColor2,
       ));
   static ThemeData darkEnglish = ThemeData(
       // fontFamily: '',
@@ -41,7 +41,7 @@ class AppTheme {
         secondary: AppColor.mainColor2.withAlpha(200),
         onPrimary: AppColor.mainColor3,
         // background: AppColor.backgroundColor,
-        onBackground: AppColor.backgroundColor2.withAlpha(200),
+        onSurface: AppColor.backgroundColor2.withAlpha(200),
       ));
 
   static ThemeData lightArabic = ThemeData(
@@ -64,8 +64,8 @@ class AppTheme {
         primary: AppColor.mainColor,
         secondary: AppColor.mainColor2,
         onPrimary: AppColor.mainColor3,
-        background: AppColor.backgroundColor,
-        onBackground: AppColor.backgroundColor2,
+        surface: AppColor.backgroundColor,
+        onSurface: AppColor.backgroundColor2,
       ));
   static ThemeData darkArabic = ThemeData(
       brightness: Brightness.dark,
@@ -80,6 +80,6 @@ class AppTheme {
         primary: AppColor.mainColor,
         secondary: AppColor.mainColor2.withAlpha(200),
         onPrimary: AppColor.mainColor3,
-        onBackground: AppColor.backgroundColor2.withAlpha(200),
+        onSurface: AppColor.backgroundColor2.withAlpha(200),
       ));
 }

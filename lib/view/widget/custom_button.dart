@@ -26,15 +26,15 @@ class CustomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ButtonStyle(
-          overlayColor: MaterialStatePropertyAll(isOutlin
+          overlayColor: WidgetStatePropertyAll(isOutlin
               ? AppColor.mainColor.withOpacity(0.4)
               : AppColor.mainColor3.withOpacity(0.6)),
-          backgroundColor: MaterialStatePropertyAll(isOutlin
-              ? Theme.of(context).colorScheme.background
+          backgroundColor: WidgetStatePropertyAll(isOutlin
+              ? Theme.of(context).colorScheme.surface
               : AppColor.mainColor),
-          elevation: MaterialStatePropertyAll(isOutlin ? 1 : 5),
+          elevation: WidgetStatePropertyAll(isOutlin ? 1 : 5),
           enableFeedback: true,
-          padding: const MaterialStatePropertyAll(EdgeInsets.all(0))),
+          padding: const WidgetStatePropertyAll(EdgeInsets.all(0))),
       onPressed: onPressed,
       child: Container(
         width: width,
@@ -55,7 +55,7 @@ class CustomButton extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         color: isOutlin
                             ? AppColor.mainColor
-                            : Theme.of(context).colorScheme.background),
+                            : Theme.of(context).colorScheme.surface),
                   )),
       ),
     );

@@ -110,7 +110,7 @@ class DrugsDetailScrren extends GetView<DrugsController> {
                           children: [
                             ElevatedButton.icon(
                                 style: const ButtonStyle(
-                                    elevation: MaterialStatePropertyAll(5)),
+                                    elevation: WidgetStatePropertyAll(5)),
                                 onPressed: () {},
                                 icon: const Icon(
                                   Icons.format_list_bulleted_outlined,

@@ -76,9 +76,9 @@ class _CustomPinCodeVerificationState extends State<CustomPinCodeVerification> {
             pinTheme: PinTheme(
               activeColor: AppColor.mainColor,
               selectedColor: AppColor.mainColor,
-              inactiveColor: Theme.of(context).colorScheme.background,
+              inactiveColor: Theme.of(context).colorScheme.surface,
               inactiveFillColor: const Color(0xffF9FAFB),
-              selectedFillColor: Theme.of(context).colorScheme.background,
+              selectedFillColor: Theme.of(context).colorScheme.surface,
               shape: PinCodeFieldShape.box,
               borderRadius: BorderRadius.circular(16.r),
               fieldHeight: 64.h,

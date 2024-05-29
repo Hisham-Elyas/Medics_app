@@ -11,6 +11,7 @@ class ImageAssetPNG {
   static const String notificationLogo = '$rootassets/Notification.png';
   static const String showpassIcons = '$rootassets/Showpass.png';
   static const String locationIcons = '$rootassets/Location.png';
+  static const String emptyBoxImg = 'assets/images/empty_box.png';
 }
 
 class ImageAssetSVG {

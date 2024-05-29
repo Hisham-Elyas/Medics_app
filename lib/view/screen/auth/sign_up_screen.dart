@@ -16,7 +16,7 @@ class SignUpScreen extends GetView<SignUpScreenController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: const CustomAppBar(title: Sign_Up, goBack: false),
+        appBar: CustomAppBar(title: Sign_Up.tr, goBack: false),
         body: SingleChildScrollView(
           physics: const BouncingScrollPhysics(),
           child: Container(

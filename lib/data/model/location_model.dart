@@ -1,13 +1,11 @@
 import 'dart:convert';
 
 class LocationModel {
-  final int? id;
   final String addressType;
   final String address;
   final double longitude;
   final double latitude;
   LocationModel({
-    this.id,
     required this.addressType,
     required this.address,
     required this.longitude,
@@ -22,7 +20,6 @@ class LocationModel {
     double? latitude,
   }) {
     return LocationModel(
-      id: id ?? this.id,
       addressType: addressType ?? this.addressType,
       address: address ?? this.address,
       longitude: longitude ?? this.longitude,
@@ -32,7 +29,6 @@ class LocationModel {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'id': id,
       'addressType': addressType,
       'address': address,
       'longitude': longitude,
@@ -42,7 +38,6 @@ class LocationModel {
 
   factory LocationModel.fromMap(Map<String, dynamic> map) {
     return LocationModel(
-      id: map['id'] != null ? map['id'] as int : null,
       addressType: map['addressType'] as String,
       address: map['address'] as String,
       longitude: map['longitude'] as double,
@@ -57,15 +52,14 @@ class LocationModel {
 
   @override
   String toString() {
-    return 'LocationModel(id: $id, addressType: $addressType, address: $address, longitude: $longitude, latitude: $latitude)';
+    return 'LocationModel( addressType: $addressType, address: $address, longitude: $longitude, latitude: $latitude)';
   }
 
   @override
   bool operator ==(covariant LocationModel other) {
     if (identical(this, other)) return true;
 
-    return other.id == id &&
-        other.addressType == addressType &&
+    return other.addressType == addressType &&
         other.address == address &&
         other.longitude == longitude &&
         other.latitude == latitude;
@@ -73,8 +67,7 @@ class LocationModel {
 
   @override
   int get hashCode {
-    return id.hashCode ^
-        addressType.hashCode ^
+    return addressType.hashCode ^
         address.hashCode ^
         longitude.hashCode ^
         latitude.hashCode;

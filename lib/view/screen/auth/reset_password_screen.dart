@@ -55,7 +55,7 @@ class ResetPasswordScreen extends GetView<ResstPasswordController> {
                   height: 43.h,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(29.r),
-                    color: Theme.of(context).colorScheme.background,
+                    color: Theme.of(context).colorScheme.surface,
                   ),
                   child: Center(
                       child: Text(
