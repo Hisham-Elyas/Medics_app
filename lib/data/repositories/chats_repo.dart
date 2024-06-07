@@ -21,6 +21,14 @@ class ChatRepoImpFirebase implements ChatRepo {
     required this.chatRemotData,
   });
   @override
+
+  /// Retrieves a stream of [MessageModel] objects for a given [contactId].
+  ///
+  /// The [contactId] parameter is required and specifies the ID of the contact for
+  /// which to retrieve the messages.
+  ///
+  /// Returns a [Stream] of [List<MessageModel>] that emits a list of messages
+  /// associated with the specified contact.
   Stream<List<MessageModel>> getMessage({required String contactId}) {
     return chatRemotData.getMessage(contactId: contactId);
   }
