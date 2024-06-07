@@ -4,11 +4,14 @@ Medics App is a comprehensive healthcare application designed to streamline medi
 
 ## Features
 
-- **Appointment Scheduling:** Users can book, reschedule, or cancel appointments with healthcare providers.
-- **Patient Management:** Healthcare providers can manage patient records, including medical history and treatment plans.
-- **Real-Time Health Monitoring:** Integration with wearable devices for real-time health data tracking.
-- **Notifications:** Reminders for upcoming appointments, medication schedules, and health tips.
-- **Secure Login:** Authentication using secure methods to ensure patient data privacy.
+- **Medicine Search**: Quickly find information on medicines.
+- **Order Medicine**: Place orders for medicines directly through the app.
+- **Request a Medicine**: Submit requests for specific medicines that are not currently available.
+- **Doctor Search**: Find and view profiles of doctors.
+- **Book an Appointment**: Schedule appointments with healthcare providers.
+- **Doctor Messaging**: Communicate directly with doctors through in-app messaging.
+- **Hospital Search**: Locate nearby hospitals and view their details.
+- **Ambulance Search**: Find and contact ambulance servicesprivacy.
 
 ## Getting Started
 
