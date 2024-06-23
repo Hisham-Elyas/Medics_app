@@ -24,7 +24,7 @@ class CreateNewPasswordScreen extends StatelessWidget {
               textAlign: TextAlign.start,
               style: TextStyle(
                   fontSize: 26.sp,
-                  color: Theme.of(context).textTheme.bodyLarge!.color,
+                  color: Theme.of(context).textTheme.displayLarge!.color,
                   fontWeight: FontWeight.bold)),
           Text(Create_your_new_password_to_login.tr,
               style: TextStyle(
@@ -106,7 +106,7 @@ class CreateNewPasswordScreen extends StatelessWidget {
                         //               style: TextStyle(
                         //                 fontWeight: FontWeight.bold,
                         //                 fontSize: 20.sp,
-                        //                 color: Theme.of(context).textTheme.bodyLarge!.color,
+                        //                 color: Theme.of(context).textTheme.displayLarge!.color,
                         //               ),
                         //             ),
                         //             SizedBox(height: 8.h),

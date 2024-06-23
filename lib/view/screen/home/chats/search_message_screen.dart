@@ -59,32 +59,30 @@ class SearchWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(10),
-      child: SingleChildScrollView(
-        child: GetBuilder<DoctorController>(builder: (controller) {
-          final doctorData = controller.filter(query);
+      child: GetBuilder<DoctorController>(builder: (controller) {
+        final doctorData = controller.filter(query);
 
-          return doctorData == null
-              ? Center(child: Text(No_data.tr))
-              : HandlingDataView(
-                  statusReq: controller.statusReq,
-                  widget: doctorData.isEmpty
-                      ? Center(child: Text(No_Match_Fond.tr))
-                      : ListView.separated(
-                          separatorBuilder: (context, index) =>
-                              SizedBox(height: 10.h),
-                          itemCount: doctorData.length,
-                          itemBuilder: (context, index) {
-                            return DoctorWidget(
-                              doctor: doctorData[index],
-                              onTap: () {
-                                Get.toNamed(AppRoutes.getChatsScreenScreen(
-                                    doctorData[index]));
-                              },
-                            );
-                          }),
-                );
-        }),
-      ),
+        return doctorData == null
+            ? Center(child: Text(No_data.tr))
+            : HandlingDataView(
+                statusReq: controller.statusReq,
+                widget: doctorData.isEmpty
+                    ? Center(child: Text(No_Match_Fond.tr))
+                    : ListView.separated(
+                        separatorBuilder: (context, index) =>
+                            SizedBox(height: 10.h),
+                        itemCount: doctorData.length,
+                        itemBuilder: (context, index) {
+                          return DoctorWidget(
+                            doctor: doctorData[index],
+                            onTap: () {
+                              Get.toNamed(AppRoutes.getChatsScreenScreen(
+                                  doctorData[index]));
+                            },
+                          );
+                        }),
+              );
+      }),
     );
   }
 }
@@ -128,7 +126,7 @@ class DoctorWidget extends StatelessWidget {
               Text(
                 doctor.name!,
                 style: TextStyle(
-                    color: Theme.of(context).textTheme.bodyLarge!.color,
+                    color: Theme.of(context).textTheme.displayLarge!.color,
                     fontSize: 16.sp,
                     fontWeight: FontWeight.w500),
               ),

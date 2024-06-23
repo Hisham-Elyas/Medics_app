@@ -62,7 +62,7 @@ class DrugsDetailScrren extends GetView<DrugsController> {
                         ar: " ${product.drugInformationAr!.tradeName!}  -  ${product.drugInformationEn!.tradeName!}"),
                     style: TextStyle(
                       fontSize: 22.sp,
-                      color: Theme.of(context).textTheme.bodyLarge!.color,
+                      color: Theme.of(context).textTheme.displayLarge!.color,
                       fontWeight: FontWeight.w800,
                     ),
                   ),
@@ -122,7 +122,7 @@ class DrugsDetailScrren extends GetView<DrugsController> {
                                       fontWeight: FontWeight.bold,
                                       color: Theme.of(context)
                                           .textTheme
-                                          .bodyLarge!
+                                          .displayLarge!
                                           .color),
                                 ))
                           ],
@@ -133,8 +133,10 @@ class DrugsDetailScrren extends GetView<DrugsController> {
                         style: TextStyle(
                             fontSize: 26,
                             fontWeight: FontWeight.w500,
-                            color:
-                                Theme.of(context).textTheme.bodyLarge!.color),
+                            color: Theme.of(context)
+                                .textTheme
+                                .displayLarge!
+                                .color),
                       ),
                     ],
                   ),
@@ -219,7 +221,7 @@ class DrugInfoWidget extends StatelessWidget {
           '$title : ',
           style: TextStyle(
             fontSize: 16.sp,
-            color: Theme.of(context).textTheme.bodyLarge!.color,
+            color: Theme.of(context).textTheme.displayLarge!.color,
             fontWeight: FontWeight.bold,
           ),
         ),

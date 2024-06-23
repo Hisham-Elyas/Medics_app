@@ -83,7 +83,7 @@ class OnBordingWidet extends StatelessWidget {
                                 fontSize: 22.sp,
                                 color: Theme.of(context)
                                     .textTheme
-                                    .bodyLarge!
+                                    .displayLarge!
                                     .color),
                           ),
                           Expanded(

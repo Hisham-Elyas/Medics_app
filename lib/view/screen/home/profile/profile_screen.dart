@@ -150,7 +150,7 @@ class CustomProfileButton extends StatelessWidget {
     required this.imageAssetSVG,
     this.onTap,
     this.colorTitle,
-    // this.colorTitle = Theme.of(context).textTheme.bodyLarge!.color,
+    // this.colorTitle = Theme.of(context).textTheme.displayLarge!.color,
     this.isLast = false,
   });
 
@@ -181,7 +181,7 @@ class CustomProfileButton extends StatelessWidget {
                       fontSize: 16.sp,
                       fontWeight: FontWeight.bold,
                       color: colorTitle ??
-                          Theme.of(context).textTheme.bodyLarge!.color),
+                          Theme.of(context).textTheme.displayLarge!.color),
                 ),
                 const Spacer(),
                 const Icon(Icons.arrow_forward_ios),

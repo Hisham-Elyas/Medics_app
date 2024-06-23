@@ -47,7 +47,7 @@ class OrderDetailsScreen extends GetView<OrderController> {
                               style: TextStyle(
                                 color: Theme.of(context)
                                     .textTheme
-                                    .bodyLarge!
+                                    .displayLarge!
                                     .color,
                                 fontSize: 14.sp,
                                 fontWeight: FontWeight.w600,
@@ -61,8 +61,10 @@ class OrderDetailsScreen extends GetView<OrderController> {
                           (index) => Text(
                             "${index + 1}. ${order.listProduct[index]}",
                             style: TextStyle(
-                              color:
-                                  Theme.of(context).textTheme.bodyLarge!.color,
+                              color: Theme.of(context)
+                                  .textTheme
+                                  .displayLarge!
+                                  .color,
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w600,
                             ),
@@ -86,7 +88,7 @@ class OrderDetailsScreen extends GetView<OrderController> {
                                     style: TextStyle(
                                       color: Theme.of(context)
                                           .textTheme
-                                          .bodyLarge!
+                                          .displayLarge!
                                           .color,
                                       fontSize: 14.sp,
                                       fontWeight: FontWeight.w500,
@@ -114,8 +116,10 @@ class OrderDetailsScreen extends GetView<OrderController> {
                           Text(
                             order.status!.type.tr,
                             style: TextStyle(
-                              color:
-                                  Theme.of(context).textTheme.bodyLarge!.color,
+                              color: Theme.of(context)
+                                  .textTheme
+                                  .displayLarge!
+                                  .color,
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w500,
                             ),
@@ -147,7 +151,7 @@ class OrderDetailsScreen extends GetView<OrderController> {
                                     style: TextStyle(
                                       color: Theme.of(context)
                                           .textTheme
-                                          .bodyLarge!
+                                          .displayLarge!
                                           .color,
                                       fontSize: 14.sp,
                                       fontWeight: FontWeight.w600,

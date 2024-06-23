@@ -25,7 +25,7 @@ class VerifyCodeScreen extends GetView<ResstPasswordController> {
                 textAlign: TextAlign.start,
                 style: TextStyle(
                     fontSize: 26.sp,
-                    color: Theme.of(context).textTheme.bodyLarge!.color,
+                    color: Theme.of(context).textTheme.displayLarge!.color,
                     fontWeight: FontWeight.bold)),
             Text(
                 '${'${Enter_code_that_we_have_sent_to_your_email.tr} ${controller.email}'}  ',

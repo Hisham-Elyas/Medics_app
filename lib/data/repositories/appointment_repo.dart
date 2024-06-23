@@ -14,7 +14,8 @@ import '../dataSoureces/remoteDataSource/appointment_remotdata.dart';
 import '../model/apointment_model.dart';
 
 abstract class AppointmentRepo {
-  Future<Either<StatusRequest, AppointmentModel>> getAllAppointment();
+  Future<Either<StatusRequest, AppointmentModel>> getAllAppointment(
+      {required String userId});
 
   Future<bool> addAppointment({required Appointment appointment});
   Future<bool> updateAppointment({required Appointment appointment});
@@ -30,10 +31,12 @@ class AppointmentRepoImpHttp implements AppointmentRepo {
   });
 
   @override
-  Future<Either<StatusRequest, AppointmentModel>> getAllAppointment() async {
+  Future<Either<StatusRequest, AppointmentModel>> getAllAppointment(
+      {required String userId}) async {
     if (await ckeckInternet()) {
       try {
-        final remotData = await appointmentRemotData.getAllAppointment();
+        final remotData =
+            await appointmentRemotData.getAllAppointment(userId: userId);
         appointmentLocalData.cachegetAppointment(
             key: 'APPOINTMENT_CACHE', appointment: remotData);
 

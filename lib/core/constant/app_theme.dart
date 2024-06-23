@@ -13,13 +13,23 @@ class AppTheme {
         color: AppColor.backgroundColor,
       ),
       textTheme: const TextTheme(
+        // titleLarge: TextStyle(color: AppColor.fontColor1),
+        // titleMedium: TextStyle(color: AppColor.fontColor2),
+        // titleSmall: TextStyle(color: AppColor.fontColor3),
+
+        // ////
+        // bodyLarge: TextStyle(color: AppColor.fontColor1),
+        // bodyMedium: TextStyle(color: AppColor.fontColor2),
+        // bodySmall: TextStyle(color: AppColor.fontColor3),
+
+        ////
         displayLarge: TextStyle(color: AppColor.fontColor1),
         displayMedium: TextStyle(color: AppColor.fontColor2),
         displaySmall: TextStyle(color: AppColor.fontColor3),
       ),
-      colorScheme: ColorScheme.fromSeed(
+      colorScheme: const ColorScheme.light(
         brightness: Brightness.light,
-        seedColor: AppColor.mainColor,
+        // seedColor: AppColor.mainColor,
         primary: AppColor.mainColor,
         secondary: AppColor.mainColor2,
         onPrimary: AppColor.mainColor3,
@@ -58,9 +68,9 @@ class AppTheme {
         displayMedium: TextStyle(color: AppColor.fontColor2),
         displaySmall: TextStyle(color: AppColor.fontColor3),
       ),
-      colorScheme: ColorScheme.fromSeed(
+      colorScheme: const ColorScheme.light(
         brightness: Brightness.light,
-        seedColor: AppColor.mainColor,
+        // seedColor: AppColor.mainColor,
         primary: AppColor.mainColor,
         secondary: AppColor.mainColor2,
         onPrimary: AppColor.mainColor3,

@@ -121,7 +121,7 @@ class OrderWidget extends GetView<OrderController> {
                   Text(
                     " ${order.listProduct.length}X  ${XProduct.tr}",
                     style: TextStyle(
-                      color: Theme.of(context).textTheme.bodyLarge!.color,
+                      color: Theme.of(context).textTheme.displayLarge!.color,
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w600,
                     ),
@@ -141,7 +141,7 @@ class OrderWidget extends GetView<OrderController> {
                     child: Text(
                       order.userLocation.address,
                       style: TextStyle(
-                        color: Theme.of(context).textTheme.bodyLarge!.color,
+                        color: Theme.of(context).textTheme.displayLarge!.color,
                         fontSize: 14.sp,
                         fontWeight: FontWeight.w500,
                       ),
@@ -166,7 +166,7 @@ class OrderWidget extends GetView<OrderController> {
                   Text(
                     order.status!.type.tr,
                     style: TextStyle(
-                      color: Theme.of(context).textTheme.bodyLarge!.color,
+                      color: Theme.of(context).textTheme.displayLarge!.color,
                       fontSize: 14.sp,
                       fontWeight: FontWeight.w600,
                     ),
@@ -191,8 +191,10 @@ class OrderWidget extends GetView<OrderController> {
                         ),
                         child: Text(Cancel.tr,
                             style: TextStyle(
-                              color:
-                                  Theme.of(context).textTheme.bodyLarge!.color,
+                              color: Theme.of(context)
+                                  .textTheme
+                                  .displayLarge!
+                                  .color,
                               fontSize: 14.sp,
                               fontWeight: FontWeight.w600,
                             )),

@@ -55,49 +55,47 @@ class SearchWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(10),
-        child: GetBuilder<DrugsController>(builder: (controller) {
-          final drigsData = controller.filter(query);
+    return Padding(
+      padding: const EdgeInsets.all(10),
+      child: GetBuilder<DrugsController>(builder: (controller) {
+        final drigsData = controller.filter(query);
 
-          return drigsData == null
-              ? Center(child: Text(No_data.tr))
-              : HandlingDataView(
-                  statusReq: controller.statusReq,
-                  widget: drigsData.isEmpty
-                      ? Center(child: Text(No_Match_Fond.tr))
-                      : ListView.separated(
-                          separatorBuilder: (context, index) =>
-                              SizedBox(height: 20.h),
-                          itemCount: drigsData.isEmpty
-                              ? 1
-                              : drigsData.length > 25
-                                  ? 25
-                                  : drigsData.length,
-                          itemBuilder: (context, index) {
-                            // final drigsData = controller.drigsData2!.product!;
-                            return controller.drigsData2 == null
-                                ? Center(child: Text(No_Match_Fond.tr))
-                                : CartWidget(
-                                    onTapIcon: () {
-                                      controller.addToCart(drigsData[index]);
-                                    },
-                                    onTap: () {
-                                      Get.focusScope!.unfocus();
+        return drigsData == null
+            ? Center(child: Text(No_data.tr))
+            : HandlingDataView(
+                statusReq: controller.statusReq,
+                widget: drigsData.isEmpty
+                    ? Center(child: Text(No_Match_Fond.tr))
+                    : ListView.separated(
+                        separatorBuilder: (context, index) =>
+                            SizedBox(height: 10.h),
+                        itemCount: drigsData.isEmpty
+                            ? 1
+                            : drigsData.length > 25
+                                ? 25
+                                : drigsData.length,
+                        itemBuilder: (context, index) {
+                          // final drigsData = controller.drigsData2!.product!;
+                          return controller.drigsData2 == null
+                              ? Center(child: Text(No_Match_Fond.tr))
+                              : CartWidget(
+                                  onTapIcon: () {
+                                    controller.addToCart(drigsData[index]);
+                                  },
+                                  onTap: () {
+                                    Get.focusScope!.unfocus();
 
-                                      Get.to(
-                                        () => DrugsDetailScrren(
-                                            product: drigsData[index]),
-                                      );
-                                    },
-                                    drigs: drigsData[index],
-                                    buttomIcon: ImageAssetSVG.addIcon,
-                                  );
-                          }),
-                );
-        }),
-      ),
+                                    Get.to(
+                                      () => DrugsDetailScrren(
+                                          product: drigsData[index]),
+                                    );
+                                  },
+                                  drigs: drigsData[index],
+                                  buttomIcon: ImageAssetSVG.addIcon,
+                                );
+                        }),
+              );
+      }),
     );
   }
 }

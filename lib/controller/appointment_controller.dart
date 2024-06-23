@@ -35,9 +35,11 @@ class ApointmentController extends GetxController {
   }
 
   Future<void> getAllAppointment() async {
+    UserController userController = Get.find();
     statusReq = StatusRequest.loading;
     update();
-    final data = await appointmentRepo.getAllAppointment();
+    final data = await appointmentRepo.getAllAppointment(
+        userId: userController.userInf.userId!);
     data.fold((l) {
       statusReq = l;
 
@@ -337,7 +339,7 @@ class BokingDialog extends GetView<ApointmentController> {
             SizedBox(height: 15.h),
             Text(Date.tr,
                 style: TextStyle(
-                  color: Theme.of(context).textTheme.bodyLarge!.color,
+                  color: Theme.of(context).textTheme.displayLarge!.color,
                   fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
                 )),
@@ -353,7 +355,7 @@ class BokingDialog extends GetView<ApointmentController> {
                     Jiffy.parseFromDateTime(date)
                         .format(pattern: 'E, d MMM yyyy'),
                     style: TextStyle(
-                      color: Theme.of(context).textTheme.bodyLarge!.color,
+                      color: Theme.of(context).textTheme.displayLarge!.color,
                       fontSize: 14.sp,
                       fontWeight: FontWeight.bold,
                     )),
@@ -391,7 +393,7 @@ class BokingDialog extends GetView<ApointmentController> {
               ),
               label: Text(Remind_Me.tr,
                   style: TextStyle(
-                    color: Theme.of(context).textTheme.bodyLarge!.color,
+                    color: Theme.of(context).textTheme.displayLarge!.color,
                     fontSize: 14.sp,
                     fontWeight: FontWeight.bold,
                   )),

@@ -17,6 +17,7 @@ class SignUpScreenController extends GetxController {
   late final AuthRepoImpFirebase authRepo = Get.find();
 
   Future<void> submit() async {
+    Get.focusScope!.unfocus();
     if (!signUpformKey.currentState!.validate()) {
       // Invalid!
       return;

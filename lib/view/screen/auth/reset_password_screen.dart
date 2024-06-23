@@ -24,7 +24,7 @@ class ResetPasswordScreen extends GetView<ResstPasswordController> {
               textAlign: TextAlign.start,
               style: TextStyle(
                   fontSize: 26.sp,
-                  color: Theme.of(context).textTheme.bodyLarge!.color,
+                  color: Theme.of(context).textTheme.displayLarge!.color,
                   fontWeight: FontWeight.bold)),
           Text(
               Enter_your_email_or_your_phone_number_we_will_send_you_confirmation_code

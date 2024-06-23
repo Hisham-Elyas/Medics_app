@@ -24,11 +24,55 @@ class AuthRemotDataImpFirebase implements AuthRemotData {
   late final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   late final GoogleSignIn googleSignIn = GoogleSignIn();
 
+  // Future<UserModel> getUserInfo() async {
+  //   try {
+  //     await firebaseFirestore
+  //         .collection('users')
+  //         .doc(firebaseAuth.currentUser!.uid)
+  //         .get()
+  //         .then(
+  //       (value) {
+  //         final userval = value.data()!['user_info'];
+  //         print(userval);
+  //         print(userval);
+  //         print(userval);
+  //         print(userval);
+  //         print(userval);
+
+  //         return UserModel.fromMap(userval);
+  //       },
+  //     );
+  //   } on FirebaseException catch (e) {
+  //     showCustomSnackBar(
+  //         message: "${e.message}", title: 'Auth Error', isError: true);
+
+  //     printError(info: "Failed with error '${e.code}' :  ${e.message}");
+  //     return UserModel(email: '', userName: '');
+  //   } catch (e) {
+  //     printError(info: e.toString());
+
+  //     return UserModel(email: '', userName: '');
+  //   }
+  //   return UserModel(email: '', userName: '');
+  // }
+
   @override
   Future<bool> logeOut() async {
-    await googleSignIn.disconnect();
-    await firebaseAuth.signOut();
-    return true;
+    try {
+      await firebaseAuth.signOut();
+      await googleSignIn.disconnect();
+      return true;
+    } on FirebaseException catch (e) {
+      showCustomSnackBar(
+          message: "${e.message}", title: 'Auth Error', isError: true);
+
+      printError(info: "Failed with error '${e.code}' :  ${e.message}");
+      return false;
+    } catch (e) {
+      printError(info: e.toString());
+
+      return false;
+    }
   }
 
   @override

@@ -44,7 +44,7 @@ class SignInWith extends StatelessWidget {
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 14.sp,
-                      color: Theme.of(context).textTheme.bodyLarge!.color),
+                      color: Theme.of(context).textTheme.displayLarge!.color),
                 ),
               ),
             ),

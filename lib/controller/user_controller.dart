@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:developer';
+import 'dart:ui';
 
 import 'package:get/get.dart';
 
@@ -10,26 +12,29 @@ import '../data/repositories/auth_repo.dart';
 
 class UserController extends GetxController {
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
     final MyServices services = Get.find();
     final userdata = services.sharedPreferences.getString('user_info');
-
-    userInf = UserModel.fromMap(jsonDecode(userdata!));
+    if (userdata != null) {
+      userInf = UserModel.fromMap(jsonDecode(userdata));
+    } else {
+      userInf = UserModel(email: '', userName: '');
+      logeOut();
+    }
   }
 
+  final h = const Color(0x0fffffff);
   late UserModel userInf;
-
   final AuthRepoImpFirebase authRepo = Get.find();
 
   logeOut() async {
     showOverlay(
       asyncFunction: () async {
-        final bool isSuccess = await authRepo.logeOut();
-        if (isSuccess) {
-          await Future.delayed(Duration.zero);
-          Get.offAllNamed(AppRoutes.getOnBoardingn());
-        }
+        await authRepo.logeOut();
+
+        await Future.delayed(const Duration(seconds: 3));
+        Get.offAllNamed(AppRoutes.getOnBoardingn());
       },
     );
   }

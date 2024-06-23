@@ -38,7 +38,7 @@ class DoctorsScrren extends StatelessWidget {
               Text(Category.tr,
                   style: TextStyle(
                     fontSize: 18.sp,
-                    color: Theme.of(context).textTheme.bodyLarge!.color,
+                    color: Theme.of(context).textTheme.displayLarge!.color,
                     fontWeight: FontWeight.w500,
                   )),
               SizedBox(height: 18.h),

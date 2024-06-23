@@ -42,8 +42,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                   alignment: Alignment.center,
                   enableFeedback: true,
                   onPressed: () => Get.back(),
-                  icon: Icon(getdeviceLocale(
-                      en: Icons.arrow_back_ios_new, ar: Icons.arrow_back_ios)),
+                  icon: Icon(
+                    getdeviceLocale(
+                        en: Icons.arrow_back_ios_new, ar: Icons.arrow_back_ios),
+                    color: Theme.of(context).textTheme.displaySmall!.color,
+                  ),
                 ),
               )
             : null,
@@ -51,7 +54,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           onTap: onTapTitle,
           child: Text(
             title ?? '',
-            style: TextStyle(fontSize: 24.sp, fontWeight: FontWeight.w600),
+            style: TextStyle(
+              fontSize: 24.sp,
+              color: Theme.of(context).textTheme.displaySmall!.color,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ),
       ),

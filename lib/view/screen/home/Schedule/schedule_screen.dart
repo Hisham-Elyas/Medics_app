@@ -175,7 +175,8 @@ class ScheduleWidget extends GetView<ApointmentController> {
                       style: TextStyle(
                           fontSize: 18.sp,
                           fontWeight: FontWeight.w600,
-                          color: Theme.of(context).textTheme.bodyLarge!.color)),
+                          color:
+                              Theme.of(context).textTheme.displayLarge!.color)),
                   Text(appointment.doctor.specialty!,
                       style: TextStyle(
                           fontSize: 12.sp,
@@ -203,7 +204,7 @@ class ScheduleWidget extends GetView<ApointmentController> {
                   Jiffy.parseFromDateTime(appointment.bookDate!)
                       .format(pattern: 'E, d/M/yyyy'),
                   style: TextStyle(
-                    color: Theme.of(context).textTheme.bodyLarge!.color,
+                    color: Theme.of(context).textTheme.displayLarge!.color,
                     fontSize: 12.sp,
                     fontWeight: FontWeight.w500,
                   )),
@@ -221,7 +222,7 @@ class ScheduleWidget extends GetView<ApointmentController> {
               SizedBox(width: 5.w),
               Text(appointment.isConfirmed! ? Confirmed.tr : Pending.tr,
                   style: TextStyle(
-                    color: Theme.of(context).textTheme.bodyLarge!.color,
+                    color: Theme.of(context).textTheme.displayLarge!.color,
                     fontSize: 12.sp,
                     fontWeight: FontWeight.w500,
                   )),
@@ -253,7 +254,8 @@ class ScheduleWidget extends GetView<ApointmentController> {
                     ),
                     child: Text(Cancel.tr,
                         style: TextStyle(
-                          color: Theme.of(context).textTheme.bodyLarge!.color,
+                          color:
+                              Theme.of(context).textTheme.displayLarge!.color,
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w600,
                         )),

@@ -5,10 +5,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+import '../../controller/ambulance_controller.dart';
 import '../../controller/appointment_controller.dart';
 import '../../controller/doctor_controller.dart';
 import '../../controller/drugs_controller.dart';
 import '../../controller/forgot_password_controller.dart';
+import '../../controller/hospitals_controller.dart';
 import '../../controller/location_controller.dart';
 import '../../controller/login_screen_controller.dart';
 import '../../controller/notifications_controller.dart';
@@ -16,21 +18,27 @@ import '../../controller/order_controller.dart';
 import '../../controller/settings_controller.dart';
 import '../../controller/sign_up_screen_controller.dart';
 import '../../controller/user_controller.dart';
+import '../../data/dataSoureces/localDataSource/ambulance_localdata.dart';
 import '../../data/dataSoureces/localDataSource/appointment_localdata.dart';
 import '../../data/dataSoureces/localDataSource/doctors_localdata.dart';
 import '../../data/dataSoureces/localDataSource/durgs_localdata.dart';
+import '../../data/dataSoureces/localDataSource/hospital_localdata.dart';
+import '../../data/dataSoureces/remoteDataSource/ambulance_remotdata.dart';
 import '../../data/dataSoureces/remoteDataSource/appointment_remotdata.dart';
 import '../../data/dataSoureces/remoteDataSource/auth_remotdata.dart';
 import '../../data/dataSoureces/remoteDataSource/chats_remotdata.dart';
 import '../../data/dataSoureces/remoteDataSource/doctors_remotdata.dart';
 import '../../data/dataSoureces/remoteDataSource/durgs_remotdata.dart';
+import '../../data/dataSoureces/remoteDataSource/hospital_remotdata.dart';
 import '../../data/dataSoureces/remoteDataSource/orders_remotdata.dart';
+import '../../data/repositories/Ambulance_repo.dart';
 import '../../data/repositories/appointment_repo.dart';
 import '../../data/repositories/auth_repo.dart';
 
 import '../../data/repositories/chats_repo.dart';
 import '../../data/repositories/docters_repo.dart';
 import '../../data/repositories/drugs_repo.dart';
+import '../../data/repositories/hospital_repo.dart';
 import '../../data/repositories/orders_repo.dart';
 import '../../firebase_options.dart';
 import '../class/api_client.dart';
@@ -62,7 +70,6 @@ class MyServices extends GetxService {
 initialServices() async {
   await Get.putAsync(() => MyServices().init());
   await LocalNotifications.init();
-
   Get.lazyPut(() => LocaleController(), fenix: true);
   ////////////// Auth Controller
   Get.lazyPut(() => LoginScreenController(), fenix: true);
@@ -139,4 +146,26 @@ initialServices() async {
   Get.lazyPut(() => ChatRemotDataImpFirebase(), fenix: true);
   Get.lazyPut(() => ChatRepoImpFirebase(chatRemotData: Get.find()),
       fenix: true);
+
+  ///  Ambulance Controller
+  Get.lazyPut(() => AmbulanceController(), fenix: true);
+  //  Ambulance  data
+  Get.lazyPut(
+      () => AmbulanceRepoImpHttp(
+          ambulanceLocalData: Get.find(), ambulanceRemotData: Get.find()),
+      fenix: true);
+  Get.lazyPut(() => AmbulanceRemotDataImpHttp(apiClent: Get.find()),
+      fenix: true);
+  Get.lazyPut(() => AmbulanceLocalDataImp(myServices: Get.find()), fenix: true);
+
+  ///  Hospital Controller
+  Get.lazyPut(() => HospitalsController(), fenix: true);
+  //  Hospital  data
+  Get.lazyPut(
+      () => HospitalRepoImpHttp(
+          hospitalLocalData: Get.find(), hospitalRemotData: Get.find()),
+      fenix: true);
+  Get.lazyPut(() => HospitalRemotDataImpHttp(apiClent: Get.find()),
+      fenix: true);
+  Get.lazyPut(() => HospitalLocalDataImp(myServices: Get.find()), fenix: true);
 }

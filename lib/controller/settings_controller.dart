@@ -59,7 +59,7 @@ class SettingsController extends GetxController {
               style: TextStyle(
                   fontSize: 15.sp,
                   fontWeight: FontWeight.bold,
-                  color: Theme.of(Get.context!).textTheme.bodyLarge!.color),
+                  color: Theme.of(Get.context!).textTheme.displayLarge!.color),
             ),
           ),
           ListTile(
@@ -72,7 +72,7 @@ class SettingsController extends GetxController {
               style: TextStyle(
                   fontSize: 15.sp,
                   fontWeight: FontWeight.bold,
-                  color: Theme.of(Get.context!).textTheme.bodyLarge!.color),
+                  color: Theme.of(Get.context!).textTheme.displayLarge!.color),
             ),
           ),
         ],

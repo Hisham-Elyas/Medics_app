@@ -40,7 +40,8 @@ class StartScreen extends StatelessWidget {
                     style: TextStyle(
                         fontSize: 22.sp,
                         fontWeight: FontWeight.bold,
-                        color: Theme.of(context).textTheme.bodyLarge!.color)),
+                        color:
+                            Theme.of(context).textTheme.displayLarge!.color)),
                 SizedBox(height: 9.h),
                 Text(
                     Login_to_enjoy_the_features_weve_provided_and_stay_healthy

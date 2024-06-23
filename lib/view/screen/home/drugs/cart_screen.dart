@@ -123,7 +123,7 @@ class CartScreen extends GetView<DrugsController> {
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      color: Theme.of(context).textTheme.bodyLarge!.color),
+                      color: Theme.of(context).textTheme.displayLarge!.color),
                 ),
               ],
             ),

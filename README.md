@@ -1,12 +1,59 @@
-# Medics App
+<div align='center' >
 
-The Merchandiser Super App is a comprehensive Flutter application designed to manage various aspects of merchandising and healthcare services. This app provides functionalities like medicine search, ordering medicine, appointment booking, messaging with doctors, and more, aiming to streamline and enhance the user experience.
+ <img  src="assets/images/Logo2.png"  width="70"/>
+
+</div>
+
+# Medics City App
+
+The Medics App is a comprehensive Flutter application designed to manage various aspects of merchandising and healthcare services. This app provides functionalities like medicine search, ordering medicine, appointment booking, messaging with doctors, and more, aiming to streamline and enhance the user experience.
+
+---
+
+✨ Apps Features
+
+🌍  **Multi Language**
+
+🌙 **Dark/Light mode**
+
+💫 **Easy setup**
+
+✅ **Easy to use**
+
+👨‍💻  **ready for developers**
+
+## Screenshoot  20+
+
+### 🧑 User app
+
+<p float="left">
+<img alt="" src="screenshots/1-splash-screen.png" width="200"/>
+<img alt="" src="screenshots/2-onbording.png" width="200"/>
+<img alt="" src="screenshots/3-login&sinup-screen.png" width="200"/>
+<img alt="" src="screenshots/4-login-screen.png" width="200"/>
+<img alt="" src="screenshots/5-sinup-screen.png" width="200"/>
+<img alt="" src="screenshots/6-forget-pass-screen.png" width="200"/>
+<img alt="" src="screenshots/7-home-screen.png" width="200"/>
+<img alt="" src="screenshots/8-doctor-specialties.png" width="200"/>
+<img alt="" src="screenshots/9-doctor-list-screen.png" width="200"/>
+<img alt="" src="screenshots/10-doctor-details.png" width="200"/>
+<img alt="" src="screenshots/11-doctor-booking.png" width="200"/>
+<img alt="" src="screenshots/12-doctor-chats.png" width="200"/>
+<img alt="" src="screenshots/13" width="200"/>
+<img alt="" src="screenshots/14" width="200"/>
+<img alt="" src="screenshots/15-drugs-orders.png" width="200"/>
+<img alt="" src="screenshots/16-select-locations.png" width="200"/>
+<img alt="" src="screenshots/17-locations-map.png" width="200"/>
+<img alt="" src="screenshots/18-chats-screen.png" width="200"/>
+<img alt="" src="screenshots/19-appointment-screen.png" width="200"/>
+<img alt="" src="screenshots/20-setting.png" width="200"/>
+
+</p>
 
 ## Features
 
 - **Medicine Search**: Quickly find information on medicines.
 - **Order Medicine**: Place orders for medicines directly through the app.
-- **Request a Medicine**: Submit requests for specific medicines that are not currently available.
 - **Doctor Search**: Find and view profiles of doctors.
 - **Book an Appointment**: Schedule appointments with healthcare providers.
 - **Doctor Messaging**: Communicate directly with doctors through in-app messaging.
@@ -30,8 +77,8 @@ The Merchandiser Super App is a comprehensive Flutter application designed to ma
 1. **Clone the repository:**
 
     ```bash
-    git clone https://github.com/hishaam6618/merchandiser_super_app.git
-    cd merchandiser_super_app
+    git clone https://github.com/hishaam6618/Medics_app.git
+    cd Medics_app
     ```
 
 2. **Install dependencies:**
@@ -148,6 +195,28 @@ lib/
 
 - Toggle between dark and light mode for a better visual experience.
 
+#  🛠Quick Setup (Make each app separately)
+
+### Change **app name**
+
+```javascript
+on app directory open:  android/app/src/main/AndroidManifest.xml
+
+on <application ...> edit android:label="YOUR APP NAME"
+```
+
+###  Change **app colors**
+
+```javascript
+on app directory open:  lib/core/constant/app_color.dart
+
+go to line to this two line and edit 
+
+  static const mainColor = Color(0xff199A8E); 
+  static const mainColor2 = Color(0xffE8F3F1); 
+  static const mainColor3 = Color(0xffC1F3EF); 
+```
+
 ## Contributing
 
 We welcome contributions! Please follow these steps:
@@ -160,7 +229,7 @@ We welcome contributions! Please follow these steps:
 
 ## Issues
 
-If you encounter any issues or have suggestions for improvements, please open an issue in the [Issues section](https://github.com/hishaam6618/merchandiser_super_app/issues).
+If you encounter any issues or have suggestions for improvements, please open an issue in the [Issues section](https://github.com/hishaam6618/Medics_app/issues).
 
 ## License
 

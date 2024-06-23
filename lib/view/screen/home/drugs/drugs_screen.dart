@@ -68,7 +68,7 @@ class DrugsScrren extends GetView<DrugsController> {
               Text(Popular_Product.tr,
                   style: TextStyle(
                     fontSize: 16.sp,
-                    color: Theme.of(context).textTheme.bodyLarge!.color,
+                    color: Theme.of(context).textTheme.displayLarge!.color,
                     fontWeight: FontWeight.w500,
                   )),
               InkWell(
@@ -137,8 +137,10 @@ class DrugsScrren extends GetView<DrugsController> {
                         Text(Favorite_Product.tr,
                             style: TextStyle(
                               fontSize: 16.sp,
-                              color:
-                                  Theme.of(context).textTheme.bodyLarge!.color,
+                              color: Theme.of(context)
+                                  .textTheme
+                                  .displayLarge!
+                                  .color,
                               fontWeight: FontWeight.w500,
                             )),
                         InkWell(
@@ -163,8 +165,18 @@ class DrugsScrren extends GetView<DrugsController> {
                   SizedBox(
                     height: 180.h,
                     child: favoriteDrug.isEmpty
-                        ? const Center(
-                            child: Text('add product to your favorite'),
+                        ? Center(
+                            child: Text(
+                              'Add product to your favorite',
+                              style: TextStyle(
+                                fontSize: 16.sp,
+                                color: Theme.of(context)
+                                    .textTheme
+                                    .displaySmall!
+                                    .color,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
                           )
                         : ListView.separated(
                             padding: EdgeInsetsDirectional.symmetric(

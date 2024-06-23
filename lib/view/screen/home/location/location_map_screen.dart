@@ -78,10 +78,14 @@ class LocationScreen extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(10.r),
                                       color: AppColor.mainColor2),
                                   child: IconButton(
+                                      color: AppColor.mainColor,
                                       onPressed: () {
                                         locationController.goToMyLocation();
                                       },
-                                      icon: const Icon(Icons.my_location)),
+                                      icon: const Icon(
+                                        Icons.my_location,
+                                        color: AppColor.mainColor,
+                                      )),
                                 )
                               ],
                             )),
@@ -112,7 +116,7 @@ class LocationScreen extends StatelessWidget {
                                         fontWeight: FontWeight.bold,
                                         color: Theme.of(context)
                                             .textTheme
-                                            .bodyLarge!
+                                            .displayLarge!
                                             .color,
                                         fontSize: 14.sp),
                                   ),

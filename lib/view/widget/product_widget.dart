@@ -54,7 +54,7 @@ class ProductWidget extends StatelessWidget {
                     ar: product.drugInformationAr!.tradeName ?? ''),
                 maxLines: 1,
                 style: TextStyle(
-                    color: Theme.of(context).textTheme.bodyLarge!.color,
+                    color: Theme.of(context).textTheme.displayLarge!.color,
                     fontSize: 14.sp,
                     fontWeight: FontWeight.bold),
               ),
@@ -102,7 +102,8 @@ class ProductWidget extends StatelessWidget {
                     child: Text(
                       '\$',
                       style: TextStyle(
-                          color: Theme.of(context).textTheme.bodyLarge!.color,
+                          color:
+                              Theme.of(context).textTheme.displayLarge!.color,
                           fontSize: 14.sp,
                           fontWeight: FontWeight.bold),
                     ),

@@ -52,7 +52,7 @@ class DoctorDetailScrren extends GetView<ApointmentController> {
                   Text(
                     'Dr. ${doctorinfo.name}',
                     style: TextStyle(
-                        color: Theme.of(context).textTheme.bodyLarge!.color,
+                        color: Theme.of(context).textTheme.displayLarge!.color,
                         fontSize: 18.sp,
                         fontWeight: FontWeight.w500),
                   ),
@@ -119,7 +119,7 @@ class DoctorDetailScrren extends GetView<ApointmentController> {
           child: Text(
             About.tr,
             style: TextStyle(
-                color: Theme.of(context).textTheme.bodyLarge!.color,
+                color: Theme.of(context).textTheme.displayLarge!.color,
                 fontSize: 18.sp,
                 fontWeight: FontWeight.w500),
           ),
@@ -168,7 +168,7 @@ class DoctorDetailScrren extends GetView<ApointmentController> {
                   //             Text(
                   //               '${index + 1}',
                   //               style: TextStyle(
-                  //                   color: Theme.of(context).textTheme.bodyLarge!.color,
+                  //                   color: Theme.of(context).textTheme.displayLarge!.color,
                   //                   fontSize: 18.sp,
                   //                   fontWeight: FontWeight.w500),
                   //             ),
@@ -213,7 +213,7 @@ class DoctorDetailScrren extends GetView<ApointmentController> {
         //           child: Text(
         //             '${index + 1}:00 AM',
         //             style: TextStyle(
-        //                 color: Theme.of(context).textTheme.bodyLarge!.color,
+        //                 color: Theme.of(context).textTheme.displayLarge!.color,
         //                 fontSize: 12.sp,
         //                 fontWeight: FontWeight.w500),
         //           ),

@@ -13,6 +13,7 @@ class LoginScreenController extends GetxController {
   late String password;
   final AuthRepoImpFirebase authRepo = Get.find();
   Future<void> submit() async {
+    Get.focusScope!.unfocus();
     if (!loginFormKey.currentState!.validate()) {
       // Invalid!
       return;

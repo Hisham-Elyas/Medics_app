@@ -5,7 +5,7 @@ import '../../../core/error/exception.dart';
 import '../../model/apointment_model.dart';
 
 abstract class AppointmentRemotData {
-  Future<AppointmentModel> getAllAppointment();
+  Future<AppointmentModel> getAllAppointment({required String userId});
   Future<bool> postAppointment({required body});
   Future<bool> updatreAppointment({required body, required appointmentId});
   Future<bool> deleteAppointment({required appointmentId});
@@ -20,8 +20,8 @@ class AppointmentRemotDataImpHttp implements AppointmentRemotData {
   final url = 'http://10.0.2.2:3000';
 
   @override
-  Future<AppointmentModel> getAllAppointment() async {
-    final resalt = await apiClent.getData(uri: '$url/appointment');
+  Future<AppointmentModel> getAllAppointment({required String userId}) async {
+    final resalt = await apiClent.getData(uri: '$url/appointment/$userId');
     if (resalt.statusCode == 200) {
       return AppointmentModel.fromJson(jsonEncode(resalt.body));
     } else {

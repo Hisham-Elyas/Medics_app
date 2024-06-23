@@ -61,7 +61,7 @@ class CartWidget extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                       fontSize: 16.sp,
-                      color: Theme.of(context).textTheme.bodyLarge!.color,
+                      color: Theme.of(context).textTheme.displayLarge!.color,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -116,7 +116,7 @@ class CartWidget extends StatelessWidget {
                   style: TextStyle(
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w500,
-                      color: Theme.of(context).textTheme.bodyLarge!.color),
+                      color: Theme.of(context).textTheme.displayLarge!.color),
                 ),
               ),
             ],

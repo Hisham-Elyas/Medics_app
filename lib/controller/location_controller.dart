@@ -32,12 +32,12 @@ class LocationController extends GetxController {
   String address = You_have_not_selected_location.tr;
   bool isVisibilityConfirmBox = true;
   late Position myPosition;
-  StatusRequest statusReq = StatusRequest.loading;
+  StatusRequest statusReq = StatusRequest.success;
   @override
   void onInit() async {
     super.onInit();
-    statusReq = StatusRequest.loading;
-    update();
+    // statusReq = StatusRequest.loading;
+    // update();
     getmyLocationlist();
     await setCustomMarkerIcon();
     myPosition = await getDetermineAndPosition();
@@ -51,8 +51,11 @@ class LocationController extends GetxController {
         markerId: const MarkerId('1'),
         icon: sourceIcon,
         position: LatLng(myPosition.latitude, myPosition.longitude)));
-    statusReq = StatusRequest.success;
-    update();
+
+    // statusReq = StatusRequest.loading;
+    // Future.delayed(const Duration(seconds: 5));
+    // statusReq = StatusRequest.success;
+    // update();
   }
 
   set setisVisibilityConfirmBox(value) {
@@ -237,7 +240,11 @@ class ChoosesAddressWidget extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Text(Choose_address_for_Delivery.tr),
+                  Text(
+                    Choose_address_for_Delivery.tr,
+                    style: TextStyle(
+                        color: Theme.of(context).textTheme.displayLarge!.color),
+                  ),
                   Container(
                       decoration: BoxDecoration(
                           color: AppColor.mainColor3,
@@ -254,7 +261,15 @@ class ChoosesAddressWidget extends StatelessWidget {
               GetBuilder<LocationController>(
                 builder: (controller) => Expanded(
                   child: controller.myLocationlist.isEmpty
-                      ? Center(child: Text(Add_location.tr))
+                      ? Center(
+                          child: Text(
+                          Add_location.tr,
+                          style: TextStyle(
+                              color: Theme.of(context)
+                                  .textTheme
+                                  .displayLarge!
+                                  .color),
+                        ))
                       : ListView.builder(
                           itemCount: controller.myLocationlist.length,
                           itemBuilder: (context, index) {
@@ -271,7 +286,11 @@ class ChoosesAddressWidget extends StatelessWidget {
                                 child: ListTile(
                                   title: Text(
                                     "${index + 1} - ${controller.myLocationlist[index].addressType}",
-                                    style: const TextStyle(),
+                                    style: TextStyle(
+                                        color: Theme.of(context)
+                                            .textTheme
+                                            .displayLarge!
+                                            .color),
                                     maxLines: 3,
                                     overflow: TextOverflow.ellipsis,
                                   ),
@@ -284,6 +303,11 @@ class ChoosesAddressWidget extends StatelessWidget {
                                       },
                                       icon: const Icon(Icons.delete)),
                                   subtitle: Text(
+                                      style: TextStyle(
+                                          color: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .color),
                                       maxLines: 3,
                                       overflow: TextOverflow.ellipsis,
                                       controller.myLocationlist[index].address),

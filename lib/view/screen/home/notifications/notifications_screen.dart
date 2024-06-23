@@ -55,7 +55,7 @@ class NotificationWidget extends GetView<NotificationController> {
               style: TextStyle(
                   fontSize: 14.sp,
                   fontWeight: FontWeight.bold,
-                  color: Theme.of(context).textTheme.bodyLarge!.color)),
+                  color: Theme.of(context).textTheme.displayLarge!.color)),
           SizedBox(height: 5.h),
           Text(appointment.doctor.specialty ?? '',
               style: TextStyle(
@@ -75,7 +75,7 @@ class NotificationWidget extends GetView<NotificationController> {
                   Jiffy.parseFromDateTime(appointment.bookDate!)
                       .format(pattern: 'E, d MMM yyyy'),
                   style: TextStyle(
-                    color: Theme.of(context).textTheme.bodyLarge!.color,
+                    color: Theme.of(context).textTheme.displayLarge!.color,
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w500,
                   )),

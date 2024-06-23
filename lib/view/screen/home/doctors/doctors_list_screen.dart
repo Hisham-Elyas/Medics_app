@@ -131,7 +131,7 @@ class DoctorWidget extends StatelessWidget {
               Text(
                 doctor.name!,
                 style: TextStyle(
-                    color: Theme.of(context).textTheme.bodyLarge!.color,
+                    color: Theme.of(context).textTheme.displayLarge!.color,
                     fontSize: 18.sp,
                     fontWeight: FontWeight.w500),
               ),

@@ -91,7 +91,7 @@ class CustomListTileWidget extends StatelessWidget {
             style: TextStyle(
                 fontSize: 15.sp,
                 fontWeight: FontWeight.bold,
-                color: Theme.of(context).textTheme.bodyLarge!.color),
+                color: Theme.of(context).textTheme.displayLarge!.color),
           ),
         ));
   }

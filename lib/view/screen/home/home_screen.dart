@@ -41,8 +41,10 @@ class HomeScreen extends StatelessWidget {
                         style: TextStyle(
                             fontSize: 22.sp,
                             fontWeight: FontWeight.bold,
-                            color:
-                                Theme.of(context).textTheme.bodyLarge!.color),
+                            color: Theme.of(context)
+                                .textTheme
+                                .displayLarge!
+                                .color),
                       ),
                       InkWell(
                           onTap: () async {
@@ -134,8 +136,10 @@ class HomeScreen extends StatelessWidget {
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20.sp,
-                              color:
-                                  Theme.of(context).textTheme.bodyLarge!.color),
+                              color: Theme.of(context)
+                                  .textTheme
+                                  .displayLarge!
+                                  .color),
                         ),
                       ),
                       const Spacer(),
@@ -159,8 +163,10 @@ class HomeScreen extends StatelessWidget {
                         Text(Top_Doctor.tr,
                             style: TextStyle(
                               fontSize: 16.sp,
-                              color:
-                                  Theme.of(context).textTheme.bodyLarge!.color,
+                              color: Theme.of(context)
+                                  .textTheme
+                                  .displayLarge!
+                                  .color,
                               fontWeight: FontWeight.w500,
                             )),
                         InkWell(
@@ -260,7 +266,7 @@ class DoctorWidget extends StatelessWidget {
                 doctor.name!,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
-                    color: Theme.of(context).textTheme.bodyLarge!.color,
+                    color: Theme.of(context).textTheme.displayLarge!.color,
                     fontSize: 12.sp,
                     fontWeight: FontWeight.w600),
               ),

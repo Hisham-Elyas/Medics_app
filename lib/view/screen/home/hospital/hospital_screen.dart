@@ -1,11 +1,16 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
+import '../../../../controller/hospitals_controller.dart';
 import '../../../../core/class/enums.dart';
 import '../../../../core/class/handling_data_view.dart';
 import '../../../../core/constant/app_color.dart';
 import '../../../../core/constant/image_asset.dart';
+import '../../../../data/model/hospital_model.dart';
 import '../../../widget/custom_app_bar.dart';
 
 class HospitalScreen extends StatelessWidget {
@@ -36,27 +41,34 @@ class HospitalScreen extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w).copyWith(top: 20.h),
-          child: HandlingDataView(
-              imgHeight: 400.h,
-              statusReq: StatusRequest.success,
-              widget: ListView.separated(
-                separatorBuilder: (context, index) => SizedBox(height: 13.h),
-                itemCount: 2,
-                itemBuilder: (context, index) => HospitalWidget(
-                  onTap: () {},
-                ),
-              )),
+          child: GetBuilder<HospitalsController>(
+            builder: (controller) => HandlingDataView(
+                onPressedReload: () {
+                  controller.getAllHospital();
+                },
+                statusReq: controller.statusReq,
+                widget: ListView.separated(
+                  separatorBuilder: (context, index) => SizedBox(height: 13.h),
+                  itemCount: controller.hospitalList.length,
+                  itemBuilder: (context, index) => HospitalWidget(
+                    hospitalModel: controller.hospitalList[index],
+                    onTap: () {},
+                  ),
+                )),
+          ),
         ),
       ),
     );
   }
 }
 
-class HospitalWidget extends StatelessWidget {
+class HospitalWidget extends GetView<HospitalsController> {
   final void Function() onTap;
+  final HospitalModel hospitalModel;
   const HospitalWidget({
     Key? key,
     required this.onTap,
+    required this.hospitalModel,
   }) : super(key: key);
 
   @override
@@ -111,10 +123,10 @@ class HospitalWidget extends StatelessWidget {
               children: [
                 // The text widget that displays the hospital's name.
                 Text(
-                  "hospital.name!",
+                  hospitalModel.name,
                   style: TextStyle(
                       // Set the color of the text to the body large color of the theme.
-                      color: Theme.of(context).textTheme.bodyLarge!.color,
+                      color: Theme.of(context).textTheme.displayLarge!.color,
                       fontSize: 18.sp,
                       fontWeight: FontWeight.w500),
                 ),
@@ -165,7 +177,7 @@ class HospitalWidget extends StatelessWidget {
                     SizedBox(width: 5.w),
                     // The text widget that displays the hospital's address.
                     Text(
-                      "hospital.address!",
+                      hospitalModel.address,
                       style: TextStyle(
                           color: AppColor.fontColor2,
                           fontSize: 12.sp,
@@ -180,7 +192,9 @@ class HospitalWidget extends StatelessWidget {
             Align(
               alignment: AlignmentDirectional.bottomEnd,
               child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  controller.makePhoneCall(phoneNum: hospitalModel.phoneNunber);
+                },
                 // Set the color of the icon button to the main color of the theme.
                 color: AppColor.mainColor,
                 // Set the icon of the icon button to the phone icon.

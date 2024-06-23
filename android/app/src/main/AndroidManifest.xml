@@ -25,9 +25,9 @@
   </intent>
 </queries>
     <application
-        android:label="cuer_city"
+        android:label="Medics City"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
          <meta-data android:name="com.google.android.geo.API_KEY"
 
                android:value="AIzaSyAwxFkumIsd8V2o6YOp3X1ECKVLBWQniIY"/>

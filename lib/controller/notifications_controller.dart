@@ -96,7 +96,7 @@ class SetNotificationDialog extends GetView<NotificationController> {
         children: [
           Text(Date.tr,
               style: TextStyle(
-                color: Theme.of(context).textTheme.bodyLarge!.color,
+                color: Theme.of(context).textTheme.displayLarge!.color,
                 fontSize: 16.sp,
                 fontWeight: FontWeight.w500,
               )),
@@ -113,7 +113,7 @@ class SetNotificationDialog extends GetView<NotificationController> {
                   Jiffy.parseFromDateTime(date)
                       .format(pattern: 'E, d MMM yyyy'),
                   style: TextStyle(
-                    color: Theme.of(context).textTheme.bodyLarge!.color,
+                    color: Theme.of(context).textTheme.displayLarge!.color,
                     fontSize: 14.sp,
                     fontWeight: FontWeight.w500,
                   )),

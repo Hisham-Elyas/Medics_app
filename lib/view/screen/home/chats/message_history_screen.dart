@@ -224,7 +224,7 @@ class MessageHistoryWidget extends StatelessWidget {
               children: [
                 Text("Dr. ${messageHistoryInUser.receiverName ?? ''}",
                     style: TextStyle(
-                      color: Theme.of(context).textTheme.bodyLarge!.color,
+                      color: Theme.of(context).textTheme.displayLarge!.color,
                       fontSize: 16.sp,
                       fontWeight: FontWeight.w600,
                     )),
@@ -233,7 +233,7 @@ class MessageHistoryWidget extends StatelessWidget {
                   child: Text(messageHistoryInUser.lastMessage ?? '',
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
-                        color: Theme.of(context).textTheme.bodyLarge!.color,
+                        color: Theme.of(context).textTheme.displayLarge!.color,
                         fontSize: 12.sp,
                         fontWeight: FontWeight.w400,
                       )),
@@ -246,7 +246,7 @@ class MessageHistoryWidget extends StatelessWidget {
                         messageHistoryInUser.timestamp!.toDate())
                     .jm,
                 style: TextStyle(
-                  color: Theme.of(context).textTheme.bodyLarge!.color,
+                  color: Theme.of(context).textTheme.displayLarge!.color,
                   fontSize: 12.sp,
                   fontWeight: FontWeight.w400,
                 )),

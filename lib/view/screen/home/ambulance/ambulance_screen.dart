@@ -1,11 +1,15 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
 
+import '../../../../controller/ambulance_controller.dart';
 import '../../../../core/class/enums.dart';
 import '../../../../core/class/handling_data_view.dart';
 import '../../../../core/constant/app_color.dart';
 import '../../../../core/constant/image_asset.dart';
+import '../../../../data/model/ambulance_model.dart';
 import '../../../widget/custom_app_bar.dart';
 
 class AmbulanceScreen extends StatelessWidget {
@@ -36,27 +40,35 @@ class AmbulanceScreen extends StatelessWidget {
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.w).copyWith(top: 20.h),
-          child: HandlingDataView(
-              imgHeight: 400.h,
-              statusReq: StatusRequest.success,
-              widget: ListView.separated(
-                separatorBuilder: (context, index) => SizedBox(height: 13.h),
-                itemCount: 2,
-                itemBuilder: (context, index) => AmbulanceWidget(
-                  onTap: () {},
-                ),
-              )),
+          child: GetBuilder<AmbulanceController>(
+            builder: (controller) => HandlingDataView(
+                onPressedReload: () {
+                  controller.getAllAmbulance();
+                },
+                statusReq: controller.statusReq,
+                widget: ListView.separated(
+                  separatorBuilder: (context, index) => SizedBox(height: 13.h),
+                  itemCount: controller.hospitalList.length,
+                  itemBuilder: (context, index) => AmbulanceWidget(
+                    ambulanceModel: controller.hospitalList[index],
+                    onTap: () {},
+                  ),
+                )),
+          ),
         ),
       ),
     );
   }
 }
 
-class AmbulanceWidget extends StatelessWidget {
+class AmbulanceWidget extends GetView<AmbulanceController> {
   final void Function() onTap;
+  final AmbulanceModel ambulanceModel;
+
   const AmbulanceWidget({
     Key? key,
     required this.onTap,
+    required this.ambulanceModel,
   }) : super(key: key);
 
   @override
@@ -92,9 +104,9 @@ class AmbulanceWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Ambulance.name!",
+                ambulanceModel.name,
                 style: TextStyle(
-                    color: Theme.of(context).textTheme.bodyLarge!.color,
+                    color: Theme.of(context).textTheme.displayLarge!.color,
                     fontSize: 18.sp,
                     fontWeight: FontWeight.w500),
               ),
@@ -141,7 +153,7 @@ class AmbulanceWidget extends StatelessWidget {
                   ),
                   SizedBox(width: 5.w),
                   Text(
-                    " Ambulance.address!",
+                    ambulanceModel.address,
                     style: TextStyle(
                         color: AppColor.fontColor2,
                         fontSize: 12.sp,
@@ -155,7 +167,10 @@ class AmbulanceWidget extends StatelessWidget {
           Align(
               alignment: AlignmentDirectional.bottomEnd,
               child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    controller.makePhoneCall(
+                        phoneNum: ambulanceModel.phoneNunber);
+                  },
                   color: AppColor.mainColor,
                   icon: const Icon(Icons.phone_enabled_rounded))),
         ]),
