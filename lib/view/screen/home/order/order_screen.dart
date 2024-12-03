@@ -1,4 +1,4 @@
-import 'package:cuer_city/core/class/handling_data_view.dart';
+import '../../../../core/class/handling_data_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';

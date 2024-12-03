@@ -1,4 +1,14 @@
 // ignore_for_file: constant_identifier_names
+/// API EndPoind
+// const String AppURl = 'http://10.0.2.2:3000'; // localhost
+const String AppURl = 'https://medics-city-api.vercel.app'; //Server
+const String AMBULANCE = '/Ambulance';
+const String APPOINTMENT = '/appointment';
+const String DOCTOR = '/doctor';
+const String DRUGS = '/drugs';
+const String RandomProduct = '/randpro';
+const String HOSPITALS = '/Hospitals';
+const String ORDERS = '/Orders';
 
 const String LOGIN = 'Login';
 const String Enter_your_email = 'Enter your email';

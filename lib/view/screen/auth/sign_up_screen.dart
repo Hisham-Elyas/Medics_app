@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+
 import '../../../controller/sign_up_screen_controller.dart';
 import '../../../core/constant/app_color.dart';
 import '../../../core/constant/image_asset.dart';

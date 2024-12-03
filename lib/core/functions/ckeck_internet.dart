@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 abstract class NetworkInfo {
@@ -18,14 +20,14 @@ class NetworkInfoImp2 implements NetworkInfo {
 }
 
 Future<bool> ckeckInternet() async {
-  // try {
-  //   var result = await InternetAddress.lookup("google.com");
-  //   if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-  //     return true;
-  //   }
-  // } on SocketException catch (_) {
-  //   return false;
-  // }
-  // return false;
-  return true;
+  try {
+    var result = await InternetAddress.lookup("google.com");
+    if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+      return true;
+    }
+  } on SocketException catch (_) {
+    return false;
+  }
+  return false;
+  // return true;  // in loclhost
 }

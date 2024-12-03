@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:cuer_city/core/services/services.dart';
+import '../core/services/services.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

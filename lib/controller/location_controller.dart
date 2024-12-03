@@ -177,8 +177,10 @@ class LocationController extends GetxController {
     String? sharedlang = myServices.sharedPreferences.getString("lang");
     if (await ckeckInternet()) {
       placemark = await placemarkFromCoordinates(
-          position.latitude, position.longitude,
-          localeIdentifier: sharedlang ?? "en");
+        position.latitude, position.longitude,
+
+        // localeIdentifier: sharedlang ?? "en"
+      );
 
       address = '${placemark[0].street ?? ''} ,'
           '${placemark[0].subAdministrativeArea ?? ''} ,'

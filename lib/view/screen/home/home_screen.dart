@@ -5,8 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
-import 'package:cuer_city/core/constant/app_color.dart';
-import 'package:cuer_city/core/constant/image_asset.dart';
+import '../../../core/constant/app_color.dart';
+import '../../../core/constant/image_asset.dart';
 
 import '../../../controller/doctor_controller.dart';
 import '../../../core/class/handling_data_view.dart';

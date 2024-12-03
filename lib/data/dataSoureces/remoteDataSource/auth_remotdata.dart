@@ -211,7 +211,7 @@ class AuthRemotDataImpFirebase implements AuthRemotData {
       {required String code, required newPassword}) async {
     try {
       // firebaseAuth.confirmPasswordReset(code: code, newPassword: newPassword);
-      await Future.delayed(const Duration(seconds: 2));
+      // await Future.delayed(const Duration(seconds: 2));
 
       return true;
     } on FirebaseAuthException catch (e) {

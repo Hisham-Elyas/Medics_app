@@ -4,7 +4,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../../../controller/drugs_controller.dart';
-
 import '../../../../core/constant/app_color.dart';
 import '../../../../core/constant/image_asset.dart';
 import '../../../../core/constant/string.dart';

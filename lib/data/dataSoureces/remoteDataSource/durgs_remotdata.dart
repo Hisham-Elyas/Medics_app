@@ -1,3 +1,5 @@
+import '../../../core/constant/string.dart';
+
 import '../../../core/class/api_client.dart';
 import '../../../core/error/exception.dart';
 import '../../model/drugs_model.dart';
@@ -13,10 +15,9 @@ abstract class DrugsRemotData {
 class DrugsRemotDataImpHttp implements DrugsRemotData {
   final ApiClent apiClent;
   DrugsRemotDataImpHttp({required this.apiClent});
-  final url = 'http://10.0.2.2:3000';
   @override
   Future<DrugsModel> getAllData() async {
-    final resalt = await apiClent.getData(uri: '$url /drugs');
+    final resalt = await apiClent.getData(uri: '$AppURl$DRUGS');
     if (resalt.statusCode == 200) {
       return DrugsModel.fromJson(resalt.body);
     } else {
@@ -26,7 +27,8 @@ class DrugsRemotDataImpHttp implements DrugsRemotData {
 
   @override
   Future<DrugsModel> getRandData({required int limet}) async {
-    final resalt = await apiClent.getData(uri: '$url /drugs/randpro/$limet');
+    final resalt =
+        await apiClent.getData(uri: '$AppURl$DRUGS$RandomProduct/$limet');
 
     if (resalt.statusCode == 200) {
       return DrugsModel.fromJson(resalt.body);
@@ -37,7 +39,7 @@ class DrugsRemotDataImpHttp implements DrugsRemotData {
 
   @override
   Future<Product> findById({required String id}) async {
-    final resalt = await apiClent.getData(uri: '$url /drugs/$id');
+    final resalt = await apiClent.getData(uri: '$AppURl$DRUGS/$id');
 
     if (resalt.statusCode == 200) {
       return Product.fromJson(resalt.body['product']);
@@ -48,7 +50,7 @@ class DrugsRemotDataImpHttp implements DrugsRemotData {
 
   @override
   Future<DrugsModel> searchByName({required String name}) async {
-    final resalt = await apiClent.getData(uri: '$url/drugs/search/$name');
+    final resalt = await apiClent.getData(uri: '$AppURl$DRUGS/$name');
     if (resalt.statusCode == 200) {
       return DrugsModel.fromJson(resalt.body);
     } else {

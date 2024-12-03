@@ -1,4 +1,4 @@
-import 'package:cuer_city/core/functions/get_device_locale.dart';
+import '../../../../core/functions/get_device_locale.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

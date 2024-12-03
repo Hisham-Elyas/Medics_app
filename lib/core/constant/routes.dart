@@ -1,5 +1,5 @@
-import 'package:cuer_city/middleware/middleware.dart';
-import 'package:cuer_city/view/screen/home/chats/chats_screen.dart';
+import '../../middleware/middleware.dart';
+import '../../view/screen/home/chats/chats_screen.dart';
 import 'package:get/get.dart';
 
 import '../../controller/chats_controller.dart';

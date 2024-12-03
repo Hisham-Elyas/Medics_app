@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:cuer_city/core/error/exception.dart';
+import '../../core/error/exception.dart';
 import 'package:dartz/dartz.dart';
 
 import '../../core/class/enums.dart';
