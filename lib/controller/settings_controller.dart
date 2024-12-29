@@ -1,82 +1,96 @@
-import 'dart:developer';
-
 import 'package:feedback/feedback.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-import '../core/constant/string.dart';
-import '../core/localization/changelocal_controller.dart';
-import 'location_controller.dart';
+import '../../core/services/services.dart';
+import '../constant/app_theme.dart';
 
-class SettingsController extends GetxController {
-  final LocaleController lang = Get.find();
-  final LocationController location = Get.find();
-
-  bool isDarkMode = Get.isDarkMode;
-
-  void switchDarkMode({required bool value}) {
-    lang.changeTheme();
-    isDarkMode = value;
-
+class LocaleController extends GetxController {
+  Locale? language;
+  MyServices myServices = Get.find();
+  late ThemeData appTheme;
+  ThemeMode themeMode = ThemeMode.system;
+  FeedbackThemeData feedbackTheme = FeedbackThemeData.light();
+  void changLang({required String langCode}) {
+    Locale locale = Locale(langCode);
+    language = Locale(langCode);
+    // save in shard ...
+    myServices.sharedPreferences.setString("lang", langCode);
+    if (isDarkMode()) {
+      appTheme = langCode == "en" ? AppTheme.darkEnglish : AppTheme.darkArabic;
+    } else {
+      appTheme =
+          langCode == "en" ? AppTheme.lightEnglish : AppTheme.lightArabic;
+    }
+    Get.changeTheme(appTheme);
+    Get.updateLocale(locale);
     update();
   }
 
-  void showFeedback() {
-    BetterFeedback.of(Get.context!).show(
-      (feedback) {
-        // upload to server, share whatever
-        // for example purposes just show it to the user
-
-        log('Feedback text:');
-        log(feedback.text);
-        log('Size of image: ${feedback.screenshot.length}');
-        if (feedback.extra != null) {
-          log('Extras: ${feedback.extra!.toString()}');
-        }
-      },
-    );
+  FeedbackThemeData getFeedbackThemeMode() {
+    return isDarkMode() ? FeedbackThemeData.dark() : FeedbackThemeData.light();
   }
 
-  void switchLang() {
-    Get.bottomSheet(Container(
-      padding: EdgeInsets.symmetric(vertical: 10.h),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
-        color: Theme.of(Get.context!).colorScheme.surface,
-      ),
-      width: double.maxFinite,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          ListTile(
-            onTap: () {
-              lang.changLang(langCode: 'en');
-              Get.close(1);
-            },
-            leading: Text(
-              English.tr,
-              style: TextStyle(
-                  fontSize: 15.sp,
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(Get.context!).textTheme.displayLarge!.color),
-            ),
-          ),
-          ListTile(
-            onTap: () {
-              lang.changLang(langCode: 'ar');
-              Get.close(1);
-            },
-            leading: Text(
-              Arabic.tr,
-              style: TextStyle(
-                  fontSize: 15.sp,
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(Get.context!).textTheme.displayLarge!.color),
-            ),
-          ),
-        ],
-      ),
-    ));
+  void changeTheme() {
+    String? sharedlang = myServices.sharedPreferences.getString("lang");
+    if (Get.isDarkMode) {
+      if (sharedlang == "ar") {
+        appTheme = AppTheme.lightArabic;
+      } else {
+        appTheme = AppTheme.lightEnglish;
+      }
+    } else {
+      if (sharedlang == "ar") {
+        appTheme = AppTheme.darkArabic;
+      } else {
+        appTheme = AppTheme.darkEnglish;
+      }
+
+      // save in shard ...
+    }
+
+    myServices.sharedPreferences.setBool("isDarkMode", !Get.isDarkMode);
+    // Get.changeTheme(appTheme)
+    feedbackTheme = getFeedbackThemeMode();
+    update();
+  }
+
+  bool isDarkMode() {
+    return myServices.sharedPreferences.getBool("isDarkMode") ?? false;
+  }
+
+  @override
+  void onInit() {
+    String? sharedlang = myServices.sharedPreferences.getString("lang");
+
+    if (sharedlang == "en") {
+      language = const Locale("en");
+      if (isDarkMode()) {
+        feedbackTheme = FeedbackThemeData.dark();
+        appTheme = AppTheme.darkEnglish;
+      } else {
+        appTheme = AppTheme.lightEnglish;
+        feedbackTheme = FeedbackThemeData.light();
+      }
+    } else if (sharedlang == "ar") {
+      language = const Locale("ar");
+      if (isDarkMode()) {
+        feedbackTheme = FeedbackThemeData.dark();
+        appTheme = AppTheme.darkArabic;
+      } else {
+        feedbackTheme = FeedbackThemeData.light();
+        appTheme = AppTheme.lightArabic;
+      }
+    } else {
+      String deviceLocale = Get.deviceLocale!.languageCode;
+      language = Locale(deviceLocale);
+      appTheme =
+          deviceLocale == "en" ? AppTheme.lightEnglish : AppTheme.lightArabic;
+    }
+
+    Get.changeTheme(appTheme);
+
+    super.onInit();
   }
 }
